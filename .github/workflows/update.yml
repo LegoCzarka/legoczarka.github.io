@@ -3,8 +3,7 @@ name: Aktualizuj zestawy z Rebrickable
 on:
   workflow_dispatch:
   schedule:
-    # 01:30 UTC (noc w PL)
-    - cron: "30 1 * * *"
+    - cron: "30 1 * * *"   # 01:30 UTC (noc w PL)
 
 permissions:
   contents: write
@@ -30,13 +29,13 @@ jobs:
       - name: Install deps
         run: pip install requests
 
-      - name: Fetch from Rebrickable (READ-ONLY)
+      - name: Fetch from Rebrickable (READ ONLY)
         env:
           REBRICKABLE_KEY: ${{ secrets.REBRICKABLE_KEY }}
           REBRICKABLE_USER_TOKEN: ${{ secrets.REBRICKABLE_USER_TOKEN }}
         run: python scripts/fetch_rebrickable.py
 
-      - name: Commit & push sets.json
+      - name: Commit & push sets.json (bez konfliktów)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -44,6 +43,9 @@ jobs:
           git add docs/data/sets.json
           git commit -m "Update Rebrickable sets" || echo "No changes"
 
-          # jeśli w międzyczasie repo dostało nowy commit, dociągnij go i dopiero wypchnij
-          git pull --rebase origin main
-          git push
+          # 3 próby, bo czasem 2 akcje wpadają prawie jednocześnie
+          for i in 1 2 3; do
+            echo "Push attempt $i..."
+            git pull --rebase origin main && git push && break
+            sleep 2
+          done
