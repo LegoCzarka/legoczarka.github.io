@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zestawy LEGO Czarka</title>
+  <meta name="description" content="Moja kolekcja zestawów LEGO (automatycznie aktualizowana z Rebrickable raz dziennie)." />
+  <style>
+    :root{
+      --bg:#0b0e14;
+      --card:#111827;
+      --muted:#9ca3af;
+      --text:#e5e7eb;
+      --accent:#22c55e;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(34,197,94,.18), transparent 60%),
+        radial-gradient(900px 500px at 100% 0%, rgba(59,130,246,.14), transparent 60%),
+        var(--bg);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 54px}
+    header{
+      display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      padding:18px 18px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:rgba(17,24,39,.55);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+    .title h1{margin:0; font-size:28px; letter-spacing:.2px}
+    .title p{margin:6px 0 0; color:var(--muted); font-size:14px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(0,0,0,.22);
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .dot{width:10px; height:10px; border-radius:999px; background:var(--accent); box-shadow:0 0 0 6px rgba(34,197,94,.14)}
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 18px;
+    }
+    .input, .select{
+      flex:1;
+      min-width:220px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(17,24,39,.55);
+      color:var(--text);
+      outline:none;
+    }
+    .input::placeholder{color:#6b7280}
+    .select{flex:0.35; min-width:160px}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap:14px;
+    }
+    .card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(17,24,39,.55);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.30);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(34,197,94,.35);
+    }
+    .img{
+      aspect-ratio: 4/3;
+      background: rgba(0,0,0,.22);
+      display:flex; align-items:center; justify-content:center;
+      border-bottom:1px solid var(--border);
+    }
+    .img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .content{padding:14px}
+    .name{
+      font-size:15px;
+      margin:0 0 6px;
+      line-height:1.25;
+    }
+    .meta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:12px;
+    }
+    .pill{
+      display:inline-flex; gap:6px; align-items:center;
+      padding:6px 8px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.18);
+    }
+    .actions{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(34,197,94,.35);
+      background: rgba(34,197,94,.12);
+      text-decoration:none;
+      font-size:13px;
+      transition: background .12s ease;
+    }
+    .btn:hover{background: rgba(34,197,94,.18)}
+    footer{margin-top:18px; color:var(--muted); font-size:12px; text-align:center}
+    .empty{
+      padding:18px;
+      border:1px dashed var(--border);
+      border-radius:18px;
+      color:var(--muted);
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>Zestawy LEGO Czarka</h1>
+        <p>Lista moich zestawów z Rebrickable • ładnie, prosto i automatycznie</p>
+      </div>
+      <div class="badge" id="status">
+        <span class="dot"></span>
+        <span id="summary">Ładowanie danych…</span>
+      </div>
+    </header>
+
+    <div class="controls">
+      <input class="input" id="q" placeholder="Szukaj: nazwa, numer zestawu (np. 10295-1), rok…" />
+      <select class="select" id="sort">
+        <option value="year_desc">Sortuj: rok ↓</option>
+        <option value="year_asc">Sortuj: rok ↑</option>
+        <option value="parts_desc">Sortuj: części ↓</option>
+        <option value="name_asc">Sortuj: nazwa A→Z</option>
+      </select>
+    </div>
+
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" style="display:none">Brak wyników 🧱</div>
+
+    <footer>
+      Dane: Rebrickable API • Strona aktualizuje się raz dziennie w nocy.
+    </footer>
+  </div>
+
+<script>
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  const summary = document.getElementById('summary');
+  const q = document.getElementById('q');
+  const sort = document.getElementById('sort');
+
+  let ALL = [];
+
+  function fmt(n){ return (n ?? '').toString(); }
+  function by(a,b){ return a < b ? -1 : a > b ? 1 : 0; }
+
+  function sortData(arr){
+    const mode = sort.value;
+    const copy = [...arr];
+    if(mode === 'year_desc') copy.sort((a,b) => (b.year||0) - (a.year||0));
+    if(mode === 'year_asc')  copy.sort((a,b) => (a.year||0) - (b.year||0));
+    if(mode === 'parts_desc')copy.sort((a,b) => (b.num_parts||0) - (a.num_parts||0));
+    if(mode === 'name_asc')  copy.sort((a,b) => by((a.name||'').toLowerCase(), (b.name||'').toLowerCase()));
+    return copy;
+  }
+
+  function matches(item, text){
+    if(!text) return true;
+    const t = text.toLowerCase().trim();
+    const hay = [
+      item.set_num, item.name, item.year, item.theme_name, item.num_parts
+    ].map(x => (x ?? '').toString().toLowerCase()).join(' • ');
+    return hay.includes(t);
+  }
+
+  function card(item){
+    const img = item.set_img_url ? `<img loading="lazy" src="${item.set_img_url}" alt="${item.name || item.set_num}">` : '';
+    const url = item.set_url || item.rebrickable_url || '#';
+    const qty = item.quantity && item.quantity > 1 ? `<span class="pill">🧱 szt: ${item.quantity}</span>` : '';
+    const theme = item.theme_name ? `<span class="pill">🎨 ${item.theme_name}</span>` : '';
+    return `
+      <article class="card">
+        <div class="img">${img}</div>
+        <div class="content">
+          <h3 class="name">${item.name ? item.name : item.set_num}</h3>
+          <div class="meta">
+            <span class="pill"># ${item.set_num}</span>
+            <span class="pill">📅 ${item.year || '—'}</span>
+            <span class="pill">🧩 ${item.num_parts || '—'} części</span>
+            ${qty}
+            ${theme}
+          </div>
+          <div class="actions">
+            <a class="btn" href="${url}" target="_blank" rel="noopener noreferrer">Zobacz na Rebrickable</a>
+            <span style="color:var(--muted); font-size:12px">${item.updated_note || ''}</span>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function render(){
+    const text = q.value;
+    let filtered = ALL.filter(it => matches(it, text));
+    filtered = sortData(filtered);
+
+    grid.innerHTML = filtered.map(card).join('');
+    empty.style.display = filtered.length ? 'none' : 'block';
+    summary.textContent = `Zestawów: ${ALL.length} • Wyniki: ${filtered.length}`;
+  }
+
+  async function init(){
+    const res = await fetch('./data/sets.json', {cache:'no-store'});
+    const data = await res.json();
+    ALL = (data.sets || []).map(x => ({
+      set_num: x.set_num,
+      name: x.name,
+      year: x.year,
+      num_parts: x.num_parts,
+      theme_name: x.theme_name,
+      quantity: x.quantity,
+      set_img_url: x.set_img_url,
+      set_url: x.set_url,
+    }));
+    const when = data.generated_at ? new Date(data.generated_at) : null;
+    const nice = when ? when.toLocaleString('pl-PL') : '—';
+    summary.textContent = `Zestawów: ${ALL.length} • Aktualizacja: ${nice}`;
+    render();
+  }
+
+  q.addEventListener('input', render);
+  sort.addEventListener('change', render);
+
+  init().catch(err => {
+    console.error(err);
+    summary.textContent = 'Nie udało się wczytać danych :(';
+  });
+</script>
+</body>
+</html>
