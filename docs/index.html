@@ -162,10 +162,10 @@
 
     .btn{
       cursor:pointer;
-      font-weight: 600;
-      transition: transform .08s ease, background .2s ease;
+      font-weight: 700;
+      transition: transform .08s ease, background .2s ease, filter .2s ease;
     }
-    .btn:hover{transform: translateY(-1px)}
+    .btn:hover{transform: translateY(-1px); filter: brightness(1.03);}
     .btn:active{transform: translateY(0px)}
     .btn.primary{
       background: linear-gradient(90deg, rgba(227,0,11,.95), rgba(255,212,0,.70));
@@ -173,8 +173,28 @@
       color:#12030a;
     }
 
-    .grid{
+    .section{
       margin-top: 18px;
+    }
+    .sectionTitle{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:10px;
+      margin: 22px 0 10px;
+      padding: 0 2px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .sectionTitle .desc{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid{
       display:grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 14px;
@@ -202,13 +222,17 @@
         radial-gradient(500px 250px at 70% 80%, rgba(0,109,183,.22), transparent 60%),
         rgba(0,0,0,.25);
       position:relative;
+      padding: 10px;
     }
 
+    /* ✅ zdjęcie ma się ZMIEJSZAĆ i mieścić w okienku */
     .imgBox img{
       width:100%;
       height:100%;
-      object-fit: cover; /* <- zdjęcie zawsze mieści się w okienku */
+      object-fit: contain;
       display:block;
+      border-radius: 12px;
+      background: rgba(255,255,255,.03);
     }
 
     .content{
@@ -223,7 +247,7 @@
     }
 
     .name{
-      font-weight: 800;
+      font-weight: 900;
       margin:0 0 6px;
       font-size: 15px;
       line-height: 1.2;
@@ -260,19 +284,32 @@
     }
 
     .linkRow{
-      margin-top: 10px;
+      margin-top: 12px;
       display:flex;
-      gap:10px;
       align-items:center;
       justify-content:space-between;
+      gap:10px;
     }
 
-    .link{
-      color: #9fc5ff;
+    /* ✅ ładny przycisk do Rebrickable */
+    .rbBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(90deg, rgba(0,109,183,.90), rgba(0,166,81,.55));
+      color: #081021;
       text-decoration:none;
-      font-weight: 650;
+      font-weight: 900;
       font-size: 13px;
+      white-space:nowrap;
+      transition: transform .08s ease, filter .2s ease;
     }
+    .rbBtn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+    .rbBtn:active{ transform: translateY(0px); }
 
     footer{
       color: var(--muted);
@@ -287,7 +324,7 @@
       border-radius: var(--r-lg);
       border:1px dashed rgba(255,255,255,.18);
       color: var(--muted);
-      margin-top: 16px;
+      margin-top: 14px;
       text-align:center;
     }
   </style>
@@ -304,10 +341,10 @@
           <div class="subtitle">Lista zestawów które posiada Czarek</div>
 
           <div class="badges" id="badges">
-            <span class="badge"><span class="dot red"></span><span id="count">Zestawów: –</span></span>
-            <span class="badge"><span class="dot yellow"></span><span id="parts">Części: –</span></span>
+            <span class="badge"><span class="dot red"></span><span id="countC">Czarek (2000+): –</span></span>
+            <span class="badge"><span class="dot green"></span><span id="countM">Mateusz (&lt;2000): –</span></span>
+            <span class="badge"><span class="dot yellow"></span><span id="partsAll">Części: –</span></span>
             <span class="badge"><span class="dot blue"></span><span id="updated">Aktualizacja: –</span></span>
-            <span class="badge"><span class="dot green"></span>Od roku 2000</span>
           </div>
         </div>
 
@@ -327,97 +364,141 @@
       </div>
     </section>
 
-    <div id="grid" class="grid"></div>
-    <div id="empty" class="empty" style="display:none">Brak wyników.</div>
+    <section class="section">
+      <div class="sectionTitle">
+        <h2>🧱 Zestawy Czarka (od 2000 roku)</h2>
+        <div class="desc">Nowoczesna kolekcja</div>
+      </div>
+
+      <div id="gridC" class="grid"></div>
+      <div id="emptyC" class="empty" style="display:none">Brak wyników w tej sekcji.</div>
+    </section>
+
+    <section class="section">
+      <div class="sectionTitle">
+        <h2>🧱 Klocki Mateusza</h2>
+        <div class="desc">Zestawy sprzed 2000 roku</div>
+      </div>
+
+      <div id="gridM" class="grid"></div>
+      <div id="emptyM" class="empty" style="display:none">Brak wyników w tej sekcji.</div>
+    </section>
 
     <footer>Made for Czarek • GitHub Pages + Rebrickable</footer>
   </div>
 
 <script>
-const MIN_YEAR = 2000;
+const YEAR_SPLIT = 2000;
 
 function fmtNumber(n){
   if (n == null || isNaN(n)) return "–";
   return new Intl.NumberFormat("pl-PL").format(n);
 }
 
+function sortSets(arr, mode){
+  const a = [...arr];
+  if (mode === "new") {
+    a.sort((x,y) => (y.year||0) - (x.year||0) || (""+y.set_num).localeCompare(""+x.set_num));
+  } else if (mode === "old") {
+    a.sort((x,y) => (x.year||0) - (y.year||0) || (""+x.set_num).localeCompare(""+y.set_num));
+  } else if (mode === "parts") {
+    a.sort((x,y) => (y.num_parts||0) - (x.num_parts||0));
+  } else if (mode === "name") {
+    a.sort((x,y) => (x.name||"").localeCompare(y.name||"", "pl", {sensitivity:"base"}));
+  }
+  return a;
+}
+
+function filterByQuery(arr, q){
+  const s = (q || "").toLowerCase().trim();
+  if (!s) return arr;
+  return arr.filter(x => {
+    const hay = `${x.set_num} ${x.name||""} ${x.theme_name||""}`.toLowerCase();
+    return hay.includes(s);
+  });
+}
+
+function sumParts(arr){
+  return arr.reduce((acc, x) => acc + (Number(x.num_parts)||0) * (Number(x.quantity)||1), 0);
+}
+
+function cardHTML(x){
+  const safeTitle = (x.name||x.set_num||"").replace(/"/g,'&quot;');
+  return `
+    <article class="card">
+      <div class="imgBox">
+        ${x.set_img_url ? `<img src="${x.set_img_url}" alt="${safeTitle}" loading="lazy" onerror="this.style.display='none'">` : ""}
+      </div>
+      <div class="content">
+        <div class="titleRow">
+          <h3 class="name">${x.name || x.set_num}</h3>
+          <span class="setnum">${x.set_num}</span>
+        </div>
+
+        <div class="meta">
+          <span class="pill">📅 ${x.year ?? "–"}</span>
+          <span class="pill">🧩 ${fmtNumber(x.num_parts)}</span>
+          <span class="pill">📦 x${x.quantity ?? 1}</span>
+          ${x.theme_name ? `<span class="pill">🎨 ${x.theme_name}</span>` : ""}
+        </div>
+
+        <div class="linkRow">
+          ${x.set_url ? `<a class="rbBtn" href="${x.set_url}" target="_blank" rel="noopener">Przejdź do Rebrickable →</a>` : "<span></span>"}
+          <span style="color:rgba(234,240,255,.55);font-size:12px"></span>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
 async function load() {
   const res = await fetch("./data/sets.json?ts=" + Date.now());
   if (!res.ok) {
-    document.getElementById("grid").innerHTML = "";
-    document.getElementById("empty").style.display = "block";
-    document.getElementById("empty").textContent =
+    document.getElementById("gridC").innerHTML = "";
+    document.getElementById("gridM").innerHTML = "";
+    document.getElementById("emptyC").style.display = "block";
+    document.getElementById("emptyC").textContent =
       "Brak danych sets.json — uruchom Actions → Run workflow aby pobrać zestawy z Rebrickable.";
+    document.getElementById("emptyM").style.display = "none";
     return;
   }
 
   const data = await res.json();
-  let sets = Array.isArray(data.sets) ? data.sets : [];
+  const sets = Array.isArray(data.sets) ? data.sets : [];
 
-  // Tylko od 2000 roku (na wszelki wypadek również w frontendzie)
-  sets = sets.filter(x => (x.year ?? 0) >= MIN_YEAR);
+  const qEl = document.getElementById("q");
+  const sortEl = document.getElementById("sort");
 
-  const q = document.getElementById("q");
-  const sort = document.getElementById("sort");
-  const grid = document.getElementById("grid");
-  const empty = document.getElementById("empty");
+  const gridC = document.getElementById("gridC");
+  const gridM = document.getElementById("gridM");
 
-  function apply() {
-    const s = (q.value || "").toLowerCase().trim();
+  const emptyC = document.getElementById("emptyC");
+  const emptyM = document.getElementById("emptyM");
 
-    let filtered = sets.filter(x => {
-      const hay = `${x.set_num} ${x.name||""} ${x.theme_name||""}`.toLowerCase();
-      return hay.includes(s);
-    });
+  function apply(){
+    const q = qEl.value || "";
+    const sortMode = sortEl.value;
 
-    const mode = sort.value;
-    if (mode === "new") {
-      filtered.sort((a,b) => (b.year||0) - (a.year||0) || (""+b.set_num).localeCompare(""+a.set_num));
-    } else if (mode === "old") {
-      filtered.sort((a,b) => (a.year||0) - (b.year||0) || (""+a.set_num).localeCompare(""+b.set_num));
-    } else if (mode === "parts") {
-      filtered.sort((a,b) => (b.num_parts||0) - (a.num_parts||0));
-    } else if (mode === "name") {
-      filtered.sort((a,b) => (a.name||"").localeCompare(b.name||"", "pl", {sensitivity:"base"}));
-    }
+    const czarekAll = sets.filter(x => (x.year ?? 0) >= YEAR_SPLIT);
+    const mateuszAll = sets.filter(x => (x.year ?? 0) < YEAR_SPLIT);
 
-    const totalParts = filtered.reduce((acc, x) => acc + (Number(x.num_parts)||0) * (Number(x.quantity)||1), 0);
+    const czarekF = sortSets(filterByQuery(czarekAll, q), sortMode);
+    const mateuszF = sortSets(filterByQuery(mateuszAll, q), sortMode);
 
-    document.getElementById("count").textContent = `Zestawów: ${filtered.length}`;
-    document.getElementById("parts").textContent = `Części: ${fmtNumber(totalParts)}`;
+    document.getElementById("countC").textContent = `Czarek (2000+): ${czarekF.length}`;
+    document.getElementById("countM").textContent = `Mateusz (<2000): ${mateuszF.length}`;
+    document.getElementById("partsAll").textContent = `Części: ${fmtNumber(sumParts(czarekF) + sumParts(mateuszF))}`;
     document.getElementById("updated").textContent = `Aktualizacja: ${data.generated_at || "–"}`;
 
-    grid.innerHTML = filtered.map(x => `
-      <article class="card">
-        <div class="imgBox">
-          ${x.set_img_url ? `<img src="${x.set_img_url}" alt="${(x.name||x.set_num).replace(/"/g,'&quot;')}" loading="lazy">` : ""}
-        </div>
-        <div class="content">
-          <div class="titleRow">
-            <h3 class="name">${x.name || x.set_num}</h3>
-            <span class="setnum">${x.set_num}</span>
-          </div>
+    gridC.innerHTML = czarekF.map(cardHTML).join("");
+    gridM.innerHTML = mateuszF.map(cardHTML).join("");
 
-          <div class="meta">
-            <span class="pill">📅 ${x.year ?? "–"}</span>
-            <span class="pill">🧩 ${fmtNumber(x.num_parts)}</span>
-            <span class="pill">📦 x${x.quantity ?? 1}</span>
-            ${x.theme_name ? `<span class="pill">🎨 ${x.theme_name}</span>` : ""}
-          </div>
-
-          <div class="linkRow">
-            ${x.set_url ? `<a class="link" href="${x.set_url}" target="_blank" rel="noopener">Rebrickable →</a>` : "<span></span>"}
-            <span style="color:rgba(234,240,255,.55);font-size:12px">od 2000+</span>
-          </div>
-        </div>
-      </article>
-    `).join("");
-
-    empty.style.display = filtered.length ? "none" : "block";
+    emptyC.style.display = czarekF.length ? "none" : "block";
+    emptyM.style.display = mateuszF.length ? "none" : "block";
   }
 
-  q.addEventListener("input", apply);
-  sort.addEventListener("change", apply);
+  qEl.addEventListener("input", apply);
+  sortEl.addEventListener("change", apply);
   apply();
 }
 
