@@ -2,266 +2,427 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Zestawy LEGO Czarka</title>
-  <meta name="description" content="Moja kolekcja zestawów LEGO (automatycznie aktualizowana z Rebrickable raz dziennie)." />
+
   <style>
     :root{
-      --bg:#0b0e14;
-      --card:#111827;
-      --muted:#9ca3af;
-      --text:#e5e7eb;
-      --accent:#22c55e;
-      --border:rgba(255,255,255,.08);
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --bg:#070B14;
+      --panel:#0E1630;
+      --panel2:#0B1226;
+      --text:#EAF0FF;
+      --muted:rgba(234,240,255,.70);
+
+      --lego-red:#E3000B;
+      --lego-yellow:#FFD400;
+      --lego-blue:#006DB7;
+      --lego-green:#00A651;
+
+      --stroke:rgba(255,255,255,.10);
+      --shadow: 0 14px 40px rgba(0,0,0,.45);
+      --r-xl: 22px;
+      --r-lg: 18px;
+      --r-md: 14px;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
       background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(34,197,94,.18), transparent 60%),
-        radial-gradient(900px 500px at 100% 0%, rgba(59,130,246,.14), transparent 60%),
+        radial-gradient(1000px 700px at 15% -10%, rgba(227,0,11,.25), transparent 60%),
+        radial-gradient(1000px 700px at 85% 10%, rgba(255,212,0,.20), transparent 60%),
+        radial-gradient(1000px 700px at 50% 115%, rgba(0,109,183,.18), transparent 60%),
         var(--bg);
-      min-height:100vh;
+      color: var(--text);
     }
-    a{color:inherit}
-    .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 54px}
-    header{
-      display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      padding:18px 18px;
-      border:1px solid var(--border);
-      border-radius:18px;
-      background:rgba(17,24,39,.55);
-      backdrop-filter: blur(10px);
+
+    /* LEGO-studs pattern */
+    .studs{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle at 10px 10px, rgba(255,255,255,.12) 0 3px, transparent 4px),
+        radial-gradient(circle at 10px 10px, rgba(0,0,0,.25) 0 4px, transparent 5px);
+      background-size: 34px 34px;
+      mix-blend-mode: overlay;
+      filter: blur(.2px);
+    }
+
+    .container{
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 18px 18px 44px;
+    }
+
+    .hero{
+      border:1px solid var(--stroke);
+      border-radius: var(--r-xl);
+      padding: 22px 18px 18px;
+      background:
+        linear-gradient(180deg, rgba(14,22,48,.86), rgba(11,18,38,.78));
       box-shadow: var(--shadow);
-    }
-    .title h1{margin:0; font-size:28px; letter-spacing:.2px}
-    .title p{margin:6px 0 0; color:var(--muted); font-size:14px}
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:999px;
-      background:rgba(0,0,0,.22);
-      color:var(--muted);
-      font-size:13px;
-      white-space:nowrap;
-    }
-    .dot{width:10px; height:10px; border-radius:999px; background:var(--accent); box-shadow:0 0 0 6px rgba(34,197,94,.14)}
-    .controls{
-      display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 18px;
-    }
-    .input, .select{
-      flex:1;
-      min-width:220px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:rgba(17,24,39,.55);
-      color:var(--text);
-      outline:none;
-    }
-    .input::placeholder{color:#6b7280}
-    .select{flex:0.35; min-width:160px}
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap:14px;
-    }
-    .card{
-      border:1px solid var(--border);
-      border-radius:18px;
       overflow:hidden;
-      background:rgba(17,24,39,.55);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.30);
-      transition: transform .12s ease, border-color .12s ease;
+      position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        linear-gradient(90deg, rgba(227,0,11,.55), transparent 25%),
+        linear-gradient(180deg, rgba(255,212,0,.35), transparent 40%),
+        linear-gradient(270deg, rgba(0,109,183,.40), transparent 30%);
+      opacity:.20;
+      pointer-events:none;
+    }
+
+    .heroTop{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      position:relative;
+    }
+
+    h1{
+      margin:0;
+      font-size: 30px;
+      letter-spacing:.2px;
+    }
+
+    .subtitle{
+      margin-top:6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .badges{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      font-size: 13px;
+      color: var(--muted);
+      backdrop-filter: blur(6px);
+    }
+    .dot{width:9px;height:9px;border-radius:50%}
+    .dot.red{background:var(--lego-red)}
+    .dot.yellow{background:var(--lego-yellow)}
+    .dot.blue{background:var(--lego-blue)}
+    .dot.green{background:var(--lego-green)}
+
+    .toolbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top: 16px;
+      position:relative;
+    }
+
+    .searchWrap{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      width:100%;
+    }
+
+    .input, .select, .btn{
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: 11px 12px;
+      outline:none;
+      font-size: 14px;
+      backdrop-filter: blur(6px);
+    }
+    .input{
+      flex: 1;
+      min-width: 250px;
+    }
+    .select{min-width: 170px}
+
+    .btn{
+      cursor:pointer;
+      font-weight: 600;
+      transition: transform .08s ease, background .2s ease;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(227,0,11,.95), rgba(255,212,0,.70));
+      border-color: rgba(255,255,255,.18);
+      color:#12030a;
+    }
+
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
+    }
+
+    .card{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(14,22,48,.85), rgba(11,18,38,.78));
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      transition: transform .18s ease, border-color .18s ease;
+      position:relative;
     }
     .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(34,197,94,.35);
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.18);
     }
-    .img{
-      aspect-ratio: 4/3;
-      background: rgba(0,0,0,.22);
-      display:flex; align-items:center; justify-content:center;
-      border-bottom:1px solid var(--border);
+
+    .imgBox{
+      width:100%;
+      aspect-ratio: 4 / 3;
+      background:
+        radial-gradient(500px 250px at 30% 20%, rgba(255,212,0,.25), transparent 60%),
+        radial-gradient(500px 250px at 70% 80%, rgba(0,109,183,.22), transparent 60%),
+        rgba(0,0,0,.25);
+      position:relative;
     }
-    .img img{
+
+    .imgBox img{
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit: cover; /* <- zdjęcie zawsze mieści się w okienku */
       display:block;
     }
-    .content{padding:14px}
+
+    .content{
+      padding: 12px 12px 14px;
+    }
+
+    .titleRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+
     .name{
-      font-size:15px;
+      font-weight: 800;
       margin:0 0 6px;
-      line-height:1.25;
+      font-size: 15px;
+      line-height: 1.2;
     }
+
+    .setnum{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--stroke);
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      white-space:nowrap;
+    }
+
     .meta{
-      display:flex; gap:10px; flex-wrap:wrap;
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:12px;
+      margin-top: 6px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
     }
+
     .pill{
-      display:inline-flex; gap:6px; align-items:center;
-      padding:6px 8px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.18);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
     }
-    .actions{
-      display:flex; gap:10px; align-items:center; justify-content:space-between;
+
+    .linkRow{
+      margin-top: 10px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
     }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(34,197,94,.35);
-      background: rgba(34,197,94,.12);
+
+    .link{
+      color: #9fc5ff;
       text-decoration:none;
-      font-size:13px;
-      transition: background .12s ease;
+      font-weight: 650;
+      font-size: 13px;
     }
-    .btn:hover{background: rgba(34,197,94,.18)}
-    footer{margin-top:18px; color:var(--muted); font-size:12px; text-align:center}
+
+    footer{
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 18px;
+      opacity:.85;
+      text-align:center;
+    }
+
     .empty{
-      padding:18px;
-      border:1px dashed var(--border);
-      border-radius:18px;
-      color:var(--muted);
+      padding: 16px;
+      border-radius: var(--r-lg);
+      border:1px dashed rgba(255,255,255,.18);
+      color: var(--muted);
+      margin-top: 16px;
       text-align:center;
     }
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <header>
-      <div class="title">
-        <h1>Zestawy LEGO Czarka</h1>
-        <p>Lista moich zestawów z Rebrickable • ładnie, prosto i automatycznie</p>
-      </div>
-      <div class="badge" id="status">
-        <span class="dot"></span>
-        <span id="summary">Ładowanie danych…</span>
-      </div>
-    </header>
 
-    <div class="controls">
-      <input class="input" id="q" placeholder="Szukaj: nazwa, numer zestawu (np. 10295-1), rok…" />
-      <select class="select" id="sort">
-        <option value="year_desc">Sortuj: rok ↓</option>
-        <option value="year_asc">Sortuj: rok ↑</option>
-        <option value="parts_desc">Sortuj: części ↓</option>
-        <option value="name_asc">Sortuj: nazwa A→Z</option>
-      </select>
-    </div>
+<body>
+  <div class="studs"></div>
+
+  <div class="container">
+    <section class="hero">
+      <div class="heroTop">
+        <div>
+          <h1>🧱 Zestawy LEGO Czarka</h1>
+          <div class="subtitle">Lista zestawów które posiada Czarek</div>
+
+          <div class="badges" id="badges">
+            <span class="badge"><span class="dot red"></span><span id="count">Zestawów: –</span></span>
+            <span class="badge"><span class="dot yellow"></span><span id="parts">Części: –</span></span>
+            <span class="badge"><span class="dot blue"></span><span id="updated">Aktualizacja: –</span></span>
+            <span class="badge"><span class="dot green"></span>Od roku 2000</span>
+          </div>
+        </div>
+
+        <button class="btn primary" id="refreshBtn" title="Przeładuj dane">Odśwież 🔄</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="searchWrap">
+          <input class="input" id="q" placeholder="Szukaj: nazwa / numer zestawu / theme..." />
+          <select class="select" id="sort">
+            <option value="new">Najnowsze</option>
+            <option value="old">Najstarsze</option>
+            <option value="parts">Najwięcej części</option>
+            <option value="name">Nazwa A→Z</option>
+          </select>
+        </div>
+      </div>
+    </section>
 
     <div id="grid" class="grid"></div>
-    <div id="empty" class="empty" style="display:none">Brak wyników 🧱</div>
+    <div id="empty" class="empty" style="display:none">Brak wyników.</div>
 
-    <footer>
-      Dane: Rebrickable API • Strona aktualizuje się raz dziennie w nocy.
-    </footer>
+    <footer>Made for Czarek • GitHub Pages + Rebrickable</footer>
   </div>
 
 <script>
-  const grid = document.getElementById('grid');
-  const empty = document.getElementById('empty');
-  const summary = document.getElementById('summary');
-  const q = document.getElementById('q');
-  const sort = document.getElementById('sort');
+const MIN_YEAR = 2000;
 
-  let ALL = [];
+function fmtNumber(n){
+  if (n == null || isNaN(n)) return "–";
+  return new Intl.NumberFormat("pl-PL").format(n);
+}
 
-  function fmt(n){ return (n ?? '').toString(); }
-  function by(a,b){ return a < b ? -1 : a > b ? 1 : 0; }
+async function load() {
+  const res = await fetch("./data/sets.json?ts=" + Date.now());
+  if (!res.ok) {
+    document.getElementById("grid").innerHTML = "";
+    document.getElementById("empty").style.display = "block";
+    document.getElementById("empty").textContent =
+      "Brak danych sets.json — uruchom Actions → Run workflow aby pobrać zestawy z Rebrickable.";
+    return;
+  }
 
-  function sortData(arr){
+  const data = await res.json();
+  let sets = Array.isArray(data.sets) ? data.sets : [];
+
+  // Tylko od 2000 roku (na wszelki wypadek również w frontendzie)
+  sets = sets.filter(x => (x.year ?? 0) >= MIN_YEAR);
+
+  const q = document.getElementById("q");
+  const sort = document.getElementById("sort");
+  const grid = document.getElementById("grid");
+  const empty = document.getElementById("empty");
+
+  function apply() {
+    const s = (q.value || "").toLowerCase().trim();
+
+    let filtered = sets.filter(x => {
+      const hay = `${x.set_num} ${x.name||""} ${x.theme_name||""}`.toLowerCase();
+      return hay.includes(s);
+    });
+
     const mode = sort.value;
-    const copy = [...arr];
-    if(mode === 'year_desc') copy.sort((a,b) => (b.year||0) - (a.year||0));
-    if(mode === 'year_asc')  copy.sort((a,b) => (a.year||0) - (b.year||0));
-    if(mode === 'parts_desc')copy.sort((a,b) => (b.num_parts||0) - (a.num_parts||0));
-    if(mode === 'name_asc')  copy.sort((a,b) => by((a.name||'').toLowerCase(), (b.name||'').toLowerCase()));
-    return copy;
-  }
+    if (mode === "new") {
+      filtered.sort((a,b) => (b.year||0) - (a.year||0) || (""+b.set_num).localeCompare(""+a.set_num));
+    } else if (mode === "old") {
+      filtered.sort((a,b) => (a.year||0) - (b.year||0) || (""+a.set_num).localeCompare(""+b.set_num));
+    } else if (mode === "parts") {
+      filtered.sort((a,b) => (b.num_parts||0) - (a.num_parts||0));
+    } else if (mode === "name") {
+      filtered.sort((a,b) => (a.name||"").localeCompare(b.name||"", "pl", {sensitivity:"base"}));
+    }
 
-  function matches(item, text){
-    if(!text) return true;
-    const t = text.toLowerCase().trim();
-    const hay = [
-      item.set_num, item.name, item.year, item.theme_name, item.num_parts
-    ].map(x => (x ?? '').toString().toLowerCase()).join(' • ');
-    return hay.includes(t);
-  }
+    const totalParts = filtered.reduce((acc, x) => acc + (Number(x.num_parts)||0) * (Number(x.quantity)||1), 0);
 
-  function card(item){
-    const img = item.set_img_url ? `<img loading="lazy" src="${item.set_img_url}" alt="${item.name || item.set_num}">` : '';
-    const url = item.set_url || item.rebrickable_url || '#';
-    const qty = item.quantity && item.quantity > 1 ? `<span class="pill">🧱 szt: ${item.quantity}</span>` : '';
-    const theme = item.theme_name ? `<span class="pill">🎨 ${item.theme_name}</span>` : '';
-    return `
+    document.getElementById("count").textContent = `Zestawów: ${filtered.length}`;
+    document.getElementById("parts").textContent = `Części: ${fmtNumber(totalParts)}`;
+    document.getElementById("updated").textContent = `Aktualizacja: ${data.generated_at || "–"}`;
+
+    grid.innerHTML = filtered.map(x => `
       <article class="card">
-        <div class="img">${img}</div>
+        <div class="imgBox">
+          ${x.set_img_url ? `<img src="${x.set_img_url}" alt="${(x.name||x.set_num).replace(/"/g,'&quot;')}" loading="lazy">` : ""}
+        </div>
         <div class="content">
-          <h3 class="name">${item.name ? item.name : item.set_num}</h3>
-          <div class="meta">
-            <span class="pill"># ${item.set_num}</span>
-            <span class="pill">📅 ${item.year || '—'}</span>
-            <span class="pill">🧩 ${item.num_parts || '—'} części</span>
-            ${qty}
-            ${theme}
+          <div class="titleRow">
+            <h3 class="name">${x.name || x.set_num}</h3>
+            <span class="setnum">${x.set_num}</span>
           </div>
-          <div class="actions">
-            <a class="btn" href="${url}" target="_blank" rel="noopener noreferrer">Zobacz na Rebrickable</a>
-            <span style="color:var(--muted); font-size:12px">${item.updated_note || ''}</span>
+
+          <div class="meta">
+            <span class="pill">📅 ${x.year ?? "–"}</span>
+            <span class="pill">🧩 ${fmtNumber(x.num_parts)}</span>
+            <span class="pill">📦 x${x.quantity ?? 1}</span>
+            ${x.theme_name ? `<span class="pill">🎨 ${x.theme_name}</span>` : ""}
+          </div>
+
+          <div class="linkRow">
+            ${x.set_url ? `<a class="link" href="${x.set_url}" target="_blank" rel="noopener">Rebrickable →</a>` : "<span></span>"}
+            <span style="color:rgba(234,240,255,.55);font-size:12px">od 2000+</span>
           </div>
         </div>
       </article>
-    `;
+    `).join("");
+
+    empty.style.display = filtered.length ? "none" : "block";
   }
 
-  function render(){
-    const text = q.value;
-    let filtered = ALL.filter(it => matches(it, text));
-    filtered = sortData(filtered);
+  q.addEventListener("input", apply);
+  sort.addEventListener("change", apply);
+  apply();
+}
 
-    grid.innerHTML = filtered.map(card).join('');
-    empty.style.display = filtered.length ? 'none' : 'block';
-    summary.textContent = `Zestawów: ${ALL.length} • Wyniki: ${filtered.length}`;
-  }
-
-  async function init(){
-    const res = await fetch('./data/sets.json', {cache:'no-store'});
-    const data = await res.json();
-    ALL = (data.sets || []).map(x => ({
-      set_num: x.set_num,
-      name: x.name,
-      year: x.year,
-      num_parts: x.num_parts,
-      theme_name: x.theme_name,
-      quantity: x.quantity,
-      set_img_url: x.set_img_url,
-      set_url: x.set_url,
-    }));
-    const when = data.generated_at ? new Date(data.generated_at) : null;
-    const nice = when ? when.toLocaleString('pl-PL') : '—';
-    summary.textContent = `Zestawów: ${ALL.length} • Aktualizacja: ${nice}`;
-    render();
-  }
-
-  q.addEventListener('input', render);
-  sort.addEventListener('change', render);
-
-  init().catch(err => {
-    console.error(err);
-    summary.textContent = 'Nie udało się wczytać danych :(';
-  });
+document.getElementById("refreshBtn").addEventListener("click", load);
+load();
 </script>
 </body>
 </html>
