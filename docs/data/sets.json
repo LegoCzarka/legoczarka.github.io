@@ -1,15 +1,455 @@
 {
-  "generated_at": "2026-01-26T18:43:23.142187Z",
+  "generated_at": "2026-01-26T20:58:18.485761Z",
   "sets": [
     {
-      "set_num": "10300-1",
-      "name": "Time Machine (demo wpis)",
-      "year": 2022,
-      "num_parts": 1872,
-      "theme_name": "Icons",
+      "set_num": "60499-1",
+      "name": "Airport Fire Truck",
+      "year": 2026,
+      "num_parts": 691,
+      "theme_name": null,
       "quantity": 1,
-      "set_img_url": "",
-      "set_url": "https://rebrickable.com/sets/10300-1/"
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60499-1/164981.jpg",
+      "set_url": "https://rebrickable.com/sets/60499-1/airport-fire-truck/"
+    },
+    {
+      "set_num": "60490-1",
+      "name": "Snowplow",
+      "year": 2026,
+      "num_parts": 263,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60490-1/165009.jpg",
+      "set_url": "https://rebrickable.com/sets/60490-1/snowplow/"
+    },
+    {
+      "set_num": "60488-1",
+      "name": "Fries Food Truck",
+      "year": 2026,
+      "num_parts": 216,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60488-1/165004.jpg",
+      "set_url": "https://rebrickable.com/sets/60488-1/fries-food-truck/"
+    },
+    {
+      "set_num": "60479-1",
+      "name": "Police Prisoner Transport Van",
+      "year": 2026,
+      "num_parts": 198,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60479-1/164884.jpg",
+      "set_url": "https://rebrickable.com/sets/60479-1/police-prisoner-transport-van/"
+    },
+    {
+      "set_num": "60475-1",
+      "name": "City Advent Calendar 2025",
+      "year": 2025,
+      "num_parts": 186,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60475-1/158877.jpg",
+      "set_url": "https://rebrickable.com/sets/60475-1/city-advent-calendar-2025/"
+    },
+    {
+      "set_num": "60472-1",
+      "name": "Scrapyard with Cars",
+      "year": 2025,
+      "num_parts": 877,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60472-1/149893.jpg",
+      "set_url": "https://rebrickable.com/sets/60472-1/scrapyard-with-cars/"
+    },
+    {
+      "set_num": "60461-1",
+      "name": "Red Farm Tractor with Trailer & Sheep",
+      "year": 2025,
+      "num_parts": 116,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60461-1/149986.jpg",
+      "set_url": "https://rebrickable.com/sets/60461-1/red-farm-tractor-with-trailer-sheep/"
+    },
+    {
+      "set_num": "60454-1",
+      "name": "Holiday Adventure Camper Van",
+      "year": 2025,
+      "num_parts": 385,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60454-1/149851.jpg",
+      "set_url": "https://rebrickable.com/sets/60454-1/holiday-adventure-camper-van/"
+    },
+    {
+      "set_num": "60451-1",
+      "name": "Emergency Ambulance",
+      "year": 2025,
+      "num_parts": 184,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60451-1/149807.jpg",
+      "set_url": "https://rebrickable.com/sets/60451-1/emergency-ambulance/"
+    },
+    {
+      "set_num": "60450-1",
+      "name": "Yellow Construction Wheel Loader",
+      "year": 2025,
+      "num_parts": 81,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60450-1/149979.jpg",
+      "set_url": "https://rebrickable.com/sets/60450-1/yellow-construction-wheel-loader/"
+    },
+    {
+      "set_num": "60448-1",
+      "name": "Red Sports Car",
+      "year": 2025,
+      "num_parts": 109,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60448-1/149814.jpg",
+      "set_url": "https://rebrickable.com/sets/60448-1/red-sports-car/"
+    },
+    {
+      "set_num": "60443-1",
+      "name": "F1 Pit Stop & Pit Crew with Ferrari Car",
+      "year": 2025,
+      "num_parts": 322,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60443-1/149127.jpg",
+      "set_url": "https://rebrickable.com/sets/60443-1/f1-pit-stop-pit-crew-with-ferrari-car/"
+    },
+    {
+      "set_num": "42197-1",
+      "name": "Backhoe Loader",
+      "year": 2025,
+      "num_parts": 104,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/42197-1/149539.jpg",
+      "set_url": "https://rebrickable.com/sets/42197-1/backhoe-loader/"
+    },
+    {
+      "set_num": "11041-1",
+      "name": "Creative Dinosaurs",
+      "year": 2025,
+      "num_parts": 450,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/11041-1/149650.jpg",
+      "set_url": "https://rebrickable.com/sets/11041-1/creative-dinosaurs/"
+    },
+    {
+      "set_num": "60430-1",
+      "name": "Interstellar Spaceship",
+      "year": 2024,
+      "num_parts": 240,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60430-1/134010.jpg",
+      "set_url": "https://rebrickable.com/sets/60430-1/interstellar-spaceship/"
+    },
+    {
+      "set_num": "60423-1",
+      "name": "Downtown Streetcar and Station",
+      "year": 2024,
+      "num_parts": 811,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60423-1/139903.jpg",
+      "set_url": "https://rebrickable.com/sets/60423-1/downtown-streetcar-and-station/"
+    },
+    {
+      "set_num": "60411-1",
+      "name": "Fire Rescue Helicopter",
+      "year": 2024,
+      "num_parts": 87,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60411-1/133870.jpg",
+      "set_url": "https://rebrickable.com/sets/60411-1/fire-rescue-helicopter/"
+    },
+    {
+      "set_num": "60404-1",
+      "name": "Burger Truck",
+      "year": 2024,
+      "num_parts": 194,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60404-1/133912.jpg",
+      "set_url": "https://rebrickable.com/sets/60404-1/burger-truck/"
+    },
+    {
+      "set_num": "60402-1",
+      "name": "Blue Monster Truck",
+      "year": 2024,
+      "num_parts": 148,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60402-1/133978.jpg",
+      "set_url": "https://rebrickable.com/sets/60402-1/blue-monster-truck/"
+    },
+    {
+      "set_num": "42167-1",
+      "name": "Mack LR Electric Garbage Truck",
+      "year": 2024,
+      "num_parts": 503,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/42167-1/133688.jpg",
+      "set_url": "https://rebrickable.com/sets/42167-1/mack-lr-electric-garbage-truck/"
+    },
+    {
+      "set_num": "42163-1",
+      "name": "Heavy-Duty Bulldozer",
+      "year": 2024,
+      "num_parts": 195,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/42163-1/133702.jpg",
+      "set_url": "https://rebrickable.com/sets/42163-1/heavy-duty-bulldozer/"
+    },
+    {
+      "set_num": "31146-1",
+      "name": "Flatbed Truck with Helicopter",
+      "year": 2024,
+      "num_parts": 270,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/31146-1/133307.jpg",
+      "set_url": "https://rebrickable.com/sets/31146-1/flatbed-truck-with-helicopter/"
+    },
+    {
+      "set_num": "31145-1",
+      "name": "Red Dragon",
+      "year": 2024,
+      "num_parts": 149,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/31145-1/133292.jpg",
+      "set_url": "https://rebrickable.com/sets/31145-1/red-dragon/"
+    },
+    {
+      "set_num": "71780-1",
+      "name": "Kai's Ninja Race Car EVO",
+      "year": 2023,
+      "num_parts": 94,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/71780-1/130354.jpg",
+      "set_url": "https://rebrickable.com/sets/71780-1/kais-ninja-race-car-evo/"
+    },
+    {
+      "set_num": "60373-1",
+      "name": "Fire Rescue Boat",
+      "year": 2023,
+      "num_parts": 147,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60373-1/130949.jpg",
+      "set_url": "https://rebrickable.com/sets/60373-1/fire-rescue-boat/"
+    },
+    {
+      "set_num": "60369-1",
+      "name": "Mobile Police Dog Training",
+      "year": 2023,
+      "num_parts": 197,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60369-1/130959.jpg",
+      "set_url": "https://rebrickable.com/sets/60369-1/mobile-police-dog-training/"
+    },
+    {
+      "set_num": "30645-1",
+      "name": "Snowman",
+      "year": 2023,
+      "num_parts": 78,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/30645-1/122066.jpg",
+      "set_url": "https://rebrickable.com/sets/30645-1/snowman/"
+    },
+    {
+      "set_num": "60316-1",
+      "name": "Police Station",
+      "year": 2022,
+      "num_parts": 668,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60316-1/95957.jpg",
+      "set_url": "https://rebrickable.com/sets/60316-1/police-station/"
+    },
+    {
+      "set_num": "60312-1",
+      "name": "Police Car",
+      "year": 2022,
+      "num_parts": 94,
+      "theme_name": null,
+      "quantity": 2,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60312-1/95827.jpg",
+      "set_url": "https://rebrickable.com/sets/60312-1/police-car/"
+    },
+    {
+      "set_num": "31111-1",
+      "name": "Cyber Drone",
+      "year": 2021,
+      "num_parts": 113,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/31111-1/77695.jpg",
+      "set_url": "https://rebrickable.com/sets/31111-1/cyber-drone/"
+    },
+    {
+      "set_num": "6403-1",
+      "name": "Paradise Playground",
+      "year": 1993,
+      "num_parts": 97,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6403-1/56065.jpg",
+      "set_url": "https://rebrickable.com/sets/6403-1/paradise-playground/"
+    },
+    {
+      "set_num": "6020-1",
+      "name": "Magic Shop",
+      "year": 1993,
+      "num_parts": 47,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6020-1/517.jpg",
+      "set_url": "https://rebrickable.com/sets/6020-1/magic-shop/"
+    },
+    {
+      "set_num": "6646-1",
+      "name": "Screaming Patriot",
+      "year": 1991,
+      "num_parts": 65,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6646-1/153704.jpg",
+      "set_url": "https://rebrickable.com/sets/6646-1/screaming-patriot/"
+    },
+    {
+      "set_num": "6645-1",
+      "name": "Street Sweeper",
+      "year": 1991,
+      "num_parts": 65,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6645-1/1381.jpg",
+      "set_url": "https://rebrickable.com/sets/6645-1/street-sweeper/"
+    },
+    {
+      "set_num": "6644-1",
+      "name": "Road Rebel",
+      "year": 1990,
+      "num_parts": 72,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6644-1/8725.jpg",
+      "set_url": "https://rebrickable.com/sets/6644-1/road-rebel/"
+    },
+    {
+      "set_num": "6592-1",
+      "name": "Vacation Hideaway",
+      "year": 1990,
+      "num_parts": 117,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6592-1/306.jpg",
+      "set_url": "https://rebrickable.com/sets/6592-1/vacation-hideaway/"
+    },
+    {
+      "set_num": "6529-1",
+      "name": "Ultra Light I",
+      "year": 1990,
+      "num_parts": 35,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6529-1/6110.jpg",
+      "set_url": "https://rebrickable.com/sets/6529-1/ultra-light-i/"
+    },
+    {
+      "set_num": "6354-1",
+      "name": "Pursuit Squad",
+      "year": 1990,
+      "num_parts": 175,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6354-1/6124.jpg",
+      "set_url": "https://rebrickable.com/sets/6354-1/pursuit-squad/"
+    },
+    {
+      "set_num": "6034-1",
+      "name": "Black Monarch's Ghost",
+      "year": 1990,
+      "num_parts": 48,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6034-1/13978.jpg",
+      "set_url": "https://rebrickable.com/sets/6034-1/black-monarchs-ghost/"
+    },
+    {
+      "set_num": "6661-1",
+      "name": "Mobile TV Studio",
+      "year": 1989,
+      "num_parts": 75,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6661-1/5679.jpg",
+      "set_url": "https://rebrickable.com/sets/6661-1/mobile-tv-studio/"
+    },
+    {
+      "set_num": "6506-1",
+      "name": "Precinct Cruiser",
+      "year": 1989,
+      "num_parts": 32,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6506-1/7530.jpg",
+      "set_url": "https://rebrickable.com/sets/6506-1/precinct-cruiser/"
+    },
+    {
+      "set_num": "6235-1",
+      "name": "Buried Treasure",
+      "year": 1989,
+      "num_parts": 27,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6235-1/3906.jpg",
+      "set_url": "https://rebrickable.com/sets/6235-1/buried-treasure/"
+    },
+    {
+      "set_num": "6503-1",
+      "name": "Sprint Racer",
+      "year": 1988,
+      "num_parts": 32,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6503-1/12924.jpg",
+      "set_url": "https://rebrickable.com/sets/6503-1/sprint-racer/"
+    },
+    {
+      "set_num": "6693-1",
+      "name": "Refuse Collection Truck",
+      "year": 1987,
+      "num_parts": 114,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6693-1/12467.jpg",
+      "set_url": "https://rebrickable.com/sets/6693-1/refuse-collection-truck/"
+    },
+    {
+      "set_num": "6380-1",
+      "name": "Emergency Treatment Center",
+      "year": 1987,
+      "num_parts": 293,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/6380-1/148407.jpg",
+      "set_url": "https://rebrickable.com/sets/6380-1/emergency-treatment-center/"
     }
   ]
 }
