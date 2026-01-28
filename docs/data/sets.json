@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-27T04:36:11.764154Z",
+  "generated_at": "2026-01-28T04:33:49.410794Z",
   "sets": [
     {
       "set_num": "60499-1",
@@ -40,6 +40,16 @@
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/60479-1/164884.jpg",
       "set_url": "https://rebrickable.com/sets/60479-1/police-prisoner-transport-van/"
+    },
+    {
+      "set_num": "60478-1",
+      "name": "Cement Mixer",
+      "year": 2026,
+      "num_parts": 371,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60478-1/164885.jpg",
+      "set_url": "https://rebrickable.com/sets/60478-1/cement-mixer/"
     },
     {
       "set_num": "60475-1",
