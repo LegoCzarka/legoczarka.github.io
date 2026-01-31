@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-30T05:15:05.743181Z",
+  "generated_at": "2026-01-31T05:06:23.049896Z",
   "sets": [
     {
       "set_num": "60499-1",
@@ -10,6 +10,16 @@
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/60499-1/164981.jpg",
       "set_url": "https://rebrickable.com/sets/60499-1/airport-fire-truck/"
+    },
+    {
+      "set_num": "60498-1",
+      "name": "Tractor",
+      "year": 2026,
+      "num_parts": 204,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60498-1/164973.jpg",
+      "set_url": "https://rebrickable.com/sets/60498-1/tractor/"
     },
     {
       "set_num": "60490-1",
