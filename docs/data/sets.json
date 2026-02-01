@@ -1,6 +1,16 @@
 {
-  "generated_at": "2026-01-31T05:06:23.049896Z",
+  "generated_at": "2026-02-01T05:46:40.591651Z",
   "sets": [
+    {
+      "set_num": "60502-1",
+      "name": "Airport with Airplane",
+      "year": 2026,
+      "num_parts": 887,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60502-1/165036.jpg",
+      "set_url": "https://rebrickable.com/sets/60502-1/airport-with-airplane/"
+    },
     {
       "set_num": "60499-1",
       "name": "Airport Fire Truck",
@@ -90,6 +100,16 @@
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/60461-1/149986.jpg",
       "set_url": "https://rebrickable.com/sets/60461-1/red-farm-tractor-with-trailer-sheep/"
+    },
+    {
+      "set_num": "60456-1",
+      "name": "Police Boat Chase",
+      "year": 2025,
+      "num_parts": 264,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60456-1/155505.jpg",
+      "set_url": "https://rebrickable.com/sets/60456-1/police-boat-chase/"
     },
     {
       "set_num": "60454-1",
