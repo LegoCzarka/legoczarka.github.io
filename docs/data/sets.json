@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-11T04:01:28.432106Z",
+  "generated_at": "2026-04-12T04:28:08.925340Z",
   "sets": [
     {
       "set_num": "60502-1",
@@ -162,6 +162,16 @@
       "set_url": "https://rebrickable.com/sets/60443-1/f1-pit-stop-pit-crew-with-ferrari-car/"
     },
     {
+      "set_num": "42200-1",
+      "name": "Monster Jam ThunderROARus Pull-Back",
+      "year": 2025,
+      "num_parts": 232,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/42200-1/149298.jpg",
+      "set_url": "https://rebrickable.com/sets/42200-1/monster-jam-thunderroarus-pull-back/"
+    },
+    {
       "set_num": "42197-1",
       "name": "Backhoe Loader",
       "year": 2025,
@@ -202,6 +212,16 @@
       "set_url": "https://rebrickable.com/sets/60423-1/downtown-streetcar-and-station/"
     },
     {
+      "set_num": "60414-1",
+      "name": "Fire Station with Fire Truck",
+      "year": 2024,
+      "num_parts": 844,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60414-1/133853.jpg",
+      "set_url": "https://rebrickable.com/sets/60414-1/fire-station-with-fire-truck/"
+    },
+    {
       "set_num": "60411-1",
       "name": "Fire Rescue Helicopter",
       "year": 2024,
@@ -210,6 +230,16 @@
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/60411-1/133870.jpg",
       "set_url": "https://rebrickable.com/sets/60411-1/fire-rescue-helicopter/"
+    },
+    {
+      "set_num": "60407-1",
+      "name": "Red Double-Decker Sightseeing Bus",
+      "year": 2024,
+      "num_parts": 384,
+      "theme_name": null,
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60407-1/140693.jpg",
+      "set_url": "https://rebrickable.com/sets/60407-1/red-double-decker-sightseeing-bus/"
     },
     {
       "set_num": "60404-1",
