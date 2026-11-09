@@ -1,4 +1,6 @@
 import os
+import re
+import html
 import json
 import time
 from datetime import datetime, timezone
@@ -104,6 +106,8 @@ def infer_theme_fallback(set_num, year, name=""):
         return "Creator", "Creator 3-in-1" if clean.startswith("31") else "Polybag"
     if clean.startswith("71"):
         return "Ninjago", None
+    if clean.startswith("77"):
+        return "Sonic The Hedgehog", None
     if clean.startswith("11"):
         return "Classic", None
     if "city" in n:
@@ -132,7 +136,7 @@ def infer_category_pl(name="", theme_name="", subtheme_name=""):
         return "Ratownictwo"
     if any(k in hay for k in ("space", "spaceship", "drone", "mars", "rocket", "kosmos")):
         return "Kosmos"
-    if any(k in hay for k in ("race", "racing", "sports car", "ferrari", "f1", "monster jam", "monster truck", "racer", "patriot", "rebel")):
+    if any(k in hay for k in ("race", "racing", "sports car", "ferrari", "f1", "monster jam", "monster truck", "racer", "patriot", "rebel", "motorcycle", "motorbike", "speedster", "kart", "car", "buggy", "rally")):
         return "Wyścigi i auta"
     if any(k in hay for k in ("castle", "knight", "monarch", "magic", "wizard", "zamek", "rycerz")):
         return "Zamek i Rycerze"
@@ -145,13 +149,61 @@ def infer_category_pl(name="", theme_name="", subtheme_name=""):
     return "Pojazdy miejskie"
 
 
+def fetch_polish_name(set_num, en_name):
+    """
+    Automatycznie pobiera lub tłumaczy polską nazwę nowego zestawu LEGO:
+    1. Próbuje pobrać oficjalną polską nazwę z polskiego katalogu LEGO.
+    2. Jeśli zestawu tam nie ma, tłumaczy nazwę angielską przez darmowy endpoint Google Translate.
+    """
+    if not en_name:
+        return None
+    clean_num = str(set_num or "").split("-")[0].strip()
+
+    # 1) Spróbuj pobrać oficjalną polską nazwę z polskiego katalogu promoklocki.pl
+    if clean_num.isdigit():
+        try:
+            r = requests.get(
+                f"https://promoklocki.pl/{clean_num}",
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=8,
+            )
+            if r.status_code == 200:
+                m = re.search(r"<title>(.*?)</title>", r.text, re.IGNORECASE | re.DOTALL)
+                if m:
+                    raw_title = html.unescape(m.group(1)).strip()
+                    # Format zazwyczaj: "LEGO City 60414 Remiza strażacka z wozem strażackim - porównaj ceny..."
+                    raw_title = re.split(r"\s+[-–|]\s+", raw_title)[0].strip()
+                    # Wytnij prefix "LEGO ... <numer> "
+                    cleaned = re.sub(rf"^LEGO®?\s+.*?\b{re.escape(clean_num)}\s+", "", raw_title, flags=re.IGNORECASE).strip()
+                    if cleaned and cleaned != raw_title and len(cleaned) > 2 and cleaned.lower() != en_name.lower():
+                        return cleaned
+        except Exception:
+            pass
+
+    # 2) Automatyczne tłumaczenie przez darmowy endpoint Google Translate (EN -> PL)
+    try:
+        r = requests.get(
+            "https://translate.googleapis.com/translate_a/single",
+            params={"client": "gtx", "sl": "en", "tl": "pl", "dt": "t", "q": en_name},
+            timeout=10,
+        )
+        if r.status_code == 200:
+            data = r.json()
+            if isinstance(data, list) and data and isinstance(data[0], list):
+                translated = "".join(part[0] for part in data[0] if part and part[0]).strip()
+                if translated:
+                    return translated[0].upper() + translated[1:]
+    except Exception as e:
+        print(f"Uwaga: nie udało się przetłumaczyć nazwy '{en_name}': {e}")
+
+    return None
+
 
 def is_wishlist_setlist(setlist_obj):
     """Sprawdza, czy dana lista zestawów na Rebrickable to Lista Marzeń (Wishlist)."""
     name = (setlist_obj.get("name") or "").lower().strip()
     if any(k in name for k in WISHLIST_KEYWORDS):
         return True
-    # Na Rebrickable listy życzeń mają zazwyczaj wyłączoną opcję "is_buildable"
     if setlist_obj.get("is_buildable") is False:
         return True
     return False
@@ -195,24 +247,25 @@ def parse_set_item(item, resolve_theme, existing_cache):
     if not theme_name:
         theme_name, subtheme_name = infer_theme_fallback(set_num, year, name)
 
+    # Polska nazwa zestawu: z cache lub automatycznie pobrana / przetłumaczona
+    name_pl = cached.get("name_pl")
+    if not name_pl and name:
+        name_pl = fetch_polish_name(set_num, name)
+
     entry = {
         "set_num": set_num,
         "name": name or set_num,
+        "name_pl": name_pl or name or set_num,
         "year": year,
         "num_parts": num_parts,
         "theme_id": theme_id,
         "theme_name": theme_name,
         "subtheme_name": subtheme_name,
+        "category_pl": cached.get("category_pl") or infer_category_pl(name, theme_name, subtheme_name),
         "quantity": int(qty) if str(qty).isdigit() else qty,
         "set_img_url": set_img_url,
         "set_url": set_url,
     }
-    # Zachowaj opcjonalne polskie pola jeśli były w cache
-    for extra_key in ("name_pl", "category_pl"):
-        if cached.get(extra_key):
-            entry[extra_key] = cached[extra_key]
-    if not entry.get("category_pl"):
-        entry["category_pl"] = infer_category_pl(name, theme_name, subtheme_name)
     return entry
 
 

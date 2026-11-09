@@ -12,7 +12,8 @@ window.LEGO_DATA = {
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/77117-1/164050.jpg",
       "set_url": "https://rebrickable.com/sets/77117-1/sonic-speedster-lightning/",
-      "category_pl": "Pojazdy miejskie"
+      "category_pl": "Wyścigi i auta",
+      "name_pl": "Sonic: Błyskawica Speedster"
     },
     {
       "set_num": "60502-1",
@@ -123,7 +124,8 @@ window.LEGO_DATA = {
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/42225-1/165435.jpg",
       "set_url": "https://rebrickable.com/sets/42225-1/yellow-motorcycle/",
-      "category_pl": "Pojazdy miejskie"
+      "category_pl": "Wyścigi i auta",
+      "name_pl": "Żółty motocykl"
     },
     {
       "set_num": "60475-1",

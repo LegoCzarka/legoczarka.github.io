@@ -635,6 +635,11 @@
       color: #FDE047;
       border: 1px solid #92400E;
     }
+    .legoSeriesLogo.logo-Sonic-The-Hedgehog {
+      background: linear-gradient(135deg, #0046BE 0%, #002B7F 100%);
+      color: #FFD500;
+      border: 1px solid #1D4ED8;
+    }
 
     /* Sekcja Listy Marzeń (widoczna TYLKO gdy wishlist > 0) */
     .wishlistSection {
@@ -871,6 +876,7 @@
     .cardThemeStripe.theme-Town { background: #0284C7; }
     .cardThemeStripe.theme-Castle { background: #7C3AED; }
     .cardThemeStripe.theme-Pirates { background: #B45309; }
+    .cardThemeStripe.theme-Sonic-The-Hedgehog { background: #0046BE; }
 
     /* Górny rząd na karcie (Numer z pudełka po lewej + Logotyp serii LEGO po prawej) */
     .cardTopBar {
@@ -1530,6 +1536,8 @@ const LEGO_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_
 
 // Słownik polsko-angielski i tłumaczeń dla obecnych i przyszłych zestawów
 const EXACT_PL_NAMES = {
+  "77117": "Sonic: Błyskawica Speedster",
+  "42225": "Żółty motocykl",
   "60502": "Lotnisko z samolotem",
   "60499": "Lotniskowy wóz strażacki",
   "60498": "Traktor rolniczy",
@@ -1589,16 +1597,22 @@ const THEME_LABELS = {
   "Technic": { label: "LEGO Technic", short: "TECHNIC", icon: "⚙️" },
   "Creator": { label: "LEGO Creator 3w1", short: "CREATOR", icon: "🐉" },
   "Ninjago": { label: "LEGO Ninjago", short: "NINJAGO", icon: "🥷" },
+  "Sonic The Hedgehog": { label: "LEGO Sonic", short: "SONIC", icon: "⚡" },
   "Classic": { label: "LEGO Classic", short: "CLASSIC", icon: "🦖" },
   "Town": { label: "LEGO System Town", short: "SYSTEM", icon: "🏘️" },
   "Castle": { label: "LEGOLAND Castle", short: "CASTLE", icon: "🏰" },
   "Pirates": { label: "LEGOLAND Pirates", short: "PIRATES", icon: "🏴‍☠️" }
 };
 
+function themeSlug(theme) {
+  return String(theme || "City").replace(/[^a-zA-Z0-9]+/g, "-");
+}
+
 function renderSeriesLogoHTML(theme) {
-  const info = THEME_LABELS[theme] || { short: theme || "LEGO" };
+  const info = THEME_LABELS[theme] || { short: String(theme || "LEGO").toUpperCase() };
+  const slug = themeSlug(theme);
   const extra = theme === "Creator" ? `<span class="creator3in1">3in1</span>` : "";
-  return `<span class="legoSeriesLogo logo-${escapeHtml(theme)}"><img class="legoMiniSquare" src="${LEGO_LOGO_URL}" alt="LEGO"/><span>${escapeHtml(info.short)}</span>${extra}</span>`;
+  return `<span class="legoSeriesLogo logo-${escapeHtml(slug)}"><img class="legoMiniSquare" src="${LEGO_LOGO_URL}" alt="LEGO"/><span>${escapeHtml(info.short)}</span>${extra}</span>`;
 }
 
 // Słownik pojęć EN -> PL wspomagający wyszukiwanie po polsku dla dowolnych przyszłych zestawów
@@ -1765,6 +1779,7 @@ function escapeHtml(str) {
 function cardHTML(x, isWishlist = false, isExactMatch = false) {
   const cleanNum = x._cleanNum;
   const theme = x._theme;
+  const slug = themeSlug(theme);
   const titlePl = x._displayPl;
   const titleEn = x.name && x.name !== titlePl ? x.name : "";
   const qty = Number(x.quantity) || 1;
@@ -1772,7 +1787,7 @@ function cardHTML(x, isWishlist = false, isExactMatch = false) {
 
   return `
     <article class="card ${isExactMatch ? "highlightMatch" : ""}" data-setnum="${escapeHtml(x.set_num)}">
-      <div class="cardThemeStripe theme-${escapeHtml(theme)}"></div>
+      <div class="cardThemeStripe theme-${escapeHtml(slug)}"></div>
 
       <div class="cardTopBar">
         <span class="boxNumberBadge" title="Numer zestawu na pudełku">#${escapeHtml(cleanNum)}</span>
@@ -2127,6 +2142,43 @@ async function init() {
   });
 
   render();
+
+  // Automatyczne tłumaczenie w przeglądarce dla zupełnie nowych zestawów, jeśli jeszcze nie mają polskiej nazwy
+  async function autoTranslateMissing() {
+    let changed = false;
+    for (const item of [...ALL_SETS, ...ALL_WISHLIST]) {
+      if (item._displayPl === item.name && item.name) {
+        const cacheKey = "lego_pl_" + item._cleanNum;
+        let cachedPl = null;
+        try { cachedPl = localStorage.getItem(cacheKey); } catch (e) {}
+        if (cachedPl) {
+          item._displayPl = cachedPl;
+          item._haystack += " " + cachedPl.toLowerCase();
+          changed = true;
+          continue;
+        }
+        try {
+          const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pl&dt=t&q=" + encodeURIComponent(item.name);
+          const r = await fetch(url);
+          if (r.ok) {
+            const j = await r.json();
+            if (Array.isArray(j) && Array.isArray(j[0])) {
+              const tr = j[0].map(p => p && p[0] ? p[0] : "").join("").trim();
+              if (tr && tr.toLowerCase() !== item.name.toLowerCase()) {
+                const formatted = tr.charAt(0).toUpperCase() + tr.slice(1);
+                item._displayPl = formatted;
+                item._haystack += " " + formatted.toLowerCase();
+                try { localStorage.setItem(cacheKey, formatted); } catch (e) {}
+                changed = true;
+              }
+            }
+          }
+        } catch (e) {}
+      }
+    }
+    if (changed) render();
+  }
+  autoTranslateMissing();
 }
 
 init();
