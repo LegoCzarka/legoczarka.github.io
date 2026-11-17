@@ -1,5 +1,5 @@
 window.LEGO_DATA = {
-  "generated_at": "2026-11-16T08:20:30.207519Z",
+  "generated_at": "2026-11-17T09:33:53.228072Z",
   "sets": [
     {
       "set_num": "77117-1",
