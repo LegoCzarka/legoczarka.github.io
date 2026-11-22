@@ -2,6 +2,11 @@ name: Aktualizuj zestawy z Rebrickable
 
 on:
   workflow_dispatch:
+    inputs:
+      enforce_cooldown:
+        description: "Pomiń aktualizację, jeśli od ostatniej minęło mniej niż 6 godzin"
+        type: boolean
+        default: false
   schedule:
     - cron: "30 1 * * *"   # 01:30 UTC (noc w PL)
 
@@ -36,7 +41,13 @@ jobs:
         env:
           REBRICKABLE_KEY: ${{ secrets.REBRICKABLE_KEY }}
           REBRICKABLE_USER_TOKEN: ${{ secrets.REBRICKABLE_USER_TOKEN }}
-        run: python scripts/fetch_rebrickable.py
+          ENFORCE_COOLDOWN: ${{ github.event_name == 'workflow_dispatch' && inputs.enforce_cooldown || 'false' }}
+        run: |
+          if [ "$ENFORCE_COOLDOWN" = "true" ]; then
+            python scripts/fetch_rebrickable.py --cooldown-hours 6
+          else
+            python scripts/fetch_rebrickable.py
+          fi
 
       - name: Commit & push sets.json (bez konfliktów)
         run: |
@@ -44,11 +55,25 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add docs/data/sets.json docs/data/sets.js
-          git commit -m "Update Rebrickable sets" || echo "No changes"
+          if git diff --cached --quiet; then
+            echo "Brak zmian do wypchnięcia."
+            exit 0
+          fi
+
+          git commit -m "Update Rebrickable sets"
 
           # 3 próby, bo czasem 2 akcje wpadają prawie jednocześnie
+          pushed=false
           for i in 1 2 3; do
             echo "Push attempt $i..."
-            git pull --rebase origin main && git push && break
+            if git pull --rebase origin main && git push; then
+              pushed=true
+              break
+            fi
             sleep 2
           done
+
+          if [ "$pushed" != "true" ]; then
+            echo "Błąd: nie udało się wypchnąć zmian po 3 próbach." >&2
+            exit 1
+          fi

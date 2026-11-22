@@ -11,8 +11,8 @@
   <meta property="og:url" content="https://legoczarka.github.io/" />
   <meta name="theme-color" content="#E3000B" />
 
-  <!-- Oficjalne logo LEGO jako Favicon -->
-  <link rel="icon" type="image/svg+xml" href="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" />
+  <!-- Lokalne logo LEGO jako Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./lego-logo.svg" />
 
   <!-- Czcionki w stylu LEGO (Fredoka + Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,6 +70,10 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    body.modalOpen {
+      overflow: hidden;
+    }
+
     /* Górny pasek z wypustkami klocków LEGO 3D */
     .legoStudStrip {
       background: #FFD500;
@@ -78,6 +82,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
       font-size: 12px;
       font-weight: 800;
       color: #111827;
@@ -108,7 +114,6 @@
       border-bottom: 6px solid var(--lego-yellow);
     }
 
-    /* Wzór wypustek LEGO (studs) w tle nagłówka */
     .siteHeader::before {
       content: "";
       position: absolute;
@@ -140,7 +145,6 @@
       min-width: 280px;
     }
 
-    /* Oficjalne logo LEGO */
     .officialLegoLogo {
       width: 78px;
       height: 78px;
@@ -271,7 +275,7 @@
       padding: 0 16px 56px;
     }
 
-    /* GŁÓWNY SPRAWDZACZ PREZENTU (nachodzi na nagłówek) */
+    /* GŁÓWNY SPRAWDZACZ PREZENTU */
     .giftCheckerCard {
       margin-top: -34px;
       background: var(--surface);
@@ -448,23 +452,80 @@
       color: #1E40AF;
     }
 
+    .checkerHitLeft {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .checkerThumbBtn {
+      width: 68px;
+      height: 54px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      background: #FFFFFF;
+      padding: 4px;
+      cursor: zoom-in;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease;
+    }
+    .checkerThumbBtn:hover {
+      transform: scale(1.06);
+    }
+    .checkerThumbBtn img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .checkerActionBtn,
     .checkerActionLink {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 14px;
+      padding: 9px 14px;
       border-radius: 12px;
+      border: none;
       background: #059669;
       color: #FFFFFF;
       text-decoration: none;
+      font-family: inherit;
       font-weight: 700;
       font-size: 13px;
       white-space: nowrap;
+      cursor: pointer;
       transition: transform 0.12s ease, background 0.15s ease;
     }
+    .checkerActionBtn:hover,
     .checkerActionLink:hover {
       background: #047857;
       transform: translateY(-1px);
+    }
+
+    .checkerActionBtn.danger {
+      background: #DC2626;
+    }
+    .checkerActionBtn.danger:hover {
+      background: #B91C1C;
+    }
+
+    .checkerActionBtn.amber {
+      background: #D97706;
+    }
+    .checkerActionBtn.amber:hover {
+      background: #B45309;
+    }
+
+    .checkerActionBtn.blue {
+      background: var(--lego-blue);
+    }
+    .checkerActionBtn.blue:hover {
+      background: #005896;
     }
 
     /* Szybkie podpowiedzi tematyczne (kategorie po polsku) */
@@ -514,6 +575,12 @@
       box-shadow: 0 4px 10px rgba(0, 109, 183, 0.25);
     }
 
+    .topicChipCount {
+      font-size: 11px;
+      opacity: 0.78;
+      font-weight: 700;
+    }
+
     /* Ściągawka prezentowa z klockami LEGO 3D */
     .giftGuideBanner {
       margin-top: 18px;
@@ -559,7 +626,7 @@
       align-items: center;
     }
 
-    /* ORYGINALNE LOGOTYPY SERII LEGO (Graficzne znaczki jak na pudełkach) */
+    /* LOGOTYPY SERII LEGO (domyślny styl + warianty serii) */
     .legoSeriesLogo {
       display: inline-flex;
       align-items: center;
@@ -574,6 +641,9 @@
       line-height: 1;
       box-shadow: 0 2px 4px rgba(0,0,0,0.12);
       white-space: nowrap;
+      background: linear-gradient(135deg, #334155 0%, #1E293B 100%);
+      color: #FFFFFF;
+      border: 1px solid #475569;
     }
 
     .legoMiniSquare {
@@ -619,6 +689,11 @@
       background: linear-gradient(135deg, #00A651 0%, #047857 100%);
       color: #FFFFFF;
       border: 1px solid #059669;
+    }
+    .legoSeriesLogo.logo-Seasonal {
+      background: linear-gradient(135deg, #15803D 0%, #166534 100%);
+      color: #FEF08A;
+      border: 1px solid #16A34A;
     }
     .legoSeriesLogo.logo-Town {
       background: linear-gradient(135deg, #1E3A8A 0%, #172554 100%);
@@ -685,12 +760,57 @@
       gap: 14px;
     }
 
+    .ownerTabsRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+    }
+
     .ownerTabs {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 12px;
+    }
+
+    .filterUtilityActions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .utilityBtn {
+      border: 1.5px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text-secondary);
+      padding: 8px 12px;
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .utilityBtn:hover {
+      border-color: var(--lego-blue);
+      color: var(--lego-blue);
+      background: #F0F9FF;
+    }
+    .utilityBtn.resetFiltersBtn {
+      border-color: #FCA5A5;
+      color: #B91C1C;
+      background: #FEF2F2;
+    }
+    .utilityBtn.resetFiltersBtn:hover {
+      background: #FEE2E2;
+      border-color: #F87171;
     }
 
     .ownerTab {
@@ -873,12 +993,13 @@
     .cardThemeStripe.theme-Creator { background: #FFD500; }
     .cardThemeStripe.theme-Ninjago { background: #E3000B; }
     .cardThemeStripe.theme-Classic { background: #00A651; }
+    .cardThemeStripe.theme-Seasonal { background: #16A34A; }
     .cardThemeStripe.theme-Town { background: #0284C7; }
     .cardThemeStripe.theme-Castle { background: #7C3AED; }
     .cardThemeStripe.theme-Pirates { background: #B45309; }
     .cardThemeStripe.theme-Sonic-The-Hedgehog { background: #0046BE; }
 
-    /* Górny rząd na karcie (Numer z pudełka po lewej + Logotyp serii LEGO po prawej) */
+    /* Górny rząd na karcie */
     .cardTopBar {
       display: flex;
       align-items: center;
@@ -903,6 +1024,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .wishBadge {
@@ -937,6 +1060,11 @@
       justify-content: center;
       cursor: zoom-in;
       border-bottom: 1px solid #F1F5F9;
+      outline: none;
+    }
+
+    .imgBox:focus-visible {
+      box-shadow: inset 0 0 0 3px var(--lego-blue);
     }
 
     .imgBox img {
@@ -968,7 +1096,8 @@
       pointer-events: none;
     }
 
-    .card:hover .zoomHint {
+    .card:hover .zoomHint,
+    .imgBox:focus-visible .zoomHint {
       opacity: 1;
     }
 
@@ -1070,10 +1199,16 @@
       font-weight: 600;
     }
 
-    /* Stopka */
+    .emptyStateActions {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Stopka i dyskretny przycisk synchronizacji z Rebrickable */
     footer {
       margin-top: 44px;
-      padding: 24px 16px;
+      padding: 24px 16px 28px;
       border-top: 1px solid var(--border);
       color: var(--text-muted);
       font-size: 13px;
@@ -1086,11 +1221,138 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       align-items: center;
     }
 
-    /* LIGHTBOX (Powiększenie zdjęcia i szczegółów zestawu) */
+    .footerSyncRow {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footerSyncBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-soft);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .footerSyncBtn:hover:not(:disabled) {
+      border-color: var(--lego-blue);
+      color: var(--lego-blue);
+      background: #EFF6FF;
+    }
+    .footerSyncBtn:disabled {
+      opacity: 0.68;
+      cursor: not-allowed;
+      background: #F1F5F9;
+      color: var(--text-muted);
+    }
+
+    .footerSyncBtn.syncing .syncIcon {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .footerConfigBtn {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .footerConfigBtn:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+      background: #E2E8F0;
+    }
+    .footerConfigBtn.configured::after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lego-green);
+      border: 1.5px solid #FFFFFF;
+    }
+
+    .syncStatusMsg {
+      display: none;
+      margin-top: 4px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      max-width: 560px;
+    }
+    .syncStatusMsg.show { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .syncStatusMsg.info { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
+    .syncStatusMsg.success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+    .syncStatusMsg.error { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+    .syncStatusMsg a { color: inherit; font-weight: 800; }
+
+    /* Przycisk Powrót na górę */
+    .scrollTopBtn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      background: var(--lego-red);
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(227, 0, 11, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s ease;
+      z-index: 900;
+    }
+    .scrollTopBtn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .scrollTopBtn:hover {
+      background: var(--lego-red-dark);
+      transform: translateY(-2px);
+    }
+
+    /* LIGHTBOX (Powiększenie zdjęcia i szczegółów zestawu) oraz MODAL KONFIGURACJI */
     .modalBackdrop {
       position: fixed;
       inset: 0;
@@ -1113,10 +1375,15 @@
       border-radius: 24px;
       max-width: 680px;
       width: 100%;
-      overflow: hidden;
+      max-height: 92vh;
+      overflow-y: auto;
       box-shadow: 0 24px 60px rgba(0,0,0,0.35);
       border: 3px solid var(--border);
       position: relative;
+    }
+
+    .modalBox.compact {
+      max-width: 520px;
     }
 
     .modalClose {
@@ -1158,6 +1425,12 @@
       object-fit: contain;
     }
 
+    .modalImgPlaceholder {
+      color: #94A3B8;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
     .modalBody {
       padding: 20px 24px 24px;
     }
@@ -1167,6 +1440,7 @@
       font-size: 22px;
       margin: 6px 0 4px;
       color: var(--text);
+      padding-right: 34px;
     }
 
     .modalSub {
@@ -1185,11 +1459,14 @@
     .modalBtnPrimary {
       padding: 11px 16px;
       border-radius: 12px;
+      border: none;
       background: var(--lego-blue);
       color: #FFFFFF;
       text-decoration: none;
+      font-family: inherit;
       font-weight: 700;
       font-size: 14px;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -1201,11 +1478,14 @@
     .modalBtnSecondary {
       padding: 11px 16px;
       border-radius: 12px;
+      border: 1px solid var(--border);
       background: #F1F5F9;
       color: var(--text-secondary);
       text-decoration: none;
+      font-family: inherit;
       font-weight: 700;
       font-size: 14px;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -1213,6 +1493,75 @@
     .modalBtnSecondary:hover {
       background: #E2E8F0;
       color: var(--text);
+    }
+
+    .modalBtnDanger {
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid #FECACA;
+      background: #FEF2F2;
+      color: #B91C1C;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .modalBtnDanger:hover {
+      background: #FEE2E2;
+    }
+
+    /* Style formularza tokenu GitHub */
+    .tokenSteps {
+      margin: 12px 0 14px;
+      padding: 12px 14px 12px 30px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .tokenSteps li {
+      margin-bottom: 6px;
+    }
+    .tokenSteps li:last-child {
+      margin-bottom: 0;
+    }
+    .tokenSteps a {
+      color: var(--lego-blue);
+      font-weight: 700;
+    }
+    .tokenInputWrap {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .tokenInput {
+      flex: 1;
+      padding: 11px 13px;
+      border-radius: 12px;
+      border: 2px solid var(--border-strong);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      outline: none;
+    }
+    .tokenInput:focus {
+      border-color: var(--lego-blue);
+    }
+    .tokenHint {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .tokenError {
+      margin-top: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #B91C1C;
+      display: none;
     }
 
     @media (max-width: 780px) {
@@ -1285,9 +1634,9 @@
   <header class="siteHeader">
     <div class="headerInner">
       <div class="brandGroup">
-        <!-- Oficjalne logo LEGO -->
+        <!-- Lokalne logo LEGO -->
         <div class="officialLegoLogo">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO" />
+          <img src="./lego-logo.svg" alt="LEGO" />
         </div>
 
         <div class="brandText">
@@ -1306,7 +1655,7 @@
 
       <!-- Oryginalna grafika Minifigurki LEGO + miniatury flagowych zestawów -->
       <div class="heroLegoGraphic" aria-hidden="true">
-        <div class="heroShowcaseCards">
+        <div class="heroShowcaseCards" id="heroShowcaseCards">
           <div class="miniSetCard" title="LEGO City #60502 Lotnisko z samolotem">
             <img src="https://cdn.rebrickable.com/media/sets/60502-1/165036.jpg" alt="LEGO 60502" />
           </div>
@@ -1317,41 +1666,32 @@
 
         <!-- Wektorowa klasyczna Minifigurka LEGO -->
         <svg class="minifigSvg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
-          <!-- Wypustka na głowie (Stud) z napisem LEGO -->
           <rect x="44" y="6" width="32" height="12" rx="4" fill="#FFD500" stroke="#111827" stroke-width="3.5"/>
           <path d="M48 10 H72" stroke="#FFF394" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Głowa minifigurki -->
           <rect x="30" y="16" width="60" height="54" rx="14" fill="#FFD500" stroke="#111827" stroke-width="3.5"/>
           <path d="M38 22 H80" stroke="#FFF394" stroke-width="3" stroke-linecap="round"/>
-          <!-- Oczy i klasyczny uśmiech LEGO -->
           <circle cx="47" cy="40" r="4.5" fill="#111827"/>
           <circle cx="73" cy="40" r="4.5" fill="#111827"/>
           <circle cx="45.5" cy="38.5" r="1.3" fill="#FFFFFF"/>
           <circle cx="71.5" cy="38.5" r="1.3" fill="#FFFFFF"/>
           <path d="M44 52 Q60 65 76 52" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
-          <!-- Szyja -->
           <rect x="46" y="70" width="28" height="6" fill="#D9A600" stroke="#111827" stroke-width="3"/>
-          <!-- Ramiona -->
           <path d="M26 78 L14 108 A8 8 0 0 0 26 114 L34 88 Z" fill="#E3000B" stroke="#111827" stroke-width="3.5"/>
           <path d="M94 78 L106 108 A8 8 0 0 1 94 114 L86 88 Z" fill="#E3000B" stroke="#111827" stroke-width="3.5"/>
-          <!-- Dłonie LEGO (żółte chwytaki) -->
           <circle cx="19" cy="115" r="7" fill="#FFD500" stroke="#111827" stroke-width="3.5"/>
           <circle cx="19" cy="115" r="3" fill="#E3000B"/>
           <circle cx="101" cy="115" r="7" fill="#FFD500" stroke="#111827" stroke-width="3.5"/>
           <circle cx="101" cy="115" r="3" fill="#E3000B"/>
-          <!-- Tors czerwony z logo LEGO -->
           <path d="M32 76 H88 L94 122 H26 Z" fill="#E3000B" stroke="#111827" stroke-width="3.5" stroke-linejoin="round"/>
-          <!-- Mini logo LEGO na piersi minifigurki -->
           <rect x="47" y="86" width="26" height="22" rx="3" fill="#E3000B" stroke="#FFFFFF" stroke-width="2"/>
           <text x="60" y="101" text-anchor="middle" fill="#FFD500" font-family="Fredoka, sans-serif" font-weight="700" font-size="9">LEGO</text>
-          <!-- Pas / biodra niebieskie -->
           <rect x="28" y="122" width="64" height="12" rx="3" fill="#006DB7" stroke="#111827" stroke-width="3.5"/>
         </svg>
       </div>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="mainContainer">
     <!-- SPRAWDZACZ PREZENTU -->
     <section class="giftCheckerCard" aria-label="Sprawdzacz prezentu">
       <div class="checkerHeader">
@@ -1361,7 +1701,7 @@
 
       <div class="searchRow">
         <div class="searchInputWrap">
-          <span class="searchIcon">🔎</span>
+          <span class="searchIcon" aria-hidden="true">🔎</span>
           <input
             type="search"
             class="searchInput"
@@ -1369,7 +1709,7 @@
             placeholder="Wpisz numer z pudełka (np. 60414) lub słowo (np. straż pożarna, koparka, policja)..."
             autocomplete="off"
           />
-          <button type="button" class="clearBtn" id="clearBtn" title="Wyczyść wyszukiwanie">✕</button>
+          <button type="button" class="clearBtn" id="clearBtn" title="Wyczyść wyszukiwanie" aria-label="Wyczyść wyszukiwanie">✕</button>
         </div>
 
         <select class="sortSelect" id="sort" aria-label="Sortowanie zestawów">
@@ -1382,22 +1722,10 @@
       </div>
 
       <!-- Dynamiczny alert wyniku sprawdzania -->
-      <div id="checkerResult" class="checkerResult"></div>
+      <div id="checkerResult" class="checkerResult" aria-live="polite"></div>
 
-      <!-- Szybkie filtry tematyczne po polsku -->
-      <div class="quickTopics" id="quickTopics">
-        <span class="quickLabel">Szybki temat:</span>
-        <button type="button" class="topicChip active" data-topic="ALL">Wszystkie</button>
-        <button type="button" class="topicChip" data-topic="Straż pożarna">🚒 Straż pożarna</button>
-        <button type="button" class="topicChip" data-topic="Policja">🚓 Policja</button>
-        <button type="button" class="topicChip" data-topic="Budowa i koparki">🚜 Budowa i koparki</button>
-        <button type="button" class="topicChip" data-topic="Lotnisko i samoloty">✈️ Lotnisko i samoloty</button>
-        <button type="button" class="topicChip" data-topic="Pojazdy miejskie">🚛 Pojazdy miejskie</button>
-        <button type="button" class="topicChip" data-topic="Wyścigi i auta">🏎️ Wyścigi i auta</button>
-        <button type="button" class="topicChip" data-topic="Farma i traktory">🌾 Farma i traktory</button>
-        <button type="button" class="topicChip" data-topic="Pociągi i tramwaje">🚆 Pociągi i tramwaje</button>
-        <button type="button" class="topicChip" data-topic="Kosmos">🚀 Kosmos</button>
-      </div>
+      <!-- Szybkie filtry tematyczne po polsku (generowane dynamicznie z danych) -->
+      <div class="quickTopics" id="quickTopics"></div>
     </section>
 
     <!-- PODPOWIEDŹ PREZENTOWA Z LOGOTYPAMI SERII LEGO I KLOCKAMI 3D -->
@@ -1408,22 +1736,19 @@
           Każde pudełko LEGO ma na przodzie duży <strong>5-cyfrowy numer</strong> (np. <strong>60414</strong>). Wpisz ten numer w pole powyżej: jeśli wyskoczy <strong>zielony komunikat</strong>, to znaczy, że zestawu jeszcze nie mamy! Czarek najbardziej lubi poniższe serie:
         </p>
         <div class="giftGuideTags">
-          <span class="legoSeriesLogo logo-City"><img class="legoMiniSquare" src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO"/> CITY</span>
-          <span class="legoSeriesLogo logo-Technic"><img class="legoMiniSquare" src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO"/> TECHNIC</span>
-          <span class="legoSeriesLogo logo-Creator"><img class="legoMiniSquare" src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO"/> CREATOR <span class="creator3in1">3in1</span></span>
-          <span class="legoSeriesLogo logo-Ninjago"><img class="legoMiniSquare" src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO"/> NINJAGO</span>
+          <span class="legoSeriesLogo logo-City"><img class="legoMiniSquare" src="./lego-logo.svg" alt="LEGO"/> CITY</span>
+          <span class="legoSeriesLogo logo-Technic"><img class="legoMiniSquare" src="./lego-logo.svg" alt="LEGO"/> TECHNIC</span>
+          <span class="legoSeriesLogo logo-Creator"><img class="legoMiniSquare" src="./lego-logo.svg" alt="LEGO"/> CREATOR <span class="creator3in1">3in1</span></span>
+          <span class="legoSeriesLogo logo-Ninjago"><img class="legoMiniSquare" src="./lego-logo.svg" alt="LEGO"/> NINJAGO</span>
         </div>
       </div>
 
-      <!-- Ilustracja Klocków LEGO 3D -->
       <svg width="128" height="84" viewBox="0 0 140 94" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0">
-        <!-- Niebieski klocek na dole -->
         <rect x="26" y="48" width="96" height="36" rx="6" fill="#006DB7" stroke="#111827" stroke-width="3"/>
         <rect x="34" y="40" width="16" height="9" rx="2" fill="#006DB7" stroke="#111827" stroke-width="2.5"/>
         <rect x="56" y="40" width="16" height="9" rx="2" fill="#006DB7" stroke="#111827" stroke-width="2.5"/>
         <rect x="78" y="40" width="16" height="9" rx="2" fill="#006DB7" stroke="#111827" stroke-width="2.5"/>
         <rect x="100" y="40" width="16" height="9" rx="2" fill="#006DB7" stroke="#111827" stroke-width="2.5"/>
-        <!-- Czerwony klocek u góry po lewej -->
         <rect x="12" y="18" width="76" height="32" rx="6" fill="#E3000B" stroke="#111827" stroke-width="3"/>
         <rect x="20" y="9" width="16" height="10" rx="2" fill="#E3000B" stroke="#111827" stroke-width="2.5"/>
         <rect x="42" y="9" width="16" height="10" rx="2" fill="#E3000B" stroke="#111827" stroke-width="2.5"/>
@@ -1439,25 +1764,43 @@
           <h2>🎯 Lista Marzeń Czarka — Te zestawy chcielibyśmy dostać!</h2>
           <p>Poniższe zestawy nie są jeszcze w naszej kolekcji — każdy z nich będzie strzałem w dziesiątkę na prezent.</p>
         </div>
+        <button type="button" class="utilityBtn" id="copyWishlistLinkBtn">🔗 Skopiuj link do Listy Marzeń</button>
       </div>
       <div id="gridWishlist" class="grid"></div>
+      <div id="emptyW" class="emptyState" style="display:none">
+        <div>Brak zestawów na Liście Marzeń pasujących do wybranego filtra.</div>
+        <div class="emptyStateActions">
+          <button type="button" class="utilityBtn resetFiltersBtn" data-reset-filters="true">↺ Wyczyść filtry</button>
+        </div>
+      </div>
     </section>
 
     <!-- ZAKŁADKI KOLEKCJI I FILTRY SERII LEGO -->
     <div class="filterPanel">
-      <div class="ownerTabs" id="ownerTabs">
-        <button type="button" class="ownerTab active" data-owner="ALL">
-          🧱 Cała kolekcja <span class="tabCount" id="tabCountAll">0</span>
-        </button>
-        <button type="button" class="ownerTab" data-owner="CZAREK">
-          👦 Kolekcja Czarka <span class="tabCount" id="tabCountC">0</span>
-        </button>
-        <button type="button" class="ownerTab" data-owner="MATEUSZ">
-          🧔 Klasyki Taty (lata 80./90.) <span class="tabCount" id="tabCountM">0</span>
-        </button>
-        <button type="button" class="ownerTab" data-owner="WISHLIST" id="ownerTabWishlist" style="display:none">
-          🎁 Lista Marzeń <span class="tabCount" id="tabCountW">0</span>
-        </button>
+      <div class="ownerTabsRow">
+        <div class="ownerTabs" id="ownerTabs">
+          <button type="button" class="ownerTab active" data-owner="ALL">
+            🧱 Cała kolekcja <span class="tabCount" id="tabCountAll">0</span>
+          </button>
+          <button type="button" class="ownerTab" data-owner="CZAREK">
+            👦 Kolekcja Czarka <span class="tabCount" id="tabCountC">0</span>
+          </button>
+          <button type="button" class="ownerTab" data-owner="MATEUSZ">
+            🧔 Klasyki Taty (lata 80./90.) <span class="tabCount" id="tabCountM">0</span>
+          </button>
+          <button type="button" class="ownerTab" data-owner="WISHLIST" id="ownerTabWishlist" style="display:none">
+            🎁 Lista Marzeń <span class="tabCount" id="tabCountW">0</span>
+          </button>
+        </div>
+
+        <div class="filterUtilityActions">
+          <button type="button" class="utilityBtn resetFiltersBtn" id="resetAllFiltersBtn" data-reset-filters="true" style="display:none">
+            ↺ Wyczyść filtry
+          </button>
+          <button type="button" class="utilityBtn" id="copyLinkBtn" title="Skopiuj bezpośredni link do obecnego widoku">
+            🔗 Kopiuj link
+          </button>
+        </div>
       </div>
 
       <div class="themeFilterRow" id="themeFilterRow"></div>
@@ -1467,7 +1810,7 @@
     <section class="collectionSection" id="sectionC">
       <div class="sectionHeader">
         <div class="sectionHeaderLeft">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO" width="42" height="42" style="border-radius:8px;flex-shrink:0" />
+          <img src="./lego-logo.svg" alt="LEGO" width="42" height="42" style="border-radius:8px;flex-shrink:0" />
           <div>
             <h2>Zestawy LEGO Czarka (współczesna kolekcja)</h2>
             <p>Zestawy, które Czarek posiada już w domu</p>
@@ -1478,7 +1821,10 @@
 
       <div id="gridC" class="grid"></div>
       <div id="emptyC" class="emptyState" style="display:none">
-        Brak zestawów Czarka pasujących do wybranego filtra.
+        <div>Brak zestawów Czarka pasujących do wybranego filtra.</div>
+        <div class="emptyStateActions">
+          <button type="button" class="utilityBtn resetFiltersBtn" data-reset-filters="true">↺ Wyczyść filtry</button>
+        </div>
       </div>
     </section>
 
@@ -1486,7 +1832,7 @@
     <section class="collectionSection" id="sectionM">
       <div class="sectionHeader retro">
         <div class="sectionHeaderLeft">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO" width="42" height="42" style="border-radius:8px;flex-shrink:0" />
+          <img src="./lego-logo.svg" alt="LEGO" width="42" height="42" style="border-radius:8px;flex-shrink:0" />
           <div>
             <h2>Klasyczne klocki Mateusza (kolekcja retro z lat 1987–1993)</h2>
             <p>Kultowe zestawy LEGO® System, Town, Castle i Pirates z dzieciństwa Taty</p>
@@ -1497,7 +1843,10 @@
 
       <div id="gridM" class="grid"></div>
       <div id="emptyM" class="emptyState" style="display:none">
-        Brak zestawów w sekcji klasycznej pasujących do wybranego filtra.
+        <div>Brak zestawów w sekcji klasycznej pasujących do wybranego filtra.</div>
+        <div class="emptyStateActions">
+          <button type="button" class="utilityBtn resetFiltersBtn" data-reset-filters="true">↺ Wyczyść filtry</button>
+        </div>
       </div>
     </section>
   </main>
@@ -1505,19 +1854,35 @@
   <footer>
     <div class="footerInner">
       <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:#111827">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg" alt="LEGO" width="24" height="24" style="border-radius:4px" />
+        <img src="./lego-logo.svg" alt="LEGO" width="24" height="24" style="border-radius:4px" />
         <span>Zestawy LEGO Czarka • Automatyczna synchronizacja kolekcji</span>
       </div>
-      <div id="updatedFooter">Ostatnia aktualizacja danych: –</div>
+      <div id="updatedFooter">Ostatnia aktualizacja kolekcji: –</div>
+
+      <!-- Mały dyskretny przycisk odświeżania z Rebrickable (raz na 6h) -->
+      <div class="footerSyncRow">
+        <button type="button" class="footerSyncBtn" id="refreshRebrickableBtn" title="Uruchom aktualizację kolekcji z Rebrickable (maksymalnie raz na 6 godzin)">
+          <span class="syncIcon" aria-hidden="true">🔄</span>
+          <span id="refreshBtnLabel">Odśwież z Rebrickable</span>
+        </button>
+        <button type="button" class="footerConfigBtn" id="tokenConfigBtn" title="Ustawienia tokenu GitHub (dla właściciela)" aria-label="Ustawienia tokenu GitHub">
+          🔑
+        </button>
+      </div>
+      <div id="syncStatusMsg" class="syncStatusMsg" aria-live="polite"></div>
     </div>
   </footer>
+
+  <!-- Przycisk szybkiego powrotu na górę -->
+  <button type="button" class="scrollTopBtn" id="scrollTopBtn" title="Wróć na górę strony" aria-label="Wróć na górę strony">↑</button>
 
   <!-- MODAL / LIGHTBOX PODGLĄDU PUDEŁKA -->
   <div class="modalBackdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modalBox">
       <button type="button" class="modalClose" id="modalClose" aria-label="Zamknij podgląd">✕</button>
-      <div class="modalImgWrap">
+      <div class="modalImgWrap" id="modalImgWrap">
         <img id="modalImg" src="" alt="" />
+        <div id="modalImgPlaceholder" class="modalImgPlaceholder" style="display:none">Brak zdjęcia zestawu</div>
       </div>
       <div class="modalBody">
         <div class="themeTagsRow" id="modalBadges"></div>
@@ -1529,12 +1894,56 @@
     </div>
   </div>
 
+  <!-- MODAL KONFIGURACJI TOKENU GITHUB (Opcja B — wyłącznie w lokalnej przeglądarce) -->
+  <div class="modalBackdrop" id="tokenModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="tokenModalTitle">
+    <div class="modalBox compact">
+      <button type="button" class="modalClose" id="tokenModalClose" aria-label="Zamknij konfigurację">✕</button>
+      <div class="modalBody">
+        <h3 class="modalTitle" id="tokenModalTitle">🔑 Odświeżanie z Rebrickable (konfiguracja)</h3>
+        <p class="modalSub" style="margin-bottom:10px">
+          Aby uruchamiać aktualizację kolekcji jednym kliknięciem z tej strony (maksymalnie raz na 6 godzin), zapisz jednorazowo token GitHub.
+          <strong>Token jest zapisywany wyłącznie lokalnie w Twojej przeglądarce</strong> i nigdy nie trafia do kodu strony.
+        </p>
+
+        <ol class="tokenSteps">
+          <li>Otwórz <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">GitHub → New fine-grained token ↗</a></li>
+          <li>W sekcji <strong>Repository access</strong> wybierz <em>Only select repositories</em> → <code>legoczarka/legoczarka.github.io</code></li>
+          <li>W <strong>Repository permissions</strong> ustaw wyłącznie <strong>Actions: Read and write</strong>, wygeneruj token i wklej go poniżej:</li>
+        </ol>
+
+        <div class="tokenInputWrap">
+          <input type="password" id="ghTokenInput" class="tokenInput" placeholder="github_pat_..." autocomplete="off" spellcheck="false" />
+          <button type="button" class="modalBtnSecondary" id="toggleTokenVisBtn" style="padding:10px 12px" title="Pokaż lub ukryj token" aria-label="Pokaż lub ukryj token">👁️</button>
+        </div>
+        <div class="tokenError" id="tokenError"></div>
+        <div class="tokenHint" id="tokenSavedHint"></div>
+
+        <div class="modalLinks">
+          <button type="button" class="modalBtnPrimary" id="saveTokenBtn">💾 Zapisz token</button>
+          <button type="button" class="modalBtnDanger" id="removeTokenBtn" style="display:none">🗑️ Usuń token</button>
+          <a class="modalBtnSecondary" href="https://github.com/legoczarka/legoczarka.github.io/actions/workflows/update.yml" target="_blank" rel="noopener noreferrer">
+            ⚙️ Otwórz GitHub Actions ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script src="./data/sets.js"></script>
 <script>
 const YEAR_SPLIT = 2000;
-const LEGO_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/2/24/LEGO_logo.svg";
+const LEGO_LOGO_URL = "./lego-logo.svg";
 
-// Słownik polsko-angielski i tłumaczeń dla obecnych i przyszłych zestawów
+// Konfiguracja GitHub Actions (Opcja B — przycisk odświeżania raz na 6h)
+const GH_OWNER = "legoczarka";
+const GH_REPO = "legoczarka.github.io";
+const GH_WORKFLOW_FILE = "update.yml";
+const GH_BRANCH = "main";
+const SYNC_COOLDOWN_MS = 6 * 60 * 60 * 1000; // 6 godzin
+const STORAGE_PAT_KEY = "lego_rebrickable_gh_pat";
+const STORAGE_LAST_TRIGGER_KEY = "lego_rebrickable_last_trigger";
+
+// Słownik zapasowych polskich nazw zestawów
 const EXACT_PL_NAMES = {
   "77117": "Sonic: Błyskawica Speedster",
   "42225": "Żółty motocykl",
@@ -1543,6 +1952,7 @@ const EXACT_PL_NAMES = {
   "60498": "Traktor rolniczy",
   "60490": "Pług śnieżny",
   "60488": "Food truck z frytkami",
+  "60486": "Supersamochód elektryczny",
   "60479": "Policyjna furgonetka więzienna",
   "60478": "Betoniarka",
   "60475": "Kalendarz adwentowy LEGO City 2025",
@@ -1599,21 +2009,29 @@ const THEME_LABELS = {
   "Ninjago": { label: "LEGO Ninjago", short: "NINJAGO", icon: "🥷" },
   "Sonic The Hedgehog": { label: "LEGO Sonic", short: "SONIC", icon: "⚡" },
   "Classic": { label: "LEGO Classic", short: "CLASSIC", icon: "🦖" },
+  "Seasonal": { label: "LEGO Seasonal", short: "SEASONAL", icon: "🎄" },
   "Town": { label: "LEGO System Town", short: "SYSTEM", icon: "🏘️" },
   "Castle": { label: "LEGOLAND Castle", short: "CASTLE", icon: "🏰" },
   "Pirates": { label: "LEGOLAND Pirates", short: "PIRATES", icon: "🏴‍☠️" }
 };
 
-function themeSlug(theme) {
-  return String(theme || "City").replace(/[^a-zA-Z0-9]+/g, "-");
-}
-
-function renderSeriesLogoHTML(theme) {
-  const info = THEME_LABELS[theme] || { short: String(theme || "LEGO").toUpperCase() };
-  const slug = themeSlug(theme);
-  const extra = theme === "Creator" ? `<span class="creator3in1">3in1</span>` : "";
-  return `<span class="legoSeriesLogo logo-${escapeHtml(slug)}"><img class="legoMiniSquare" src="${LEGO_LOGO_URL}" alt="LEGO"/><span>${escapeHtml(info.short)}</span>${extra}</span>`;
-}
+const TOPIC_META = {
+  "Straż pożarna": { icon: "🚒", order: 1 },
+  "Policja": { icon: "🚓", order: 2 },
+  "Budowa i koparki": { icon: "🚜", order: 3 },
+  "Lotnisko i samoloty": { icon: "✈️", order: 4 },
+  "Pojazdy miejskie": { icon: "🚛", order: 5 },
+  "Wyścigi i auta": { icon: "🏎️", order: 6 },
+  "Farma i traktory": { icon: "🌾", order: 7 },
+  "Pociągi i tramwaje": { icon: "🚆", order: 8 },
+  "Ratownictwo": { icon: "🚑", order: 9 },
+  "Kosmos": { icon: "🚀", order: 10 },
+  "Zwierzęta i stwory": { icon: "🦖", order: 11 },
+  "Świąteczne": { icon: "🎄", order: 12 },
+  "Zamek i Rycerze": { icon: "🏰", order: 13 },
+  "Piraci": { icon: "🏴‍☠️", order: 14 },
+  "Klasyczne Miasto": { icon: "🏘️", order: 15 }
+};
 
 // Słownik pojęć EN -> PL wspomagający wyszukiwanie po polsku dla dowolnych przyszłych zestawów
 const EN_TO_PL_KEYWORDS = [
@@ -1628,6 +2046,7 @@ const EN_TO_PL_KEYWORDS = [
   ["ambulance", "karetka pogotowie ratownictwo"],
   ["hospital", "szpital lekarz ratownictwo"],
   ["treatment center", "szpital centrum medyczne"],
+  ["rescue", "ratownictwo ratunkowy"],
   ["airport", "lotnisko samolot"],
   ["airplane", "samolot odrzutowiec"],
   ["helicopter", "helikopter śmigłowiec"],
@@ -1652,10 +2071,13 @@ const EN_TO_PL_KEYWORDS = [
   ["streetcar", "tramwaj pociąg tory stacja"],
   ["train", "pociąg kolej tory"],
   ["scrapyard", "złomowisko warsztat"],
+  ["supercar", "supersamochód samochód sportowy auto wyścigowe"],
   ["sports car", "samochód sportowy auto wyścigowe"],
   ["race car", "samochód wyścigowy wyścigówka bolid"],
-  ["ferrari", "bolid f1 wyścigi"],
+  ["motorcycle", "motocykl motor jednoślad"],
+  ["ferrari", "bolid f1 wyścigi formuła"],
   ["monster truck", "monster truck terenówka"],
+  ["sonic", "sonic jeż speedster wyścigi"],
   ["spaceship", "statek kosmiczny rakieta kosmos"],
   ["drone", "dron robot kosmos"],
   ["dragon", "smok potwór"],
@@ -1669,6 +2091,45 @@ const EN_TO_PL_KEYWORDS = [
   ["treasure", "skarb piraci"],
   ["boat", "łódź motorówka statek woda"]
 ];
+
+function escapeHtml(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function normalizeSearch(str) {
+  return String(str || "")
+    .toLowerCase()
+    .replace(/ł/g, "l")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function pluralPl(n, one, few, many) {
+  const abs = Math.abs(Number(n) || 0);
+  const mod10 = abs % 10;
+  const mod100 = abs % 100;
+  if (abs === 1) return one;
+  if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return few;
+  return many;
+}
+
+function themeSlug(theme) {
+  return String(theme || "City").replace(/[^a-zA-Z0-9]+/g, "-");
+}
+
+function renderSeriesLogoHTML(theme) {
+  const info = THEME_LABELS[theme] || { short: String(theme || "LEGO").toUpperCase() };
+  const slug = themeSlug(theme);
+  const extra = theme === "Creator" ? `<span class="creator3in1">3in1</span>` : "";
+  return `<span class="legoSeriesLogo logo-${escapeHtml(slug)}"><img class="legoMiniSquare" src="${LEGO_LOGO_URL}" alt="LEGO"/><span>${escapeHtml(info.short)}</span>${extra}</span>`;
+}
 
 function cleanSetNum(setNum) {
   return String(setNum || "").split("-")[0];
@@ -1687,6 +2148,7 @@ function inferTheme(item) {
   if (clean.startsWith("42")) return "Technic";
   if (clean.startsWith("31") || clean.startsWith("306")) return "Creator";
   if (clean.startsWith("71")) return "Ninjago";
+  if (clean.startsWith("77")) return "Sonic The Hedgehog";
   if (clean.startsWith("11")) return "Classic";
   return "City";
 }
@@ -1694,36 +2156,46 @@ function inferTheme(item) {
 function inferCategoryPl(item, theme) {
   if (item.category_pl) return item.category_pl;
   const hay = `${item.name || ""} ${theme || ""} ${item.subtheme_name || ""}`.toLowerCase();
-  if (hay.includes("fire")) return "Straż pożarna";
-  if (hay.includes("police") || hay.includes("prison") || hay.includes("pursuit") || hay.includes("precinct")) return "Policja";
-  if (hay.includes("airport") || hay.includes("airplane") || hay.includes("helicopter") || hay.includes("ultra light")) return "Lotnisko i samoloty";
-  if (hay.includes("loader") || hay.includes("bulldozer") || hay.includes("cement") || hay.includes("construction") || hay.includes("excavator")) return "Budowa i koparki";
-  if (hay.includes("tractor") || hay.includes("farm") || hay.includes("sheep")) return "Farma i traktory";
-  if (hay.includes("streetcar") || hay.includes("train") || hay.includes("tram")) return "Pociągi i tramwaje";
-  if (hay.includes("ambulance") || hay.includes("treatment") || hay.includes("hospital")) return "Ratownictwo";
-  if (hay.includes("space") || hay.includes("drone")) return "Kosmos";
-  if (hay.includes("race") || hay.includes("sports car") || hay.includes("ferrari") || hay.includes("monster") || hay.includes("racer") || hay.includes("patriot") || hay.includes("rebel")) return "Wyścigi i auta";
+  if (/\bfire\b/.test(hay)) return "Straż pożarna";
+  if (/\b(police|prison|prisoner|pursuit|precinct)\b/.test(hay)) return "Policja";
+  if (/\b(airport|airplane|plane|helicopter|ultra\s+light)\b/.test(hay)) return "Lotnisko i samoloty";
+  if (/\b(loader|bulldozer|cement|construction|excavator|backhoe|crane)\b/.test(hay)) return "Budowa i koparki";
+  if (/\b(tractor|farm|sheep)\b/.test(hay)) return "Farma i traktory";
+  if (/\b(streetcar|train|tram)\b/.test(hay)) return "Pociągi i tramwaje";
+  if (/\b(ambulance|treatment|hospital|medical)\b/.test(hay)) return "Ratownictwo";
+  if (/\b(space|spaceship|drone|rocket)\b/.test(hay)) return "Kosmos";
+  if (/\b(race|racing|sports\s+car|supercar|ferrari|f1|monster|racer|patriot|rebel|motorcycle|speedster|car)\b/.test(hay)) return "Wyścigi i auta";
   if (theme === "Castle") return "Zamek i Rycerze";
   if (theme === "Pirates") return "Piraci";
-  if (hay.includes("dragon") || hay.includes("dinosaur")) return "Zwierzęta i stwory";
-  if (hay.includes("advent") || hay.includes("snowman")) return "Świąteczne";
+  if (/\b(dragon|dinosaur|dinosaurs)\b/.test(hay)) return "Zwierzęta i stwory";
+  if (/\b(advent|snowman|christmas|seasonal)\b/.test(hay)) return "Świąteczne";
   return "Pojazdy miejskie";
 }
 
-function buildSearchHaystack(item) {
+function buildSearchHaystackNorm(item, displayPl, theme, catPl) {
   const clean = cleanSetNum(item.set_num);
   const nameEn = (item.name || "").toLowerCase();
-  const namePl = (item.name_pl || EXACT_PL_NAMES[clean] || "").toLowerCase();
-  const theme = inferTheme(item);
   const themeLabel = (THEME_LABELS[theme]?.label || theme || "").toLowerCase();
-  const catPl = inferCategoryPl(item, theme).toLowerCase();
 
   let extraPl = "";
   for (const [en, pl] of EN_TO_PL_KEYWORDS) {
     if (nameEn.includes(en)) extraPl += " " + pl;
   }
 
-  return `${clean} ${item.set_num || ""} ${namePl} ${nameEn} ${theme.toLowerCase()} ${themeLabel} ${catPl} ${extraPl}`.toLowerCase();
+  return normalizeSearch(
+    `${clean} ${item.set_num || ""} ${displayPl || ""} ${nameEn} ${theme || ""} ${themeLabel} ${catPl || ""} ${item.year || ""} ${extraPl}`
+  );
+}
+
+function matchesQuery(item, qRaw) {
+  const qNorm = normalizeSearch(qRaw);
+  if (!qNorm) return true;
+  const tokens = qNorm
+    .split(" ")
+    .map(t => t.replace(/^#/, ""))
+    .filter(Boolean);
+  if (!tokens.length) return true;
+  return tokens.every(tok => item._haystackNorm.includes(tok));
 }
 
 function fmtNumber(n) {
@@ -1742,6 +2214,15 @@ function fmtDate(isoStr) {
     hour: "2-digit",
     minute: "2-digit"
   }).format(d);
+}
+
+function fmtDurationPl(ms) {
+  const totalMin = Math.max(1, Math.ceil(ms / 60000));
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  if (h > 0 && m > 0) return `${h}g ${m}m`;
+  if (h > 0) return `${h}g`;
+  return `${m}m`;
 }
 
 function sumParts(arr) {
@@ -1768,14 +2249,6 @@ function sortSets(arr, mode) {
   return a;
 }
 
-function escapeHtml(str) {
-  return String(str || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
 function cardHTML(x, isWishlist = false, isExactMatch = false) {
   const cleanNum = x._cleanNum;
   const theme = x._theme;
@@ -1798,7 +2271,14 @@ function cardHTML(x, isWishlist = false, isExactMatch = false) {
         </div>
       </div>
 
-      <div class="imgBox" onclick="openModal('${escapeHtml(x.set_num)}', ${isWishlist})">
+      <div
+        class="imgBox"
+        role="button"
+        tabindex="0"
+        data-open-modal="${escapeHtml(x.set_num)}"
+        data-wishlist="${isWishlist ? "1" : "0"}"
+        aria-label="Powiększ pudełko LEGO ${escapeHtml(cleanNum)} ${escapeHtml(titlePl)}"
+      >
         ${x.set_img_url
           ? `<img src="${escapeHtml(x.set_img_url)}" alt="LEGO ${escapeHtml(cleanNum)} ${escapeHtml(titlePl)}" loading="lazy" onerror="this.style.display='none'">`
           : `<div style="color:#94A3B8;font-weight:700">Brak zdjęcia</div>`
@@ -1823,7 +2303,7 @@ function cardHTML(x, isWishlist = false, isExactMatch = false) {
           </div>
 
           <div class="cardActions">
-            <a class="instrBtn" href="${legoInstrUrl}" target="_blank" rel="noopener" title="Zobacz oficjalną instrukcję budowania na LEGO.com">
+            <a class="instrBtn" href="${legoInstrUrl}" target="_blank" rel="noopener noreferrer" title="Zobacz oficjalną instrukcję budowania na LEGO.com">
               📖 Instrukcja
             </a>
           </div>
@@ -1833,66 +2313,997 @@ function cardHTML(x, isWishlist = false, isExactMatch = false) {
   `;
 }
 
+// Stan globalny aplikacji
 let ALL_SETS = [];
 let ALL_WISHLIST = [];
+let CURRENT_GENERATED_AT = null;
+let activeOwner = "ALL";
+let activeTheme = "ALL";
+let activeTopic = "ALL";
+let lastFocusedEl = null;
+
+// Elementy DOM
+const qEl = document.getElementById("q");
+const clearBtn = document.getElementById("clearBtn");
+const sortEl = document.getElementById("sort");
+const checkerResult = document.getElementById("checkerResult");
+const quickTopicsEl = document.getElementById("quickTopics");
+const themeFilterRow = document.getElementById("themeFilterRow");
+const wishlistSection = document.getElementById("wishlistSection");
+const ownerTabWishlist = document.getElementById("ownerTabWishlist");
+const resetAllFiltersBtn = document.getElementById("resetAllFiltersBtn");
+const copyLinkBtn = document.getElementById("copyLinkBtn");
+const copyWishlistLinkBtn = document.getElementById("copyWishlistLinkBtn");
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+// Modale
+const modalBackdrop = document.getElementById("modalBackdrop");
+const tokenModalBackdrop = document.getElementById("tokenModalBackdrop");
+
+function syncBodyScrollLock() {
+  const anyOpen = modalBackdrop.classList.contains("open") || tokenModalBackdrop.classList.contains("open");
+  document.body.classList.toggle("modalOpen", anyOpen);
+}
 
 function openModal(setNum, isWishlist) {
   const source = isWishlist ? ALL_WISHLIST : ALL_SETS;
   const item = source.find(s => s.set_num === setNum);
   if (!item) return;
 
+  lastFocusedEl = document.activeElement;
   const cleanNum = item._cleanNum;
   const theme = item._theme;
   const legoInstrUrl = `https://www.lego.com/pl-pl/service/buildinginstructions/${encodeURIComponent(cleanNum)}`;
 
   const modalImg = document.getElementById("modalImg");
-  modalImg.src = item.set_img_url || "";
-  modalImg.alt = `${cleanNum} ${item._displayPl}`;
+  const modalPlaceholder = document.getElementById("modalImgPlaceholder");
+  if (item.set_img_url) {
+    modalImg.style.display = "block";
+    modalPlaceholder.style.display = "none";
+    modalImg.src = item.set_img_url;
+    modalImg.alt = `${cleanNum} ${item._displayPl}`;
+  } else {
+    modalImg.removeAttribute("src");
+    modalImg.style.display = "none";
+    modalPlaceholder.style.display = "block";
+  }
 
   document.getElementById("modalBadges").innerHTML = `
     <span class="boxNumberBadge">#${escapeHtml(cleanNum)}</span>
     ${renderSeriesLogoHTML(theme)}
     ${item._categoryPl ? `<span class="catTag">${escapeHtml(item._categoryPl)}</span>` : ""}
-    ${(item.quantity || 1) > 1 ? `<span class="qtyBadge">${item.quantity} szt.</span>` : ""}
+    ${(item.quantity || 1) > 1 ? `<span class="qtyBadge">${escapeHtml(item.quantity)} szt.</span>` : ""}
     ${isWishlist ? `<span class="wishBadge">🎯 Na Liście Marzeń</span>` : ""}
   `;
 
   document.getElementById("modalTitle").textContent = item._displayPl;
   document.getElementById("modalSub").textContent = item.name && item.name !== item._displayPl ? `Oryginalna nazwa na pudełku: ${item.name}` : "";
   document.getElementById("modalSpecs").innerHTML = `
-    <span>📅 Rok wydania: <strong>${item.year ?? "–"}</strong></span>
+    <span>📅 Rok wydania: <strong>${escapeHtml(item.year ?? "–")}</strong></span>
     <span>🧩 Liczba klocków: <strong>${fmtNumber(item.num_parts)}</strong></span>
   `;
 
   document.getElementById("modalLinks").innerHTML = `
-    <a class="modalBtnPrimary" href="${legoInstrUrl}" target="_blank" rel="noopener">📖 Instrukcja budowania (LEGO.com) ↗</a>
-    ${item.set_url ? `<a class="modalBtnSecondary" href="${escapeHtml(item.set_url)}" target="_blank" rel="noopener">🔗 Karta w katalogu Rebrickable ↗</a>` : ""}
+    <a class="modalBtnPrimary" href="${legoInstrUrl}" target="_blank" rel="noopener noreferrer">📖 Instrukcja budowania (LEGO.com) ↗</a>
+    ${item.set_url ? `<a class="modalBtnSecondary" href="${escapeHtml(item.set_url)}" target="_blank" rel="noopener noreferrer">🔗 Karta w katalogu Rebrickable ↗</a>` : ""}
   `;
 
-  document.getElementById("modalBackdrop").classList.add("open");
+  modalBackdrop.classList.add("open");
+  syncBodyScrollLock();
+  document.getElementById("modalClose").focus();
 }
 
 function closeModal() {
-  document.getElementById("modalBackdrop").classList.remove("open");
+  if (!modalBackdrop.classList.contains("open")) return;
+  modalBackdrop.classList.remove("open");
+  syncBodyScrollLock();
+  if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+    lastFocusedEl.focus();
+  }
 }
 
 document.getElementById("modalClose").addEventListener("click", closeModal);
-document.getElementById("modalBackdrop").addEventListener("click", (e) => {
+modalBackdrop.addEventListener("click", (e) => {
   if (e.target.id === "modalBackdrop") closeModal();
 });
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
+
+// Delegacja kliknięć i klawiatury dla otwierania podglądu oraz resetowania filtrów
+document.getElementById("mainContainer").addEventListener("click", (e) => {
+  const resetTrigger = e.target.closest("[data-reset-filters]");
+  if (resetTrigger) {
+    resetAllFilters();
+    return;
+  }
+  const modalTrigger = e.target.closest("[data-open-modal]");
+  if (modalTrigger) {
+    openModal(modalTrigger.dataset.openModal, modalTrigger.dataset.wishlist === "1");
+  }
 });
 
+document.getElementById("mainContainer").addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const modalTrigger = e.target.closest(".imgBox[data-open-modal]");
+  if (modalTrigger) {
+    e.preventDefault();
+    openModal(modalTrigger.dataset.openModal, modalTrigger.dataset.wishlist === "1");
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (tokenModalBackdrop.classList.contains("open")) closeTokenModal();
+    else closeModal();
+  }
+});
+
+// Przycisk Powrót na górę
+window.addEventListener("scroll", () => {
+  scrollTopBtn.classList.toggle("visible", window.scrollY > 420);
+}, { passive: true });
+
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Obsługa URL query params
+function readInitialParams() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const qParam = params.get("q");
+    if (qParam) qEl.value = qParam;
+
+    const sortParam = params.get("sort");
+    if (sortParam && [...sortEl.options].some(o => o.value === sortParam)) {
+      sortEl.value = sortParam;
+    }
+
+    const ownerParam = (params.get("owner") || "").toUpperCase();
+    if (["ALL", "CZAREK", "MATEUSZ", "WISHLIST"].includes(ownerParam)) {
+      activeOwner = ownerParam;
+    }
+
+    const themeParam = params.get("theme");
+    if (themeParam) activeTheme = themeParam;
+
+    const topicParam = params.get("topic");
+    if (topicParam) activeTopic = topicParam;
+  } catch (e) {}
+}
+
+function syncUrlParams() {
+  try {
+    const url = new URL(window.location.href);
+    const qVal = qEl.value.trim();
+    if (qVal) url.searchParams.set("q", qVal); else url.searchParams.delete("q");
+    if (activeOwner !== "ALL") url.searchParams.set("owner", activeOwner); else url.searchParams.delete("owner");
+    if (activeTheme !== "ALL") url.searchParams.set("theme", activeTheme); else url.searchParams.delete("theme");
+    if (activeTopic !== "ALL") url.searchParams.set("topic", activeTopic); else url.searchParams.delete("topic");
+    if (sortEl.value !== "new") url.searchParams.set("sort", sortEl.value); else url.searchParams.delete("sort");
+    window.history.replaceState(null, "", url.pathname + url.search + url.hash);
+  } catch (e) {}
+}
+
+async function copyUrlWithFeedback(btn, customUrl) {
+  const targetUrl = customUrl || window.location.href;
+  const origText = btn.textContent;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(targetUrl);
+    } else {
+      const ta = document.createElement("textarea");
+      ta.value = targetUrl;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    btn.textContent = "✓ Skopiowano link!";
+    setTimeout(() => { btn.textContent = origText; }, 1800);
+  } catch (e) {
+    btn.textContent = "Skopiuj adres z paska";
+    setTimeout(() => { btn.textContent = origText; }, 2200);
+  }
+}
+
+copyLinkBtn.addEventListener("click", () => copyUrlWithFeedback(copyLinkBtn));
+copyWishlistLinkBtn.addEventListener("click", () => {
+  try {
+    const url = new URL(window.location.href);
+    url.search = "?owner=WISHLIST";
+    copyUrlWithFeedback(copyWishlistLinkBtn, url.toString());
+  } catch (e) {
+    copyUrlWithFeedback(copyWishlistLinkBtn);
+  }
+});
+
+function syncFilterButtonsUI() {
+  document.querySelectorAll(".ownerTab").forEach(b => {
+    b.classList.toggle("active", b.dataset.owner === activeOwner);
+  });
+  document.querySelectorAll(".themeBrick").forEach(b => {
+    b.classList.toggle("active", b.dataset.theme === activeTheme);
+  });
+  document.querySelectorAll(".topicChip").forEach(b => {
+    b.classList.toggle("active", b.dataset.topic === activeTopic);
+  });
+  const hasFilters = Boolean(qEl.value.trim()) || activeOwner !== "ALL" || activeTheme !== "ALL" || activeTopic !== "ALL";
+  resetAllFiltersBtn.style.display = hasFilters ? "inline-flex" : "none";
+}
+
+function resetAllFilters(keepSearch = false) {
+  if (!keepSearch) qEl.value = "";
+  activeOwner = "ALL";
+  activeTheme = "ALL";
+  activeTopic = "ALL";
+  syncFilterButtonsUI();
+  render();
+}
+
+function enrichItem(x) {
+  const cleanNum = cleanSetNum(x.set_num);
+  const theme = inferTheme(x);
+  const displayPl = x.name_pl || EXACT_PL_NAMES[cleanNum] || x.name || cleanNum;
+  const categoryPl = inferCategoryPl(x, theme);
+  return {
+    ...x,
+    _cleanNum: cleanNum,
+    _theme: theme,
+    _displayPl: displayPl,
+    _categoryPl: categoryPl,
+    _haystackNorm: buildSearchHaystackNorm(x, displayPl, theme, categoryPl)
+  };
+}
+
+function updateHeroShowcase() {
+  const showcaseEl = document.getElementById("heroShowcaseCards");
+  if (!showcaseEl || !ALL_SETS.length) return;
+  const preferredNums = ["60502", "60414"];
+  const picked = [];
+  for (const num of preferredNums) {
+    const found = ALL_SETS.find(s => s._cleanNum === num && s.set_img_url);
+    if (found) picked.push(found);
+  }
+  if (picked.length < 2) {
+    const fallback = [...ALL_SETS]
+      .filter(s => s.set_img_url && !picked.includes(s))
+      .sort((a, b) => (b.num_parts || 0) - (a.num_parts || 0));
+    while (picked.length < 2 && fallback.length) {
+      picked.push(fallback.shift());
+    }
+  }
+  if (picked.length) {
+    showcaseEl.innerHTML = picked.map(s => `
+      <div class="miniSetCard" title="LEGO #${escapeHtml(s._cleanNum)} ${escapeHtml(s._displayPl)}">
+        <img src="${escapeHtml(s.set_img_url)}" alt="LEGO ${escapeHtml(s._cleanNum)}" />
+      </div>
+    `).join("");
+  }
+}
+
+function buildDynamicFilters() {
+  // Serie LEGO
+  const themeCounts = {};
+  for (const s of ALL_SETS) {
+    themeCounts[s._theme] = (themeCounts[s._theme] || 0) + 1;
+  }
+  const themeOrder = ["City", "Technic", "Creator", "Ninjago", "Sonic The Hedgehog", "Classic", "Seasonal", "Town", "Castle", "Pirates"];
+  const sortedThemes = Object.keys(themeCounts).sort((a, b) => {
+    const ia = themeOrder.indexOf(a);
+    const ib = themeOrder.indexOf(b);
+    if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    return a.localeCompare(b, "pl");
+  });
+
+  if (activeTheme !== "ALL" && !themeCounts[activeTheme]) {
+    activeTheme = "ALL";
+  }
+
+  themeFilterRow.innerHTML = [
+    `<button type="button" class="themeBrick" data-theme="ALL">🧱 Wszystkie serie (${ALL_SETS.length})</button>`,
+    ...sortedThemes.map(t => `<button type="button" class="themeBrick" data-theme="${escapeHtml(t)}">${renderSeriesLogoHTML(t)} <span>(${themeCounts[t]})</span></button>`)
+  ].join("");
+
+  // Szybkie tematy — dynamicznie ze wszystkich obecnych kategorii
+  const topicCounts = {};
+  for (const s of ALL_SETS) {
+    if (s._categoryPl) topicCounts[s._categoryPl] = (topicCounts[s._categoryPl] || 0) + 1;
+  }
+  for (const w of ALL_WISHLIST) {
+    if (w._categoryPl && !(w._categoryPl in topicCounts)) {
+      topicCounts[w._categoryPl] = 0;
+    }
+  }
+  const sortedTopics = Object.keys(topicCounts).sort((a, b) => {
+    const oa = TOPIC_META[a]?.order ?? 99;
+    const ob = TOPIC_META[b]?.order ?? 99;
+    if (oa !== ob) return oa - ob;
+    return a.localeCompare(b, "pl");
+  });
+
+  if (activeTopic !== "ALL" && !(activeTopic in topicCounts)) {
+    activeTopic = "ALL";
+  }
+
+  quickTopicsEl.innerHTML = [
+    `<span class="quickLabel">Szybki temat:</span>`,
+    `<button type="button" class="topicChip" data-topic="ALL">Wszystkie</button>`,
+    ...sortedTopics.map(topic => {
+      const icon = TOPIC_META[topic]?.icon || "🧱";
+      const cnt = topicCounts[topic];
+      return `<button type="button" class="topicChip" data-topic="${escapeHtml(topic)}">${icon} ${escapeHtml(topic)} <span class="topicChipCount">(${cnt})</span></button>`;
+    })
+  ].join("");
+
+  if (activeOwner === "WISHLIST" && ALL_WISHLIST.length === 0) {
+    activeOwner = "ALL";
+  }
+
+  syncFilterButtonsUI();
+}
+
+function updateCheckerBanner(qRaw, filteredSets) {
+  const q = qRaw.trim();
+  if (!q) {
+    checkerResult.className = "checkerResult";
+    checkerResult.innerHTML = "";
+    return;
+  }
+
+  const normalizedNumRaw = q.replace(/^#/, "").trim();
+  const cleanQueryNum = normalizedNumRaw.split("-")[0].trim();
+  const isNumberQuery = /^\d{4,6}(-\d+)?$/.test(normalizedNumRaw);
+
+  // Dokładne dopasowanie po numerze zestawu (zawsze w PEŁNEJ kolekcji!)
+  const exactOwned = ALL_SETS.find(x => x._cleanNum === cleanQueryNum || x.set_num.toLowerCase() === normalizedNumRaw.toLowerCase());
+  const exactWish = ALL_WISHLIST.find(x => x._cleanNum === cleanQueryNum || x.set_num.toLowerCase() === normalizedNumRaw.toLowerCase());
+
+  if (exactOwned) {
+    const ownerLabel = (exactOwned.year ?? 0) >= YEAR_SPLIT ? "Kolekcja Czarka" : "Klasyki Taty";
+    const qtyNote = (Number(exactOwned.quantity) || 1) > 1 ? ` • <strong>mamy już ${exactOwned.quantity} szt.!</strong>` : "";
+    const thumbHtml = exactOwned.set_img_url
+      ? `<button type="button" class="checkerThumbBtn" data-open-modal="${escapeHtml(exactOwned.set_num)}" data-wishlist="0" title="Powiększ pudełko"><img src="${escapeHtml(exactOwned.set_img_url)}" alt="LEGO ${escapeHtml(exactOwned._cleanNum)}"></button>`
+      : "";
+    checkerResult.className = "checkerResult owned";
+    checkerResult.innerHTML = `
+      <div class="checkerHitLeft">
+        ${thumbHtml}
+        <div>
+          ⚠️ <strong>UWAGA — MAMY JUŻ TEN ZESTAW W DOMU!</strong><br/>
+          Zestaw <strong>#${escapeHtml(exactOwned._cleanNum)} — ${escapeHtml(exactOwned._displayPl)}</strong>
+          ${exactOwned.name && exactOwned.name !== exactOwned._displayPl ? `(${escapeHtml(exactOwned.name)})` : ""}
+          • ${escapeHtml(ownerLabel)}${qtyNote}. Wybierz inny model na prezent!
+        </div>
+      </div>
+      <button type="button" class="checkerActionBtn danger" data-open-modal="${escapeHtml(exactOwned.set_num)}" data-wishlist="0">
+        🔍 Powiększ pudełko
+      </button>
+    `;
+    return;
+  }
+
+  if (exactWish) {
+    const thumbHtml = exactWish.set_img_url
+      ? `<button type="button" class="checkerThumbBtn" data-open-modal="${escapeHtml(exactWish.set_num)}" data-wishlist="1" title="Powiększ pudełko"><img src="${escapeHtml(exactWish.set_img_url)}" alt="LEGO ${escapeHtml(exactWish._cleanNum)}"></button>`
+      : "";
+    checkerResult.className = "checkerResult wishlistHit";
+    checkerResult.innerHTML = `
+      <div class="checkerHitLeft">
+        ${thumbHtml}
+        <div>
+          🎯 <strong>STRZAŁ W DZIESIĄTKĘ!</strong><br/>
+          Zestaw <strong>#${escapeHtml(exactWish._cleanNum)} — ${escapeHtml(exactWish._displayPl)}</strong> jest na naszej Liście Marzeń!
+        </div>
+      </div>
+      <button type="button" class="checkerActionBtn amber" data-open-modal="${escapeHtml(exactWish.set_num)}" data-wishlist="1">
+        🔍 Zobacz szczegóły
+      </button>
+    `;
+    return;
+  }
+
+  if (isNumberQuery) {
+    const legoSearchUrl = `https://www.lego.com/pl-pl/search?q=${encodeURIComponent(cleanQueryNum)}`;
+    checkerResult.className = "checkerResult available";
+    checkerResult.innerHTML = `
+      <div>
+        ✅ <strong>SUPER WYBÓR! Zestawu o numerze #${escapeHtml(cleanQueryNum)} NIE MAMY w kolekcji!</strong><br/>
+        Możesz śmiało kupić ten zestaw na prezent dla Czarka — na pewno nie będzie powtórką.
+      </div>
+      <a class="checkerActionLink" href="${legoSearchUrl}" target="_blank" rel="noopener noreferrer">
+        🔎 Zobacz #${escapeHtml(cleanQueryNum)} na LEGO.com ↗
+      </a>
+    `;
+    return;
+  }
+
+  // Wyszukiwanie słowne — ZAWSZE sprawdź pełną kolekcję, żeby aktywne filtry nie dawały fałszywego "Nie mamy!"
+  const fullOwnedMatches = ALL_SETS.filter(x => matchesQuery(x, q));
+  const fullWishMatches = ALL_WISHLIST.filter(x => matchesQuery(x, q));
+
+  if (fullOwnedMatches.length > 0) {
+    const fullWord = pluralPl(fullOwnedMatches.length, "zestaw", "zestawy", "zestawów");
+    if (filteredSets.length === 0) {
+      checkerResult.className = "checkerResult info";
+      checkerResult.innerHTML = `
+        <div>
+          🔍 W całej kolekcji mamy <strong>${fullOwnedMatches.length} ${fullWord}</strong> pasujących do <strong>„${escapeHtml(q)}”</strong>, ale ukrywają je aktywne filtry lub wybrana zakładka.
+        </div>
+        <button type="button" class="checkerActionBtn blue" id="checkerClearFiltersBtn">
+          ↺ Pokaż pasujące zestawy
+        </button>
+      `;
+      document.getElementById("checkerClearFiltersBtn")?.addEventListener("click", () => resetAllFilters(true));
+      return;
+    }
+
+    const hiddenExtra = fullOwnedMatches.length - filteredSets.length;
+    const shownWord = pluralPl(filteredSets.length, "zestaw", "zestawy", "zestawów");
+    checkerResult.className = "checkerResult info";
+    checkerResult.innerHTML = `
+      <div>
+        🔍 Znaleziono <strong>${filteredSets.length} ${shownWord}</strong> pasujących do <strong>„${escapeHtml(q)}”</strong>${hiddenExtra > 0 ? ` (oraz ${hiddenExtra} więcej w innych zakładkach/filtrach)` : ""}. Sprawdź na zdjęciach poniżej, które dokładnie pudełka już mamy!
+      </div>
+      ${hiddenExtra > 0 ? `<button type="button" class="checkerActionBtn blue" id="checkerShowAllBtn">Pokaż wszystkie (${fullOwnedMatches.length})</button>` : ""}
+    `;
+    document.getElementById("checkerShowAllBtn")?.addEventListener("click", () => resetAllFilters(true));
+    return;
+  }
+
+  if (fullWishMatches.length > 0) {
+    const wishWord = pluralPl(fullWishMatches.length, "zestaw", "zestawy", "zestawów");
+    checkerResult.className = "checkerResult wishlistHit";
+    checkerResult.innerHTML = `
+      <div>
+        🎯 Nie mamy tego w domu, ale na <strong>Liście Marzeń</strong> jest <strong>${fullWishMatches.length} ${wishWord}</strong> pasujących do <strong>„${escapeHtml(q)}”</strong>!
+      </div>
+    `;
+    return;
+  }
+
+  checkerResult.className = "checkerResult available";
+  checkerResult.innerHTML = `
+    <div>
+      ✨ <strong>Nie mamy jeszcze żadnego zestawu pasującego do „${escapeHtml(q)}”!</strong><br/>
+      Zestaw z takim motywem będzie zupełną nowością w kolekcji Czarka.
+    </div>
+  `;
+}
+
+function render() {
+  const qRaw = qEl.value || "";
+  const qTrim = qRaw.trim();
+  clearBtn.style.display = qTrim ? "flex" : "none";
+
+  const cleanQueryNum = qTrim.replace(/^#/, "").split("-")[0].trim();
+
+  const filterFn = (x) => {
+    if (activeTheme !== "ALL" && x._theme !== activeTheme) return false;
+    if (activeTopic !== "ALL" && x._categoryPl !== activeTopic) return false;
+    return matchesQuery(x, qRaw);
+  };
+
+  const allFiltered = sortSets(ALL_SETS.filter(filterFn), sortEl.value);
+  const czarekF = allFiltered.filter(x => (x.year ?? 0) >= YEAR_SPLIT);
+  const mateuszF = allFiltered.filter(x => (x.year ?? 0) < YEAR_SPLIT);
+  const wishlistF = sortSets(ALL_WISHLIST.filter(filterFn), sortEl.value);
+
+  const visibleOwned =
+    activeOwner === "CZAREK" ? czarekF :
+    activeOwner === "MATEUSZ" ? mateuszF :
+    activeOwner === "WISHLIST" ? [] :
+    allFiltered;
+
+  updateCheckerBanner(qRaw, visibleOwned);
+  syncFilterButtonsUI();
+  syncUrlParams();
+
+  // Render Listy Marzeń (z uwzględnieniem wyszukiwania, filtrów i sortowania)
+  if (ALL_WISHLIST.length > 0) {
+    const showWishlist = activeOwner === "ALL" || activeOwner === "WISHLIST";
+    wishlistSection.style.display = showWishlist ? "block" : "none";
+    document.getElementById("gridWishlist").innerHTML = wishlistF.map(x => cardHTML(x, true, Boolean(cleanQueryNum) && x._cleanNum === cleanQueryNum)).join("");
+    document.getElementById("emptyW").style.display = wishlistF.length ? "none" : "block";
+  } else {
+    wishlistSection.style.display = "none";
+  }
+
+  const sectionC = document.getElementById("sectionC");
+  const sectionM = document.getElementById("sectionM");
+
+  if (activeOwner === "WISHLIST") {
+    sectionC.style.display = "none";
+    sectionM.style.display = "none";
+    return;
+  }
+
+  sectionC.style.display = (activeOwner === "ALL" || activeOwner === "CZAREK") ? "block" : "none";
+  sectionM.style.display = (activeOwner === "ALL" || activeOwner === "MATEUSZ") ? "block" : "none";
+
+  const cParts = sumParts(czarekF);
+  const mParts = sumParts(mateuszF);
+  document.getElementById("sectionBadgeC").textContent =
+    `${czarekF.length} ${pluralPl(czarekF.length, "zestaw", "zestawy", "zestawów")} • ${fmtNumber(cParts)} ${pluralPl(cParts, "klocek", "klocki", "klocków")}`;
+  document.getElementById("sectionBadgeM").textContent =
+    `${mateuszF.length} ${pluralPl(mateuszF.length, "zestaw", "zestawy", "zestawów")} • ${fmtNumber(mParts)} ${pluralPl(mParts, "klocek", "klocki", "klocków")}`;
+
+  document.getElementById("gridC").innerHTML = czarekF.map(x => cardHTML(x, false, Boolean(cleanQueryNum) && x._cleanNum === cleanQueryNum)).join("");
+  document.getElementById("gridM").innerHTML = mateuszF.map(x => cardHTML(x, false, Boolean(cleanQueryNum) && x._cleanNum === cleanQueryNum)).join("");
+
+  document.getElementById("emptyC").style.display = czarekF.length ? "none" : "block";
+  document.getElementById("emptyM").style.display = mateuszF.length ? "none" : "block";
+}
+
+function applyCatalogData(data) {
+  CURRENT_GENERATED_AT = data.generated_at || null;
+  const rawSets = Array.isArray(data.sets) ? data.sets : [];
+  const rawWishlist = Array.isArray(data.wishlist) ? data.wishlist : [];
+
+  ALL_SETS = rawSets.map(enrichItem);
+  ALL_WISHLIST = rawWishlist.map(enrichItem);
+
+  const czarekTotal = ALL_SETS.filter(x => (x.year ?? 0) >= YEAR_SPLIT);
+  const mateuszTotal = ALL_SETS.filter(x => (x.year ?? 0) < YEAR_SPLIT);
+  const czarekBoxes = sumBoxes(czarekTotal);
+  const totalParts = sumParts(ALL_SETS);
+
+  // Statystyki w nagłówku
+  const boxesNote = czarekBoxes > czarekTotal.length ? ` (${czarekBoxes} szt.)` : "";
+  document.getElementById("statCzarek").textContent =
+    `Czarek: ${czarekTotal.length} ${pluralPl(czarekTotal.length, "zestaw", "zestawy", "zestawów")}${boxesNote}`;
+  document.getElementById("statMateusz").textContent =
+    `Klasyki Taty: ${mateuszTotal.length} ${pluralPl(mateuszTotal.length, "zestaw", "zestawy", "zestawów")}`;
+  document.getElementById("statParts").textContent =
+    `Łącznie: ${fmtNumber(totalParts)} ${pluralPl(totalParts, "klocek", "klocki", "klocków")}`;
+  document.getElementById("updatedFooter").textContent =
+    `Ostatnia aktualizacja kolekcji: ${fmtDate(CURRENT_GENERATED_AT)}`;
+
+  // Liczniki na zakładkach
+  document.getElementById("tabCountAll").textContent = ALL_SETS.length;
+  document.getElementById("tabCountC").textContent = czarekTotal.length;
+  document.getElementById("tabCountM").textContent = mateuszTotal.length;
+
+  if (ALL_WISHLIST.length > 0) {
+    ownerTabWishlist.style.display = "inline-flex";
+    document.getElementById("tabCountW").textContent = ALL_WISHLIST.length;
+  } else {
+    ownerTabWishlist.style.display = "none";
+  }
+
+  updateHeroShowcase();
+  buildDynamicFilters();
+  render();
+  updateRefreshButtonUI();
+  autoTranslateMissing();
+}
+
+// Automatyczne tłumaczenie w przeglądarce TYLKO gdy dany zestaw nie ma jeszcze żadnej polskiej nazwy
+async function autoTranslateMissing() {
+  let changed = false;
+  for (const item of [...ALL_SETS, ...ALL_WISHLIST]) {
+    if (item.name_pl || EXACT_PL_NAMES[item._cleanNum] || !item.name) continue;
+    const cacheKey = "lego_pl_" + item._cleanNum;
+    let cachedPl = null;
+    try { cachedPl = localStorage.getItem(cacheKey); } catch (e) {}
+    if (cachedPl) {
+      if (cachedPl !== item.name) {
+        item._displayPl = cachedPl;
+        item._haystackNorm = buildSearchHaystackNorm(item, cachedPl, item._theme, item._categoryPl);
+        changed = true;
+      }
+      continue;
+    }
+    try {
+      const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pl&dt=t&q=" + encodeURIComponent(item.name);
+      const r = await fetch(url);
+      if (r.ok) {
+        const j = await r.json();
+        if (Array.isArray(j) && Array.isArray(j[0])) {
+          const tr = j[0].map(p => p && p[0] ? p[0] : "").join("").trim();
+          const formatted = tr ? (tr.charAt(0).toUpperCase() + tr.slice(1)) : item.name;
+          try { localStorage.setItem(cacheKey, formatted); } catch (e) {}
+          if (formatted.toLowerCase() !== item.name.toLowerCase()) {
+            item._displayPl = formatted;
+            item._haystackNorm = buildSearchHaystackNorm(item, formatted, item._theme, item._categoryPl);
+            changed = true;
+          }
+        }
+      }
+    } catch (e) {}
+  }
+  if (changed) render();
+}
+
+// Zdarzenia filtrów
+qEl.addEventListener("input", render);
+clearBtn.addEventListener("click", () => {
+  qEl.value = "";
+  qEl.focus();
+  render();
+});
+sortEl.addEventListener("change", render);
+
+quickTopicsEl.addEventListener("click", (e) => {
+  const btn = e.target.closest(".topicChip");
+  if (!btn) return;
+  activeTopic = btn.dataset.topic;
+  render();
+});
+
+document.getElementById("ownerTabs").addEventListener("click", (e) => {
+  const btn = e.target.closest(".ownerTab");
+  if (!btn) return;
+  activeOwner = btn.dataset.owner;
+  render();
+});
+
+themeFilterRow.addEventListener("click", (e) => {
+  const btn = e.target.closest(".themeBrick");
+  if (!btn) return;
+  activeTheme = btn.dataset.theme;
+  render();
+});
+
+// ============================================================================
+// OPCJA B: Dyskretny przycisk odświeżania z Rebrickable raz na 6 godzin
+// ============================================================================
+const refreshBtn = document.getElementById("refreshRebrickableBtn");
+const refreshBtnLabel = document.getElementById("refreshBtnLabel");
+const tokenConfigBtn = document.getElementById("tokenConfigBtn");
+const syncStatusMsg = document.getElementById("syncStatusMsg");
+const ghTokenInput = document.getElementById("ghTokenInput");
+const tokenErrorEl = document.getElementById("tokenError");
+const tokenSavedHintEl = document.getElementById("tokenSavedHint");
+const saveTokenBtn = document.getElementById("saveTokenBtn");
+const removeTokenBtn = document.getElementById("removeTokenBtn");
+const toggleTokenVisBtn = document.getElementById("toggleTokenVisBtn");
+
+let isSyncInProgress = false;
+let pendingSyncAfterTokenSave = false;
+
+function getSavedToken() {
+  try { return (localStorage.getItem(STORAGE_PAT_KEY) || "").trim(); } catch (e) { return ""; }
+}
+
+function saveTokenToStorage(token) {
+  try { localStorage.setItem(STORAGE_PAT_KEY, token.trim()); } catch (e) {}
+}
+
+function removeTokenFromStorage() {
+  try { localStorage.removeItem(STORAGE_PAT_KEY); } catch (e) {}
+}
+
+function getLastTriggerMs() {
+  try {
+    const v = Number(localStorage.getItem(STORAGE_LAST_TRIGGER_KEY) || 0);
+    return Number.isFinite(v) ? v : 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+function setLastTriggerMs(ts) {
+  try { localStorage.setItem(STORAGE_LAST_TRIGGER_KEY, String(ts)); } catch (e) {}
+}
+
+function getCooldownRemainingMs() {
+  const now = Date.now();
+  let lastSyncMs = 0;
+
+  if (CURRENT_GENERATED_AT) {
+    const parsed = new Date(CURRENT_GENERATED_AT).getTime();
+    if (!isNaN(parsed)) lastSyncMs = Math.max(lastSyncMs, parsed);
+  }
+  lastSyncMs = Math.max(lastSyncMs, getLastTriggerMs());
+
+  if (!lastSyncMs) return 0;
+  return Math.max(0, SYNC_COOLDOWN_MS - (now - lastSyncMs));
+}
+
+function setSyncStatus(type, htmlContent) {
+  if (!htmlContent) {
+    syncStatusMsg.className = "syncStatusMsg";
+    syncStatusMsg.innerHTML = "";
+    return;
+  }
+  syncStatusMsg.className = `syncStatusMsg show ${type}`;
+  syncStatusMsg.innerHTML = htmlContent;
+}
+
+function updateRefreshButtonUI() {
+  const hasToken = Boolean(getSavedToken());
+  tokenConfigBtn.classList.toggle("configured", hasToken);
+  tokenConfigBtn.title = hasToken
+    ? "Token GitHub zapisany lokalnie (kliknij, aby zmienić lub usunąć)"
+    : "Skonfiguruj token GitHub (dla właściciela)";
+
+  if (isSyncInProgress) {
+    refreshBtn.disabled = true;
+    refreshBtn.classList.add("syncing");
+    refreshBtnLabel.textContent = "Synchronizacja...";
+    return;
+  }
+
+  refreshBtn.classList.remove("syncing");
+  const remMs = getCooldownRemainingMs();
+  if (remMs > 0) {
+    refreshBtn.disabled = true;
+    refreshBtnLabel.textContent = `Odśwież z Rebrickable (za ${fmtDurationPl(remMs)})`;
+    refreshBtn.title = `Limit odświeżania to raz na 6 godzin. Ponownie dostępne za ${fmtDurationPl(remMs)}.`;
+  } else {
+    refreshBtn.disabled = false;
+    refreshBtnLabel.textContent = "Odśwież z Rebrickable";
+    refreshBtn.title = "Pobierz najnowsze zestawy z Rebrickable (limit: raz na 6 godzin)";
+  }
+}
+
+function openTokenModal(triggerSyncOnSave = false) {
+  lastFocusedEl = document.activeElement;
+  pendingSyncAfterTokenSave = triggerSyncOnSave;
+  const existing = getSavedToken();
+
+  ghTokenInput.value = "";
+  ghTokenInput.type = "password";
+  tokenErrorEl.style.display = "none";
+  tokenErrorEl.textContent = "";
+
+  if (existing) {
+    tokenSavedHintEl.textContent = `✓ Token jest już zapisany w tej przeglądarce (końcówka: ...${existing.slice(-4)}). Wklej nowy, aby go nadpisać.`;
+    removeTokenBtn.style.display = "inline-flex";
+  } else {
+    tokenSavedHintEl.textContent = "Token nigdzie nie jest zapisywany na serwerze — zostaje tylko w localStorage tej przeglądarki.";
+    removeTokenBtn.style.display = "none";
+  }
+
+  saveTokenBtn.textContent = triggerSyncOnSave ? "💾 Zapisz i odśwież teraz" : "💾 Zapisz token";
+  tokenModalBackdrop.classList.add("open");
+  syncBodyScrollLock();
+  ghTokenInput.focus();
+}
+
+function closeTokenModal() {
+  if (!tokenModalBackdrop.classList.contains("open")) return;
+  tokenModalBackdrop.classList.remove("open");
+  pendingSyncAfterTokenSave = false;
+  syncBodyScrollLock();
+  if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
+    lastFocusedEl.focus();
+  }
+}
+
+document.getElementById("tokenModalClose").addEventListener("click", closeTokenModal);
+tokenModalBackdrop.addEventListener("click", (e) => {
+  if (e.target.id === "tokenModalBackdrop") closeTokenModal();
+});
+
+toggleTokenVisBtn.addEventListener("click", () => {
+  ghTokenInput.type = ghTokenInput.type === "password" ? "text" : "password";
+  ghTokenInput.focus();
+});
+
+saveTokenBtn.addEventListener("click", () => {
+  const val = ghTokenInput.value.trim();
+  if (!val || val.length < 20) {
+    tokenErrorEl.textContent = "Wklej poprawny token GitHub (np. zaczynający się od github_pat_...).";
+    tokenErrorEl.style.display = "block";
+    return;
+  }
+  const shouldSync = pendingSyncAfterTokenSave;
+  saveTokenToStorage(val);
+  updateRefreshButtonUI();
+  closeTokenModal();
+  setSyncStatus("success", "✓ Token zapisany lokalnie w tej przeglądarce.");
+  if (shouldSync && getCooldownRemainingMs() === 0) {
+    triggerRebrickableSync();
+  }
+});
+
+removeTokenBtn.addEventListener("click", () => {
+  removeTokenFromStorage();
+  updateRefreshButtonUI();
+  closeTokenModal();
+  setSyncStatus("info", "Usunięto zapisany token GitHub z tej przeglądarki.");
+});
+
+tokenConfigBtn.addEventListener("click", () => openTokenModal(false));
+
+refreshBtn.addEventListener("click", () => {
+  if (isSyncInProgress || getCooldownRemainingMs() > 0) return;
+  const token = getSavedToken();
+  if (!token) {
+    openTokenModal(true);
+    return;
+  }
+  triggerRebrickableSync();
+});
+
+function ghHeaders(token) {
+  return {
+    "Accept": "application/vnd.github+json",
+    "Authorization": `Bearer ${token}`,
+    "X-GitHub-Api-Version": "2022-11-28"
+  };
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchLatestRuns(token) {
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/runs?per_page=5`;
+  const res = await fetch(url, { headers: ghHeaders(token), cache: "no-store" });
+  if (!res.ok) return { ok: false, status: res.status, runs: [] };
+  const json = await res.json();
+  return { ok: true, status: res.status, runs: Array.isArray(json.workflow_runs) ? json.workflow_runs : [] };
+}
+
+async function waitForWorkflowAndPages(token, startedAfterMs, beforeGeneratedAt, existingRunId = null) {
+  const maxWorkflowWaitMs = 180000; // maks. 3 min na pobranie z Rebrickable
+  const pollStart = Date.now();
+  let trackedRun = null;
+
+  while (Date.now() - pollStart < maxWorkflowWaitMs) {
+    await sleep(5000);
+    const { ok, runs } = await fetchLatestRuns(token);
+    if (!ok) continue;
+
+    if (existingRunId) {
+      trackedRun = runs.find(r => r.id === existingRunId) || null;
+    } else {
+      trackedRun = runs.find(r => new Date(r.created_at).getTime() >= startedAfterMs - 15000) || null;
+    }
+
+    if (!trackedRun) {
+      setSyncStatus("info", "⏳ Czekam na start zadania w GitHub Actions...");
+      continue;
+    }
+
+    if (trackedRun.status === "queued" || trackedRun.status === "waiting") {
+      setSyncStatus("info", "⏳ Zadanie w kolejce GitHub Actions...");
+    } else if (trackedRun.status === "in_progress") {
+      setSyncStatus("info", "🔄 Pobieram aktualne zestawy z Rebrickable...");
+    } else if (trackedRun.status === "completed") {
+      if (trackedRun.conclusion !== "success") {
+        setSyncStatus(
+          "error",
+          `❌ Aktualizacja zakończyła się błędem (${escapeHtml(trackedRun.conclusion || "failed")}). <a href="${escapeHtml(trackedRun.html_url)}" target="_blank" rel="noopener noreferrer">Zobacz logi ↗</a>`
+        );
+        return;
+      }
+      break;
+    }
+  }
+
+  if (!trackedRun || trackedRun.status !== "completed") {
+    setSyncStatus(
+      "info",
+      `⏳ Aktualizacja nadal trwa w tle. Odśwież stronę za chwilę lub <a href="https://github.com/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}" target="_blank" rel="noopener noreferrer">sprawdź status na GitHubie ↗</a>.`
+    );
+    return;
+  }
+
+  // Krok 2: Poczekaj aż GitHub Pages opublikuje zaktualizowany docs/data/sets.json
+  setSyncStatus("info", "🚀 Zestawy pobrane! Czekam na publikację strony (GitHub Pages)...");
+  const pagesPollStart = Date.now();
+  const maxPagesWaitMs = 110000;
+
+  while (Date.now() - pagesPollStart < maxPagesWaitMs) {
+    await sleep(5000);
+    try {
+      const res = await fetch(`./data/sets.json?ts=${Date.now()}`, { cache: "no-store" });
+      if (res.ok) {
+        const freshData = await res.json();
+        if (freshData && freshData.generated_at && freshData.generated_at !== beforeGeneratedAt) {
+          applyCatalogData(freshData);
+          setSyncStatus("success", `✅ Zaktualizowano z Rebrickable (${fmtDate(freshData.generated_at)})!`);
+          return;
+        }
+      }
+    } catch (e) {}
+  }
+
+  setSyncStatus(
+    "success",
+    `✅ Synchronizacja zakończona! Jeśli nie widać jeszcze zmian, odśwież stronę za ok. minutę (cache GitHub Pages).`
+  );
+}
+
+async function triggerRebrickableSync() {
+  const token = getSavedToken();
+  if (!token) {
+    openTokenModal(true);
+    return;
+  }
+
+  isSyncInProgress = true;
+  updateRefreshButtonUI();
+  setSyncStatus("info", "⏳ Sprawdzam status ostatniej synchronizacji...");
+
+  const beforeGeneratedAt = CURRENT_GENERATED_AT;
+
+  try {
+    // 1. Sprawdź, czy zadanie nie trwa już w tle albo czy nie zakończyło się < 6h temu
+    const check = await fetchLatestRuns(token);
+    if (!check.ok && (check.status === 401 || check.status === 403)) {
+      setSyncStatus("error", "❌ Token GitHub jest nieprawidłowy lub wygasł. Kliknij 🔑, aby wpisać nowy.");
+      return;
+    }
+
+    if (check.ok && check.runs.length > 0) {
+      const latest = check.runs[0];
+      if (latest.status === "queued" || latest.status === "in_progress" || latest.status === "waiting") {
+        setLastTriggerMs(new Date(latest.created_at).getTime());
+        setSyncStatus("info", "🔄 Synchronizacja już trwa na GitHub Actions — śledzę postęp...");
+        await waitForWorkflowAndPages(token, Date.now(), beforeGeneratedAt, latest.id);
+        return;
+      }
+      if (latest.status === "completed" && latest.conclusion === "success") {
+        const lastRunMs = new Date(latest.updated_at || latest.created_at).getTime();
+        const rem = SYNC_COOLDOWN_MS - (Date.now() - lastRunMs);
+        if (rem > 0) {
+          setLastTriggerMs(lastRunMs);
+          setSyncStatus("info", `⏳ Ostatnia synchronizacja była niedawno — kolejna dostępna za ${fmtDurationPl(rem)}.`);
+          return;
+        }
+      }
+    }
+
+    // 2. Uruchom workflow_dispatch z limitem 6h wymuszonym również po stronie workflow
+    const dispatchStart = Date.now();
+    const dispatchUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/dispatches`;
+    const res = await fetch(dispatchUrl, {
+      method: "POST",
+      headers: {
+        ...ghHeaders(token),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ref: GH_BRANCH,
+        inputs: { enforce_cooldown: "true" }
+      })
+    });
+
+    if (res.status === 204) {
+      setLastTriggerMs(dispatchStart);
+      setSyncStatus("info", "⏳ Uruchomiono synchronizację z Rebrickable w GitHub Actions...");
+      await waitForWorkflowAndPages(token, dispatchStart, beforeGeneratedAt);
+    } else if (res.status === 401 || res.status === 403) {
+      setSyncStatus(
+        "error",
+        "❌ Brak uprawnień tokenu. Upewnij się w 🔑, że token ma uprawnienie <strong>Actions: Read and write</strong>."
+      );
+    } else {
+      let msg = `HTTP ${res.status}`;
+      try {
+        const errJson = await res.json();
+        if (errJson && errJson.message) msg = errJson.message;
+      } catch (e) {}
+      setSyncStatus("error", `❌ Nie udało się uruchomić synchronizacji (${escapeHtml(msg)}).`);
+    }
+  } catch (err) {
+    setSyncStatus("error", "❌ Błąd połączenia z GitHub API. Sprawdź internet i spróbuj ponownie.");
+  } finally {
+    isSyncInProgress = false;
+    updateRefreshButtonUI();
+  }
+}
+
+// Odświeżaj licznik 6h co 30 sekund
+setInterval(updateRefreshButtonUI, 30000);
+
+// Inicjalizacja aplikacji
 async function init() {
+  readInitialParams();
+
   let data = null;
   try {
-    const res = await fetch("./data/sets.json?ts=" + Date.now());
+    const res = await fetch("./data/sets.json?ts=" + Date.now(), { cache: "no-store" });
     if (res.ok) {
       data = await res.json();
     }
   } catch (err) {
-    // Otwarcie pliku bezpośrednio z dysku (file://) blokuje fetch() przez politykę CORS przeglądarki — korzystamy z sets.js
+    // Otwarcie pliku bezpośrednio z dysku (file://) blokuje fetch() przez CORS — korzystamy z sets.js
   }
 
   if (!data && window.LEGO_DATA) {
@@ -1900,285 +3311,14 @@ async function init() {
   }
 
   if (!data) {
-    document.getElementById("emptyC").style.display = "block";
-    document.getElementById("emptyC").textContent = "Nie udało się wczytać listy zestawów. Spróbuj odświeżyć stronę za chwilę.";
+    const emptyC = document.getElementById("emptyC");
+    emptyC.style.display = "block";
+    emptyC.textContent = "Nie udało się wczytać listy zestawów. Spróbuj odświeżyć stronę za chwilę.";
+    updateRefreshButtonUI();
     return;
   }
 
-  const rawSets = Array.isArray(data.sets) ? data.sets : [];
-  const rawWishlist = Array.isArray(data.wishlist) ? data.wishlist : [];
-
-  function enrichItem(x) {
-    const cleanNum = cleanSetNum(x.set_num);
-    const theme = inferTheme(x);
-    const displayPl = x.name_pl || EXACT_PL_NAMES[cleanNum] || x.name || cleanNum;
-    const categoryPl = inferCategoryPl(x, theme);
-    return {
-      ...x,
-      _cleanNum: cleanNum,
-      _theme: theme,
-      _displayPl: displayPl,
-      _categoryPl: categoryPl,
-      _haystack: buildSearchHaystack(x)
-    };
-  }
-
-  ALL_SETS = rawSets.map(enrichItem);
-  ALL_WISHLIST = rawWishlist.map(enrichItem);
-
-  const czarekTotal = ALL_SETS.filter(x => (x.year ?? 0) >= YEAR_SPLIT);
-  const mateuszTotal = ALL_SETS.filter(x => (x.year ?? 0) < YEAR_SPLIT);
-
-  // Statystyki w nagłówku
-  document.getElementById("statCzarek").textContent = `Czarek: ${czarekTotal.length} zestawów (${sumBoxes(czarekTotal)} szt.)`;
-  document.getElementById("statMateusz").textContent = `Klasyki Taty: ${mateuszTotal.length} zestawów`;
-  document.getElementById("statParts").textContent = `Łącznie: ${fmtNumber(sumParts(ALL_SETS))} klocków`;
-  document.getElementById("updatedFooter").textContent = `Ostatnia aktualizacja kolekcji: ${fmtDate(data.generated_at)}`;
-
-  // Liczniki na zakładkach
-  document.getElementById("tabCountAll").textContent = ALL_SETS.length;
-  document.getElementById("tabCountC").textContent = czarekTotal.length;
-  document.getElementById("tabCountM").textContent = mateuszTotal.length;
-
-  // Obsługa Listy Marzeń (widoczna TYLKO gdy coś do niej wrzucono)
-  const wishlistSection = document.getElementById("wishlistSection");
-  const ownerTabWishlist = document.getElementById("ownerTabWishlist");
-  if (ALL_WISHLIST.length > 0) {
-    wishlistSection.style.display = "block";
-    ownerTabWishlist.style.display = "inline-flex";
-    document.getElementById("tabCountW").textContent = ALL_WISHLIST.length;
-    document.getElementById("gridWishlist").innerHTML = ALL_WISHLIST.map(x => cardHTML(x, true, false)).join("");
-  } else {
-    wishlistSection.style.display = "none";
-    ownerTabWishlist.style.display = "none";
-  }
-
-  // Zbuduj przyciski serii LEGO
-  const themeCounts = {};
-  for (const s of ALL_SETS) {
-    themeCounts[s._theme] = (themeCounts[s._theme] || 0) + 1;
-  }
-  const themeOrder = ["City", "Technic", "Creator", "Ninjago", "Classic", "Town", "Castle", "Pirates"];
-  const sortedThemes = Object.keys(themeCounts).sort((a, b) => {
-    const ia = themeOrder.indexOf(a);
-    const ib = themeOrder.indexOf(b);
-    return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
-  });
-
-  const themeFilterRow = document.getElementById("themeFilterRow");
-  themeFilterRow.innerHTML = [
-    `<button type="button" class="themeBrick active" data-theme="ALL">🧱 Wszystkie serie (${ALL_SETS.length})</button>`,
-    ...sortedThemes.map(t => {
-      const info = THEME_LABELS[t] || { label: t, icon: "🧱" };
-      return `<button type="button" class="themeBrick" data-theme="${escapeHtml(t)}">${renderSeriesLogoHTML(t)} <span>(${themeCounts[t]})</span></button>`;
-    })
-  ].join("");
-
-  // Stan filtrów
-  let activeOwner = "ALL";
-  let activeTheme = "ALL";
-  let activeTopic = "ALL";
-
-  const qEl = document.getElementById("q");
-  const clearBtn = document.getElementById("clearBtn");
-  const sortEl = document.getElementById("sort");
-  const checkerResult = document.getElementById("checkerResult");
-
-  function updateCheckerBanner(qRaw, filteredAll) {
-    const q = qRaw.trim();
-    if (!q) {
-      checkerResult.className = "checkerResult";
-      checkerResult.innerHTML = "";
-      return;
-    }
-
-    const cleanQueryNum = q.replace(/^#/, "").split("-")[0].trim();
-    const isNumberQuery = /^\d{4,6}(-\d+)?$/.test(q.replace(/^#/, "").trim());
-
-    // Sprawdź dokładne dopasowanie po numerze zestawu
-    const exactOwned = ALL_SETS.find(x => x._cleanNum === cleanQueryNum || x.set_num.toLowerCase() === q.toLowerCase());
-    const exactWish = ALL_WISHLIST.find(x => x._cleanNum === cleanQueryNum || x.set_num.toLowerCase() === q.toLowerCase());
-
-    if (exactOwned) {
-      checkerResult.className = "checkerResult owned";
-      checkerResult.innerHTML = `
-        <div>
-          ⚠️ <strong>UWAGA — MAMY JUŻ TEN ZESTAW W DOMU!</strong><br/>
-          Zestaw <strong>#${escapeHtml(exactOwned._cleanNum)} — ${escapeHtml(exactOwned._displayPl)}</strong> (${escapeHtml(exactOwned.name)}) znajduje się już w naszej kolekcji. Wybierz inny model na prezent!
-        </div>
-      `;
-      return;
-    }
-
-    if (exactWish) {
-      checkerResult.className = "checkerResult wishlistHit";
-      checkerResult.innerHTML = `
-        <div>
-          🎯 <strong>STRZAŁ W DZIESIĄTKĘ!</strong><br/>
-          Zestaw <strong>#${escapeHtml(exactWish._cleanNum)} — ${escapeHtml(exactWish._displayPl)}</strong> jest na naszej Liście Marzeń!
-        </div>
-      `;
-      return;
-    }
-
-    if (isNumberQuery) {
-      const legoSearchUrl = `https://www.lego.com/pl-pl/search?q=${encodeURIComponent(cleanQueryNum)}`;
-      checkerResult.className = "checkerResult available";
-      checkerResult.innerHTML = `
-        <div>
-          ✅ <strong>SUPER WYBÓR! Zestawu o numerze #${escapeHtml(cleanQueryNum)} NIE MAMY w kolekcji!</strong><br/>
-          Możesz śmiało kupić ten zestaw na prezent dla Czarka — na pewno nie będzie powtórką.
-        </div>
-        <a class="checkerActionLink" href="${legoSearchUrl}" target="_blank" rel="noopener">
-          🔎 Zobacz #${escapeHtml(cleanQueryNum)} na LEGO.com ↗
-        </a>
-      `;
-      return;
-    }
-
-    // Wyszukiwanie słowne
-    if (filteredAll.length > 0) {
-      checkerResult.className = "checkerResult info";
-      checkerResult.innerHTML = `
-        <div>
-          🔍 Znaleziono <strong>${filteredAll.length} ${filteredAll.length === 1 ? "zestaw" : (filteredAll.length < 5 ? "zestawy" : "zestawów")}</strong> pasujących do <strong>„${escapeHtml(q)}”</strong>. Sprawdź na zdjęciach poniżej, które dokładnie pudełka już mamy!
-        </div>
-      `;
-    } else {
-      checkerResult.className = "checkerResult available";
-      checkerResult.innerHTML = `
-        <div>
-          ✨ <strong>Nie mamy jeszcze żadnego zestawu pasującego do „${escapeHtml(q)}”!</strong><br/>
-          Zestaw z takim motywem będzie zupełną nowością w kolekcji Czarka.
-        </div>
-      `;
-    }
-  }
-
-  function render() {
-    const q = (qEl.value || "").trim().toLowerCase();
-    clearBtn.style.display = q ? "flex" : "none";
-
-    const cleanQueryNum = q.replace(/^#/, "").split("-")[0].trim();
-
-    const filterFn = (x) => {
-      if (activeTheme !== "ALL" && x._theme !== activeTheme) return false;
-      if (activeTopic !== "ALL" && x._categoryPl !== activeTopic) return false;
-      if (!q) return true;
-      return x._haystack.includes(q);
-    };
-
-    const allFiltered = sortSets(ALL_SETS.filter(filterFn), sortEl.value);
-    const czarekF = allFiltered.filter(x => (x.year ?? 0) >= YEAR_SPLIT);
-    const mateuszF = allFiltered.filter(x => (x.year ?? 0) < YEAR_SPLIT);
-
-    updateCheckerBanner(qEl.value || "", allFiltered);
-
-    const sectionC = document.getElementById("sectionC");
-    const sectionM = document.getElementById("sectionM");
-
-    if (activeOwner === "WISHLIST") {
-      sectionC.style.display = "none";
-      sectionM.style.display = "none";
-      if (ALL_WISHLIST.length > 0) {
-        wishlistSection.style.display = "block";
-      }
-      return;
-    }
-
-    if (ALL_WISHLIST.length > 0) {
-      wishlistSection.style.display = activeOwner === "ALL" ? "block" : "none";
-    }
-
-    sectionC.style.display = (activeOwner === "ALL" || activeOwner === "CZAREK") ? "block" : "none";
-    sectionM.style.display = (activeOwner === "ALL" || activeOwner === "MATEUSZ") ? "block" : "none";
-
-    document.getElementById("sectionBadgeC").textContent = `${czarekF.length} zestawów • ${fmtNumber(sumParts(czarekF))} klocków`;
-    document.getElementById("sectionBadgeM").textContent = `${mateuszF.length} zestawów • ${fmtNumber(sumParts(mateuszF))} klocków`;
-
-    document.getElementById("gridC").innerHTML = czarekF.map(x => cardHTML(x, false, x._cleanNum === cleanQueryNum)).join("");
-    document.getElementById("gridM").innerHTML = mateuszF.map(x => cardHTML(x, false, x._cleanNum === cleanQueryNum)).join("");
-
-    document.getElementById("emptyC").style.display = czarekF.length ? "none" : "block";
-    document.getElementById("emptyM").style.display = mateuszF.length ? "none" : "block";
-  }
-
-  qEl.addEventListener("input", render);
-  clearBtn.addEventListener("click", () => {
-    qEl.value = "";
-    qEl.focus();
-    render();
-  });
-  sortEl.addEventListener("change", render);
-
-  // Kliknięcia w szybkie tematy
-  document.getElementById("quickTopics").addEventListener("click", (e) => {
-    const btn = e.target.closest(".topicChip");
-    if (!btn) return;
-    document.querySelectorAll(".topicChip").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeTopic = btn.dataset.topic;
-    render();
-  });
-
-  // Kliknięcia w zakładki właściciela
-  document.getElementById("ownerTabs").addEventListener("click", (e) => {
-    const btn = e.target.closest(".ownerTab");
-    if (!btn) return;
-    document.querySelectorAll(".ownerTab").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeOwner = btn.dataset.owner;
-    render();
-  });
-
-  // Kliknięcia w serie LEGO
-  themeFilterRow.addEventListener("click", (e) => {
-    const btn = e.target.closest(".themeBrick");
-    if (!btn) return;
-    document.querySelectorAll(".themeBrick").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeTheme = btn.dataset.theme;
-    render();
-  });
-
-  render();
-
-  // Automatyczne tłumaczenie w przeglądarce dla zupełnie nowych zestawów, jeśli jeszcze nie mają polskiej nazwy
-  async function autoTranslateMissing() {
-    let changed = false;
-    for (const item of [...ALL_SETS, ...ALL_WISHLIST]) {
-      if (item._displayPl === item.name && item.name) {
-        const cacheKey = "lego_pl_" + item._cleanNum;
-        let cachedPl = null;
-        try { cachedPl = localStorage.getItem(cacheKey); } catch (e) {}
-        if (cachedPl) {
-          item._displayPl = cachedPl;
-          item._haystack += " " + cachedPl.toLowerCase();
-          changed = true;
-          continue;
-        }
-        try {
-          const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pl&dt=t&q=" + encodeURIComponent(item.name);
-          const r = await fetch(url);
-          if (r.ok) {
-            const j = await r.json();
-            if (Array.isArray(j) && Array.isArray(j[0])) {
-              const tr = j[0].map(p => p && p[0] ? p[0] : "").join("").trim();
-              if (tr && tr.toLowerCase() !== item.name.toLowerCase()) {
-                const formatted = tr.charAt(0).toUpperCase() + tr.slice(1);
-                item._displayPl = formatted;
-                item._haystack += " " + formatted.toLowerCase();
-                try { localStorage.setItem(cacheKey, formatted); } catch (e) {}
-                changed = true;
-              }
-            }
-          }
-        } catch (e) {}
-      }
-    }
-    if (changed) render();
-  }
-  autoTranslateMissing();
+  applyCatalogData(data);
 }
 
 init();

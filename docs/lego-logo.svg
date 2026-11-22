@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="LEGO">
+  <rect width="120" height="120" rx="14" fill="#E3000B"/>
+  <!-- Zewnętrzna żółta obwódka (klasyczny styl logo LEGO) -->
+  <g transform="translate(60 60) scale(0.92) skewX(-10) translate(-64 -60)" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Warstwa 1: Żółta poświata -->
+    <g stroke="#FFED00" stroke-width="11">
+      <!-- L -->
+      <path d="M18 39 V81 H35"/>
+      <!-- E -->
+      <path d="M58 39 H42 V81 H58 M42 60 H55"/>
+      <!-- G -->
+      <path d="M84 44 C82 40 78 39 74 39 C67 39 64 45 64 60 C64 75 67 81 74 81 C80 81 84 77 84 68 V61 H75"/>
+      <!-- O -->
+      <path d="M100 39 C93 39 90 45 90 60 C90 75 93 81 100 81 C107 81 110 75 110 60 C110 45 107 39 100 39 Z"/>
+    </g>
+    <!-- Warstwa 2: Czarny kontur -->
+    <g stroke="#111111" stroke-width="8.2">
+      <path d="M18 39 V81 H35"/>
+      <path d="M58 39 H42 V81 H58 M42 60 H55"/>
+      <path d="M84 44 C82 40 78 39 74 39 C67 39 64 45 64 60 C64 75 67 81 74 81 C80 81 84 77 84 68 V61 H75"/>
+      <path d="M100 39 C93 39 90 45 90 60 C90 75 93 81 100 81 C107 81 110 75 110 60 C110 45 107 39 100 39 Z"/>
+    </g>
+    <!-- Warstwa 3: Białe wnętrze liter -->
+    <g stroke="#FFFFFF" stroke-width="4.6">
+      <path d="M18 39 V81 H35"/>
+      <path d="M58 39 H42 V81 H58 M42 60 H55"/>
+      <path d="M84 44 C82 40 78 39 74 39 C67 39 64 45 64 60 C64 75 67 81 74 81 C80 81 84 77 84 68 V61 H75"/>
+      <path d="M100 39 C93 39 90 45 90 60 C90 75 93 81 100 81 C107 81 110 75 110 60 C110 45 107 39 100 39 Z"/>
+    </g>
+  </g>
+</svg>
