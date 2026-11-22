@@ -1,5 +1,5 @@
 window.LEGO_DATA = {
-  "generated_at": "2026-11-22T08:32:27.648197Z",
+  "generated_at": "2026-11-22T15:15:29.952795Z",
   "sets": [
     {
       "set_num": "77117-1",
@@ -98,6 +98,20 @@ window.LEGO_DATA = {
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/60486-1/164946.jpg",
       "set_url": "https://rebrickable.com/sets/60486-1/ev-supercar/"
+    },
+    {
+      "set_num": "60485-1",
+      "name": "Hot Rod",
+      "name_pl": "Gorący pręt",
+      "year": 2026,
+      "num_parts": 81,
+      "theme_id": 63,
+      "theme_name": "City",
+      "subtheme_name": "Traffic",
+      "category_pl": "Pojazdy miejskie",
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60485-1/164912.jpg",
+      "set_url": "https://rebrickable.com/sets/60485-1/hot-rod/"
     },
     {
       "set_num": "60479-1",
