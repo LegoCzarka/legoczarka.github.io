@@ -1,5 +1,5 @@
 window.LEGO_DATA = {
-  "generated_at": "2026-11-21T08:36:31.555999Z",
+  "generated_at": "2026-11-22T08:32:27.648197Z",
   "sets": [
     {
       "set_num": "77117-1",
@@ -84,6 +84,20 @@ window.LEGO_DATA = {
       "quantity": 1,
       "set_img_url": "https://cdn.rebrickable.com/media/sets/60488-1/165004.jpg",
       "set_url": "https://rebrickable.com/sets/60488-1/fries-food-truck/"
+    },
+    {
+      "set_num": "60486-1",
+      "name": "EV Supercar",
+      "name_pl": "Supersamochód elektryczny",
+      "year": 2026,
+      "num_parts": 109,
+      "theme_id": 63,
+      "theme_name": "City",
+      "subtheme_name": "Traffic",
+      "category_pl": "Wyścigi i auta",
+      "quantity": 1,
+      "set_img_url": "https://cdn.rebrickable.com/media/sets/60486-1/164946.jpg",
+      "set_url": "https://rebrickable.com/sets/60486-1/ev-supercar/"
     },
     {
       "set_num": "60479-1",
