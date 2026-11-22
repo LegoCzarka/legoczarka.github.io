@@ -2,11 +2,6 @@ name: Aktualizuj zestawy z Rebrickable
 
 on:
   workflow_dispatch:
-    inputs:
-      enforce_cooldown:
-        description: "Pomiń aktualizację, jeśli od ostatniej minęło mniej niż 6 godzin"
-        type: boolean
-        default: false
   schedule:
     - cron: "30 1 * * *"   # 01:30 UTC (noc w PL)
 
@@ -41,13 +36,7 @@ jobs:
         env:
           REBRICKABLE_KEY: ${{ secrets.REBRICKABLE_KEY }}
           REBRICKABLE_USER_TOKEN: ${{ secrets.REBRICKABLE_USER_TOKEN }}
-          ENFORCE_COOLDOWN: ${{ github.event_name == 'workflow_dispatch' && inputs.enforce_cooldown || 'false' }}
-        run: |
-          if [ "$ENFORCE_COOLDOWN" = "true" ]; then
-            python scripts/fetch_rebrickable.py --cooldown-hours 6
-          else
-            python scripts/fetch_rebrickable.py
-          fi
+        run: python scripts/fetch_rebrickable.py
 
       - name: Commit & push sets.json (bez konfliktów)
         run: |

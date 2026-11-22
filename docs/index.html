@@ -1205,7 +1205,7 @@
       justify-content: center;
     }
 
-    /* Stopka i dyskretny przycisk synchronizacji z Rebrickable */
+    /* Stopka i dyskretny link do ręcznej synchronizacji w GitHub Actions */
     footer {
       margin-top: 44px;
       padding: 24px 16px 28px;
@@ -1225,16 +1225,8 @@
       align-items: center;
     }
 
-    .footerSyncRow {
+    .footerSyncLink {
       margin-top: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .footerSyncBtn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -1243,80 +1235,16 @@
       border: 1px solid var(--border-strong);
       background: var(--surface-soft);
       color: var(--text-secondary);
-      font-family: inherit;
+      text-decoration: none;
       font-size: 12px;
       font-weight: 700;
-      cursor: pointer;
       transition: all 0.15s ease;
     }
-    .footerSyncBtn:hover:not(:disabled) {
+    .footerSyncLink:hover {
       border-color: var(--lego-blue);
       color: var(--lego-blue);
       background: #EFF6FF;
     }
-    .footerSyncBtn:disabled {
-      opacity: 0.68;
-      cursor: not-allowed;
-      background: #F1F5F9;
-      color: var(--text-muted);
-    }
-
-    .footerSyncBtn.syncing .syncIcon {
-      display: inline-block;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .footerConfigBtn {
-      position: relative;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--surface-soft);
-      color: var(--text-muted);
-      font-size: 12px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s ease;
-    }
-    .footerConfigBtn:hover {
-      border-color: var(--border-strong);
-      color: var(--text);
-      background: #E2E8F0;
-    }
-    .footerConfigBtn.configured::after {
-      content: "";
-      position: absolute;
-      top: 1px;
-      right: 1px;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--lego-green);
-      border: 1.5px solid #FFFFFF;
-    }
-
-    .syncStatusMsg {
-      display: none;
-      margin-top: 4px;
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
-      max-width: 560px;
-    }
-    .syncStatusMsg.show { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
-    .syncStatusMsg.info { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
-    .syncStatusMsg.success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
-    .syncStatusMsg.error { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
-    .syncStatusMsg a { color: inherit; font-weight: 800; }
 
     /* Przycisk Powrót na górę */
     .scrollTopBtn {
@@ -1352,7 +1280,7 @@
       transform: translateY(-2px);
     }
 
-    /* LIGHTBOX (Powiększenie zdjęcia i szczegółów zestawu) oraz MODAL KONFIGURACJI */
+    /* LIGHTBOX (Powiększenie zdjęcia i szczegółów zestawu) */
     .modalBackdrop {
       position: fixed;
       inset: 0;
@@ -1380,10 +1308,6 @@
       box-shadow: 0 24px 60px rgba(0,0,0,0.35);
       border: 3px solid var(--border);
       position: relative;
-    }
-
-    .modalBox.compact {
-      max-width: 520px;
     }
 
     .modalClose {
@@ -1493,75 +1417,6 @@
     .modalBtnSecondary:hover {
       background: #E2E8F0;
       color: var(--text);
-    }
-
-    .modalBtnDanger {
-      padding: 11px 14px;
-      border-radius: 12px;
-      border: 1px solid #FECACA;
-      background: #FEF2F2;
-      color: #B91C1C;
-      font-family: inherit;
-      font-weight: 700;
-      font-size: 13.5px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .modalBtnDanger:hover {
-      background: #FEE2E2;
-    }
-
-    /* Style formularza tokenu GitHub */
-    .tokenSteps {
-      margin: 12px 0 14px;
-      padding: 12px 14px 12px 30px;
-      background: #F8FAFC;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.55;
-    }
-    .tokenSteps li {
-      margin-bottom: 6px;
-    }
-    .tokenSteps li:last-child {
-      margin-bottom: 0;
-    }
-    .tokenSteps a {
-      color: var(--lego-blue);
-      font-weight: 700;
-    }
-    .tokenInputWrap {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .tokenInput {
-      flex: 1;
-      padding: 11px 13px;
-      border-radius: 12px;
-      border: 2px solid var(--border-strong);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 13px;
-      outline: none;
-    }
-    .tokenInput:focus {
-      border-color: var(--lego-blue);
-    }
-    .tokenHint {
-      margin-top: 8px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .tokenError {
-      margin-top: 8px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #B91C1C;
-      display: none;
     }
 
     @media (max-width: 780px) {
@@ -1858,18 +1713,15 @@
         <span>Zestawy LEGO Czarka • Automatyczna synchronizacja kolekcji</span>
       </div>
       <div id="updatedFooter">Ostatnia aktualizacja kolekcji: –</div>
-
-      <!-- Mały dyskretny przycisk odświeżania z Rebrickable (raz na 6h) -->
-      <div class="footerSyncRow">
-        <button type="button" class="footerSyncBtn" id="refreshRebrickableBtn" title="Uruchom aktualizację kolekcji z Rebrickable (maksymalnie raz na 6 godzin)">
-          <span class="syncIcon" aria-hidden="true">🔄</span>
-          <span id="refreshBtnLabel">Odśwież z Rebrickable</span>
-        </button>
-        <button type="button" class="footerConfigBtn" id="tokenConfigBtn" title="Ustawienia tokenu GitHub (dla właściciela)" aria-label="Ustawienia tokenu GitHub">
-          🔑
-        </button>
-      </div>
-      <div id="syncStatusMsg" class="syncStatusMsg" aria-live="polite"></div>
+      <a
+        class="footerSyncLink"
+        href="https://github.com/LegoCzarka/legoczarka.github.io/actions/workflows/update.yml"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Otwórz GitHub Actions, aby ręcznie zaktualizować kolekcję z Rebrickable"
+      >
+        🔄 Odśwież z Rebrickable (GitHub Actions) ↗
+      </a>
     </div>
   </footer>
 
@@ -1894,54 +1746,10 @@
     </div>
   </div>
 
-  <!-- MODAL KONFIGURACJI TOKENU GITHUB (Opcja B — wyłącznie w lokalnej przeglądarce) -->
-  <div class="modalBackdrop" id="tokenModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="tokenModalTitle">
-    <div class="modalBox compact">
-      <button type="button" class="modalClose" id="tokenModalClose" aria-label="Zamknij konfigurację">✕</button>
-      <div class="modalBody">
-        <h3 class="modalTitle" id="tokenModalTitle">🔑 Odświeżanie z Rebrickable (konfiguracja)</h3>
-        <p class="modalSub" style="margin-bottom:10px">
-          Aby uruchamiać aktualizację kolekcji jednym kliknięciem z tej strony (maksymalnie raz na 6 godzin), zapisz jednorazowo token GitHub.
-          <strong>Token jest zapisywany wyłącznie lokalnie w Twojej przeglądarce</strong> i nigdy nie trafia do kodu strony.
-        </p>
-
-        <ol class="tokenSteps">
-          <li>Otwórz <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">GitHub → New fine-grained token ↗</a></li>
-          <li>W sekcji <strong>Repository access</strong> wybierz <em>Only select repositories</em> → <code>legoczarka/legoczarka.github.io</code></li>
-          <li>W <strong>Repository permissions</strong> ustaw wyłącznie <strong>Actions: Read and write</strong>, wygeneruj token i wklej go poniżej:</li>
-        </ol>
-
-        <div class="tokenInputWrap">
-          <input type="password" id="ghTokenInput" class="tokenInput" placeholder="github_pat_..." autocomplete="off" spellcheck="false" />
-          <button type="button" class="modalBtnSecondary" id="toggleTokenVisBtn" style="padding:10px 12px" title="Pokaż lub ukryj token" aria-label="Pokaż lub ukryj token">👁️</button>
-        </div>
-        <div class="tokenError" id="tokenError"></div>
-        <div class="tokenHint" id="tokenSavedHint"></div>
-
-        <div class="modalLinks">
-          <button type="button" class="modalBtnPrimary" id="saveTokenBtn">💾 Zapisz token</button>
-          <button type="button" class="modalBtnDanger" id="removeTokenBtn" style="display:none">🗑️ Usuń token</button>
-          <a class="modalBtnSecondary" href="https://github.com/legoczarka/legoczarka.github.io/actions/workflows/update.yml" target="_blank" rel="noopener noreferrer">
-            ⚙️ Otwórz GitHub Actions ↗
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
 <script src="./data/sets.js"></script>
 <script>
 const YEAR_SPLIT = 2000;
 const LEGO_LOGO_URL = "./lego-logo.svg";
-
-// Konfiguracja GitHub Actions (Opcja B — przycisk odświeżania raz na 6h)
-const GH_OWNER = "legoczarka";
-const GH_REPO = "legoczarka.github.io";
-const GH_WORKFLOW_FILE = "update.yml";
-const GH_BRANCH = "main";
-const SYNC_COOLDOWN_MS = 6 * 60 * 60 * 1000; // 6 godzin
-const STORAGE_PAT_KEY = "lego_rebrickable_gh_pat";
-const STORAGE_LAST_TRIGGER_KEY = "lego_rebrickable_last_trigger";
 
 // Słownik zapasowych polskich nazw zestawów
 const EXACT_PL_NAMES = {
@@ -2216,15 +2024,6 @@ function fmtDate(isoStr) {
   }).format(d);
 }
 
-function fmtDurationPl(ms) {
-  const totalMin = Math.max(1, Math.ceil(ms / 60000));
-  const h = Math.floor(totalMin / 60);
-  const m = totalMin % 60;
-  if (h > 0 && m > 0) return `${h}g ${m}m`;
-  if (h > 0) return `${h}g`;
-  return `${m}m`;
-}
-
 function sumParts(arr) {
   return arr.reduce((acc, x) => acc + (Number(x.num_parts) || 0) * (Number(x.quantity) || 1), 0);
 }
@@ -2336,13 +2135,11 @@ const copyLinkBtn = document.getElementById("copyLinkBtn");
 const copyWishlistLinkBtn = document.getElementById("copyWishlistLinkBtn");
 const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-// Modale
+// Modal
 const modalBackdrop = document.getElementById("modalBackdrop");
-const tokenModalBackdrop = document.getElementById("tokenModalBackdrop");
 
 function syncBodyScrollLock() {
-  const anyOpen = modalBackdrop.classList.contains("open") || tokenModalBackdrop.classList.contains("open");
-  document.body.classList.toggle("modalOpen", anyOpen);
+  document.body.classList.toggle("modalOpen", modalBackdrop.classList.contains("open"));
 }
 
 function openModal(setNum, isWishlist) {
@@ -2430,10 +2227,7 @@ document.getElementById("mainContainer").addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    if (tokenModalBackdrop.classList.contains("open")) closeTokenModal();
-    else closeModal();
-  }
+  if (e.key === "Escape") closeModal();
 });
 
 // Przycisk Powrót na górę
@@ -2874,7 +2668,6 @@ function applyCatalogData(data) {
   updateHeroShowcase();
   buildDynamicFilters();
   render();
-  updateRefreshButtonUI();
   autoTranslateMissing();
 }
 
@@ -2945,353 +2738,6 @@ themeFilterRow.addEventListener("click", (e) => {
   render();
 });
 
-// ============================================================================
-// OPCJA B: Dyskretny przycisk odświeżania z Rebrickable raz na 6 godzin
-// ============================================================================
-const refreshBtn = document.getElementById("refreshRebrickableBtn");
-const refreshBtnLabel = document.getElementById("refreshBtnLabel");
-const tokenConfigBtn = document.getElementById("tokenConfigBtn");
-const syncStatusMsg = document.getElementById("syncStatusMsg");
-const ghTokenInput = document.getElementById("ghTokenInput");
-const tokenErrorEl = document.getElementById("tokenError");
-const tokenSavedHintEl = document.getElementById("tokenSavedHint");
-const saveTokenBtn = document.getElementById("saveTokenBtn");
-const removeTokenBtn = document.getElementById("removeTokenBtn");
-const toggleTokenVisBtn = document.getElementById("toggleTokenVisBtn");
-
-let isSyncInProgress = false;
-let pendingSyncAfterTokenSave = false;
-
-function getSavedToken() {
-  try { return (localStorage.getItem(STORAGE_PAT_KEY) || "").trim(); } catch (e) { return ""; }
-}
-
-function saveTokenToStorage(token) {
-  try { localStorage.setItem(STORAGE_PAT_KEY, token.trim()); } catch (e) {}
-}
-
-function removeTokenFromStorage() {
-  try { localStorage.removeItem(STORAGE_PAT_KEY); } catch (e) {}
-}
-
-function getLastTriggerMs() {
-  try {
-    const v = Number(localStorage.getItem(STORAGE_LAST_TRIGGER_KEY) || 0);
-    return Number.isFinite(v) ? v : 0;
-  } catch (e) {
-    return 0;
-  }
-}
-
-function setLastTriggerMs(ts) {
-  try { localStorage.setItem(STORAGE_LAST_TRIGGER_KEY, String(ts)); } catch (e) {}
-}
-
-function getCooldownRemainingMs() {
-  const now = Date.now();
-  let lastSyncMs = 0;
-
-  if (CURRENT_GENERATED_AT) {
-    const parsed = new Date(CURRENT_GENERATED_AT).getTime();
-    if (!isNaN(parsed)) lastSyncMs = Math.max(lastSyncMs, parsed);
-  }
-  lastSyncMs = Math.max(lastSyncMs, getLastTriggerMs());
-
-  if (!lastSyncMs) return 0;
-  return Math.max(0, SYNC_COOLDOWN_MS - (now - lastSyncMs));
-}
-
-function setSyncStatus(type, htmlContent) {
-  if (!htmlContent) {
-    syncStatusMsg.className = "syncStatusMsg";
-    syncStatusMsg.innerHTML = "";
-    return;
-  }
-  syncStatusMsg.className = `syncStatusMsg show ${type}`;
-  syncStatusMsg.innerHTML = htmlContent;
-}
-
-function updateRefreshButtonUI() {
-  const hasToken = Boolean(getSavedToken());
-  tokenConfigBtn.classList.toggle("configured", hasToken);
-  tokenConfigBtn.title = hasToken
-    ? "Token GitHub zapisany lokalnie (kliknij, aby zmienić lub usunąć)"
-    : "Skonfiguruj token GitHub (dla właściciela)";
-
-  if (isSyncInProgress) {
-    refreshBtn.disabled = true;
-    refreshBtn.classList.add("syncing");
-    refreshBtnLabel.textContent = "Synchronizacja...";
-    return;
-  }
-
-  refreshBtn.classList.remove("syncing");
-  const remMs = getCooldownRemainingMs();
-  if (remMs > 0) {
-    refreshBtn.disabled = true;
-    refreshBtnLabel.textContent = `Odśwież z Rebrickable (za ${fmtDurationPl(remMs)})`;
-    refreshBtn.title = `Limit odświeżania to raz na 6 godzin. Ponownie dostępne za ${fmtDurationPl(remMs)}.`;
-  } else {
-    refreshBtn.disabled = false;
-    refreshBtnLabel.textContent = "Odśwież z Rebrickable";
-    refreshBtn.title = "Pobierz najnowsze zestawy z Rebrickable (limit: raz na 6 godzin)";
-  }
-}
-
-function openTokenModal(triggerSyncOnSave = false) {
-  lastFocusedEl = document.activeElement;
-  pendingSyncAfterTokenSave = triggerSyncOnSave;
-  const existing = getSavedToken();
-
-  ghTokenInput.value = "";
-  ghTokenInput.type = "password";
-  tokenErrorEl.style.display = "none";
-  tokenErrorEl.textContent = "";
-
-  if (existing) {
-    tokenSavedHintEl.textContent = `✓ Token jest już zapisany w tej przeglądarce (końcówka: ...${existing.slice(-4)}). Wklej nowy, aby go nadpisać.`;
-    removeTokenBtn.style.display = "inline-flex";
-  } else {
-    tokenSavedHintEl.textContent = "Token nigdzie nie jest zapisywany na serwerze — zostaje tylko w localStorage tej przeglądarki.";
-    removeTokenBtn.style.display = "none";
-  }
-
-  saveTokenBtn.textContent = triggerSyncOnSave ? "💾 Zapisz i odśwież teraz" : "💾 Zapisz token";
-  tokenModalBackdrop.classList.add("open");
-  syncBodyScrollLock();
-  ghTokenInput.focus();
-}
-
-function closeTokenModal() {
-  if (!tokenModalBackdrop.classList.contains("open")) return;
-  tokenModalBackdrop.classList.remove("open");
-  pendingSyncAfterTokenSave = false;
-  syncBodyScrollLock();
-  if (lastFocusedEl && typeof lastFocusedEl.focus === "function") {
-    lastFocusedEl.focus();
-  }
-}
-
-document.getElementById("tokenModalClose").addEventListener("click", closeTokenModal);
-tokenModalBackdrop.addEventListener("click", (e) => {
-  if (e.target.id === "tokenModalBackdrop") closeTokenModal();
-});
-
-toggleTokenVisBtn.addEventListener("click", () => {
-  ghTokenInput.type = ghTokenInput.type === "password" ? "text" : "password";
-  ghTokenInput.focus();
-});
-
-saveTokenBtn.addEventListener("click", () => {
-  const val = ghTokenInput.value.trim();
-  if (!val || val.length < 20) {
-    tokenErrorEl.textContent = "Wklej poprawny token GitHub (np. zaczynający się od github_pat_...).";
-    tokenErrorEl.style.display = "block";
-    return;
-  }
-  const shouldSync = pendingSyncAfterTokenSave;
-  saveTokenToStorage(val);
-  updateRefreshButtonUI();
-  closeTokenModal();
-  setSyncStatus("success", "✓ Token zapisany lokalnie w tej przeglądarce.");
-  if (shouldSync && getCooldownRemainingMs() === 0) {
-    triggerRebrickableSync();
-  }
-});
-
-removeTokenBtn.addEventListener("click", () => {
-  removeTokenFromStorage();
-  updateRefreshButtonUI();
-  closeTokenModal();
-  setSyncStatus("info", "Usunięto zapisany token GitHub z tej przeglądarki.");
-});
-
-tokenConfigBtn.addEventListener("click", () => openTokenModal(false));
-
-refreshBtn.addEventListener("click", () => {
-  if (isSyncInProgress || getCooldownRemainingMs() > 0) return;
-  const token = getSavedToken();
-  if (!token) {
-    openTokenModal(true);
-    return;
-  }
-  triggerRebrickableSync();
-});
-
-function ghHeaders(token) {
-  return {
-    "Accept": "application/vnd.github+json",
-    "Authorization": `Bearer ${token}`,
-    "X-GitHub-Api-Version": "2022-11-28"
-  };
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function fetchLatestRuns(token) {
-  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/runs?per_page=5`;
-  const res = await fetch(url, { headers: ghHeaders(token), cache: "no-store" });
-  if (!res.ok) return { ok: false, status: res.status, runs: [] };
-  const json = await res.json();
-  return { ok: true, status: res.status, runs: Array.isArray(json.workflow_runs) ? json.workflow_runs : [] };
-}
-
-async function waitForWorkflowAndPages(token, startedAfterMs, beforeGeneratedAt, existingRunId = null) {
-  const maxWorkflowWaitMs = 180000; // maks. 3 min na pobranie z Rebrickable
-  const pollStart = Date.now();
-  let trackedRun = null;
-
-  while (Date.now() - pollStart < maxWorkflowWaitMs) {
-    await sleep(5000);
-    const { ok, runs } = await fetchLatestRuns(token);
-    if (!ok) continue;
-
-    if (existingRunId) {
-      trackedRun = runs.find(r => r.id === existingRunId) || null;
-    } else {
-      trackedRun = runs.find(r => new Date(r.created_at).getTime() >= startedAfterMs - 15000) || null;
-    }
-
-    if (!trackedRun) {
-      setSyncStatus("info", "⏳ Czekam na start zadania w GitHub Actions...");
-      continue;
-    }
-
-    if (trackedRun.status === "queued" || trackedRun.status === "waiting") {
-      setSyncStatus("info", "⏳ Zadanie w kolejce GitHub Actions...");
-    } else if (trackedRun.status === "in_progress") {
-      setSyncStatus("info", "🔄 Pobieram aktualne zestawy z Rebrickable...");
-    } else if (trackedRun.status === "completed") {
-      if (trackedRun.conclusion !== "success") {
-        setSyncStatus(
-          "error",
-          `❌ Aktualizacja zakończyła się błędem (${escapeHtml(trackedRun.conclusion || "failed")}). <a href="${escapeHtml(trackedRun.html_url)}" target="_blank" rel="noopener noreferrer">Zobacz logi ↗</a>`
-        );
-        return;
-      }
-      break;
-    }
-  }
-
-  if (!trackedRun || trackedRun.status !== "completed") {
-    setSyncStatus(
-      "info",
-      `⏳ Aktualizacja nadal trwa w tle. Odśwież stronę za chwilę lub <a href="https://github.com/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}" target="_blank" rel="noopener noreferrer">sprawdź status na GitHubie ↗</a>.`
-    );
-    return;
-  }
-
-  // Krok 2: Poczekaj aż GitHub Pages opublikuje zaktualizowany docs/data/sets.json
-  setSyncStatus("info", "🚀 Zestawy pobrane! Czekam na publikację strony (GitHub Pages)...");
-  const pagesPollStart = Date.now();
-  const maxPagesWaitMs = 110000;
-
-  while (Date.now() - pagesPollStart < maxPagesWaitMs) {
-    await sleep(5000);
-    try {
-      const res = await fetch(`./data/sets.json?ts=${Date.now()}`, { cache: "no-store" });
-      if (res.ok) {
-        const freshData = await res.json();
-        if (freshData && freshData.generated_at && freshData.generated_at !== beforeGeneratedAt) {
-          applyCatalogData(freshData);
-          setSyncStatus("success", `✅ Zaktualizowano z Rebrickable (${fmtDate(freshData.generated_at)})!`);
-          return;
-        }
-      }
-    } catch (e) {}
-  }
-
-  setSyncStatus(
-    "success",
-    `✅ Synchronizacja zakończona! Jeśli nie widać jeszcze zmian, odśwież stronę za ok. minutę (cache GitHub Pages).`
-  );
-}
-
-async function triggerRebrickableSync() {
-  const token = getSavedToken();
-  if (!token) {
-    openTokenModal(true);
-    return;
-  }
-
-  isSyncInProgress = true;
-  updateRefreshButtonUI();
-  setSyncStatus("info", "⏳ Sprawdzam status ostatniej synchronizacji...");
-
-  const beforeGeneratedAt = CURRENT_GENERATED_AT;
-
-  try {
-    // 1. Sprawdź, czy zadanie nie trwa już w tle albo czy nie zakończyło się < 6h temu
-    const check = await fetchLatestRuns(token);
-    if (!check.ok && (check.status === 401 || check.status === 403)) {
-      setSyncStatus("error", "❌ Token GitHub jest nieprawidłowy lub wygasł. Kliknij 🔑, aby wpisać nowy.");
-      return;
-    }
-
-    if (check.ok && check.runs.length > 0) {
-      const latest = check.runs[0];
-      if (latest.status === "queued" || latest.status === "in_progress" || latest.status === "waiting") {
-        setLastTriggerMs(new Date(latest.created_at).getTime());
-        setSyncStatus("info", "🔄 Synchronizacja już trwa na GitHub Actions — śledzę postęp...");
-        await waitForWorkflowAndPages(token, Date.now(), beforeGeneratedAt, latest.id);
-        return;
-      }
-      if (latest.status === "completed" && latest.conclusion === "success") {
-        const lastRunMs = new Date(latest.updated_at || latest.created_at).getTime();
-        const rem = SYNC_COOLDOWN_MS - (Date.now() - lastRunMs);
-        if (rem > 0) {
-          setLastTriggerMs(lastRunMs);
-          setSyncStatus("info", `⏳ Ostatnia synchronizacja była niedawno — kolejna dostępna za ${fmtDurationPl(rem)}.`);
-          return;
-        }
-      }
-    }
-
-    // 2. Uruchom workflow_dispatch z limitem 6h wymuszonym również po stronie workflow
-    const dispatchStart = Date.now();
-    const dispatchUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/dispatches`;
-    const res = await fetch(dispatchUrl, {
-      method: "POST",
-      headers: {
-        ...ghHeaders(token),
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        ref: GH_BRANCH,
-        inputs: { enforce_cooldown: "true" }
-      })
-    });
-
-    if (res.status === 204) {
-      setLastTriggerMs(dispatchStart);
-      setSyncStatus("info", "⏳ Uruchomiono synchronizację z Rebrickable w GitHub Actions...");
-      await waitForWorkflowAndPages(token, dispatchStart, beforeGeneratedAt);
-    } else if (res.status === 401 || res.status === 403) {
-      setSyncStatus(
-        "error",
-        "❌ Brak uprawnień tokenu. Upewnij się w 🔑, że token ma uprawnienie <strong>Actions: Read and write</strong>."
-      );
-    } else {
-      let msg = `HTTP ${res.status}`;
-      try {
-        const errJson = await res.json();
-        if (errJson && errJson.message) msg = errJson.message;
-      } catch (e) {}
-      setSyncStatus("error", `❌ Nie udało się uruchomić synchronizacji (${escapeHtml(msg)}).`);
-    }
-  } catch (err) {
-    setSyncStatus("error", "❌ Błąd połączenia z GitHub API. Sprawdź internet i spróbuj ponownie.");
-  } finally {
-    isSyncInProgress = false;
-    updateRefreshButtonUI();
-  }
-}
-
-// Odświeżaj licznik 6h co 30 sekund
-setInterval(updateRefreshButtonUI, 30000);
-
 // Inicjalizacja aplikacji
 async function init() {
   readInitialParams();
@@ -3314,7 +2760,6 @@ async function init() {
     const emptyC = document.getElementById("emptyC");
     emptyC.style.display = "block";
     emptyC.textContent = "Nie udało się wczytać listy zestawów. Spróbuj odświeżyć stronę za chwilę.";
-    updateRefreshButtonUI();
     return;
   }
 

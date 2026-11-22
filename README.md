@@ -20,20 +20,8 @@ Stworzona z myślą o rodzinie i znajomych szukających prezentu dla Czarka — 
    - Każda karta pozwala powiększyć zdjęcie pudełka na pełnym ekranie oraz jednym kliknięciem otworzyć oficjalną instrukcję PDF na stronie LEGO.com.
 5. **🎯 Automatyczna Lista Marzeń (ukryta, dopóki jest pusta)**
    - Sekcja i zakładka **„🎁 Lista Marzeń”** pojawia się na stronie automatycznie tylko wtedy, gdy wrzucisz do niej chociaż jeden zestaw.
-6. **🔄 Przycisk odświeżania z Rebrickable w stopce (raz na 6 godzin)**
-   - Dyskretny przycisk na dole strony pozwala uruchomić synchronizację z Rebrickable bezpośrednio ze strony (z blokadą 6h po stronie strony i GitHub Actions) oraz podglądem postępu na żywo.
-
----
-
-## 🔑 Jak skonfigurować przycisk „Odśwież z Rebrickable” (jednorazowo na swoim urządzeniu)?
-
-Aby uruchamiać odświeżanie ze stopki strony bez wchodzenia w panel GitHub:
-1. Wejdź na [GitHub → New fine-grained personal access token](https://github.com/settings/personal-access-tokens/new).
-2. W **Repository access** wybierz **Only select repositories** → `legoczarka/legoczarka.github.io`.
-3. W **Repository permissions** ustaw wyłącznie **Actions: Read and write** (pozostałe zostaw jako *No access*) i wygeneruj token.
-4. Na dole strony kliknij przycisk **🔄 Odśwież z Rebrickable** (lub ikonę **🔑** obok niego) i wklej token.
-   - Token jest zapisywany **wyłącznie lokalnie w `localStorage` Twojej przeglądarki** — nigdy nie trafia do repozytorium ani kodu strony.
-   - Przycisk pozwala uruchomić aktualizację maksymalnie **raz na 6 godzin** (limit jest pilnowany zarówno w interfejsie, jak i w samym workflow GitHub Actions).
+6. **🔄 Nocna synchronizacja + szybki skrót w stopce**
+   - Kolekcja aktualizuje się automatycznie codziennie w nocy (`01:30 UTC`), a na dole strony znajduje się dyskretny przycisk kierujący prosto do **GitHub Actions**, aby w razie potrzeby uruchomić ręczne odświeżenie z Rebrickable.
 
 ---
 
@@ -43,4 +31,4 @@ Lista Marzeń jest domyślnie ukryta. Aby pojawiła się na stronie:
 1. Zaloguj się na swoje konto **Rebrickable.com**.
 2. Wejdź w **My LEGO → My Set Lists** i utwórz nową listę zestawów, np. o nazwie **`Lista marzeń`** (lub **`Wishlist`** / **`Prezent`**) i **odznacz** w jej ustawieniach opcję *„Include sets in this list for Build calculations”*.
 3. Dodaj do tej listy wymarzone zestawy LEGO.
-4. Przy kolejnej nocnej aktualizacji (lub po kliknięciu **🔄 Odśwież z Rebrickable** w stopce strony / ręcznym uruchomieniu **Actions → Aktualizuj zestawy z Rebrickable → Run workflow**) na stronie automatycznie pojawi się sekcja **🎯 Lista Marzeń Czarka**! Gdy usuniesz z niej wszystkie zestawy, sekcja znów sama się ukryje.
+4. Przy kolejnej nocnej aktualizacji (lub po kliknięciu **🔄 Odśwież z Rebrickable (GitHub Actions)** w stopce strony → **Run workflow**) na stronie automatycznie pojawi się sekcja **🎯 Lista Marzeń Czarka**! Gdy usuniesz z niej wszystkie zestawy, sekcja znów sama się ukryje.
